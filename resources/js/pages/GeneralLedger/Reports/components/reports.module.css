@@ -1,0 +1,244 @@
+/* Layout for the trial balance and balance sheet pages. Colors, type,
+   radii, and spacing come from the Arc foundation tokens. */
+
+.page {
+    display: grid;
+    gap: 24px;
+    align-content: start;
+}
+
+.page > * {
+    min-width: 0;
+}
+
+.header {
+    display: grid;
+    gap: 8px;
+    max-width: 68ch;
+}
+
+.title {
+    margin: 0;
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.description {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+}
+
+.sectionHead {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sectionTitle {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.count {
+    margin: 4px 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.filterRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: end;
+    max-width: 320px;
+}
+
+.tableWrap {
+    margin-top: 16px;
+}
+
+.nameLink {
+    color: var(--foreground);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.dash {
+    color: var(--text-muted);
+}
+
+.negative {
+    color: var(--danger);
+}
+
+.strip {
+    display: grid;
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-surface);
+    background: var(--border-subtle);
+    overflow: hidden;
+}
+
+.stripCell {
+    background: var(--surface);
+    padding: 16px 20px;
+    display: grid;
+    gap: 4px;
+}
+
+.stripLabel {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-muted);
+}
+
+.stripValue {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+.hint {
+    margin: 12px 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+}
+
+.sheetGrid {
+    display: grid;
+    gap: 16px;
+    align-content: start;
+    align-items: start;
+}
+
+.sheetGrid > * {
+    min-width: 0;
+}
+
+.stack {
+    display: grid;
+    gap: 16px;
+    align-content: start;
+    min-width: 0;
+}
+
+.card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-surface);
+    background: var(--surface);
+    padding: 20px;
+    display: grid;
+    gap: 4px;
+    align-content: start;
+}
+
+.cardTitle {
+    margin: 0 0 8px;
+    font-size: var(--text-lg);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.subhead {
+    margin: 12px 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-muted);
+}
+
+.bsRow {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+}
+
+.bsName {
+    min-width: 0;
+    color: var(--text-secondary);
+    overflow-wrap: anywhere;
+}
+
+.bsAmount {
+    flex: none;
+    color: var(--foreground);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+    text-align: right;
+}
+
+.bsTotal {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0 4px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--foreground);
+}
+
+.bsTotal .bsAmount {
+    font-size: var(--text-base);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .nameLink:hover {
+        text-decoration: underline;
+    }
+}
+
+@media (min-width: 720px) {
+    .strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .sheetGrid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+}

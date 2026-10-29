@@ -1,0 +1,175 @@
+.page {
+    display: grid;
+    gap: 20px;
+    align-content: start;
+}
+
+.page > * {
+    min-width: 0;
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.heading {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    max-width: 60ch;
+}
+
+.title {
+    margin: 0;
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.description {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+}
+
+.stats {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+}
+
+.statusStrip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.statusLabel {
+    margin-right: 2px;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.charts {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.panelLink {
+    white-space: nowrap;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.panelLink:hover {
+    text-decoration: underline;
+}
+
+.empty {
+    margin: 0;
+    padding: 12px 0;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.tableWrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    min-width: 440px;
+}
+
+.table th,
+.table td {
+    padding: 10px 12px;
+    text-align: start;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.table th {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.table tbody tr:hover {
+    background: var(--surface-muted);
+}
+
+.numeric {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.nameCell {
+    color: var(--foreground);
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mutedCell {
+    color: var(--text-secondary);
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.refLink {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.refLink:hover {
+    text-decoration: underline;
+}
+
+.mixNote {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    color: var(--text-muted);
+}
+
+@media (min-width: 900px) {
+    .charts {
+        grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+        align-items: start;
+    }
+}

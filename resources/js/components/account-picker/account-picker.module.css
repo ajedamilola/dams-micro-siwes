@@ -1,0 +1,12 @@
+.pickerWrap {
+    position: relative;
+    min-width: 0;
+}
+
+.pickerSpinner {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    display: inline-flex;
+    color: var(--text-muted);
+}

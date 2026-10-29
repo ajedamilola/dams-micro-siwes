@@ -1,0 +1,419 @@
+/* Application shell: sidebar, top bar, and mobile navigation drawer.
+   Colors, type, radii, and spacing come from the Arc foundation tokens. */
+
+.shell {
+    min-height: 100vh;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    overflow-x: clip;
+}
+
+/* Sidebar (desktop) */
+
+.sidebar {
+    display: none;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 20px 16px;
+    min-width: 0;
+}
+
+.mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: 10px;
+    background: var(--foreground);
+    color: var(--background);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: var(--tracking-body);
+}
+
+.brandText {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.brandName {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--foreground);
+    white-space: nowrap;
+}
+
+.brandCaption {
+    font-size: var(--text-xs);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.nav {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 4px 12px 12px;
+    display: grid;
+    gap: 20px;
+    align-content: start;
+}
+
+.moduleSwitch {
+    padding: 0 12px 8px;
+}
+
+.group {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+}
+
+.groupLabel {
+    margin: 0;
+    padding: 0 12px;
+    font-size: var(--text-xs);
+    font-weight: 400;
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-muted);
+}
+
+.items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    border-radius: var(--radius-control);
+    padding: 0 12px;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.itemIcon {
+    display: grid;
+    place-items: center;
+    flex: none;
+}
+
+.itemLabel {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+a.item[data-active] {
+    background: var(--accent-subtle);
+    color: var(--foreground);
+    font-weight: 500;
+}
+
+.item[aria-disabled="true"] {
+    color: var(--text-muted);
+    cursor: default;
+}
+
+.sideFoot {
+    margin: 0;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-subtle);
+    font-size: var(--text-xs);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-muted);
+}
+
+/* Rail toggle: a circular handle straddling the sidebar edge, centered on
+   the topbar row, riding the edge as the sidebar folds. Hidden with the
+   sidebar on small screens, where the drawer takes over. */
+.railToggle {
+    position: absolute;
+    top: 32px;
+    right: 0;
+    transform: translate(50%, -50%);
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0;
+    background: var(--surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+/* Main column and top bar */
+
+.main {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 64px;
+    flex: none;
+    padding: 0 clamp(16px, 4vw, 40px);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.menuButton {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    padding: 0;
+    background: transparent;
+    color: var(--foreground);
+    cursor: pointer;
+}
+
+.crumbs {
+    min-width: 0;
+    flex: 1;
+}
+
+.crumbs ol {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.crumbs li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.crumbs [aria-current="page"] {
+    color: var(--foreground);
+    font-weight: 500;
+    flex: none;
+}
+
+.topbarRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: none;
+    margin-left: auto;
+}
+
+.content {
+    width: 100%;
+    max-width: 1480px;
+    padding: 28px clamp(16px, 4vw, 40px) 64px;
+}
+
+.content > * {
+    min-width: 0;
+}
+
+/* Mobile navigation drawer */
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    border: 0;
+    padding: 0;
+    background: oklch(0% 0 0 / 0.4);
+    opacity: 0;
+    visibility: hidden;
+    cursor: default;
+    transition:
+        opacity var(--duration-standard) var(--ease-standard),
+        visibility 0s linear var(--duration-standard);
+}
+
+.backdrop[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--duration-standard) var(--ease-standard);
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    width: min(300px, 85vw);
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+    transform: translateX(-102%);
+    visibility: hidden;
+    transition:
+        transform var(--duration-standard) var(--ease-standard),
+        visibility 0s linear var(--duration-standard);
+}
+
+.drawer[data-open] {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform var(--duration-standard) var(--ease-standard);
+}
+
+.drawerHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-right: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.drawerHead .brand {
+    padding: 16px 0 16px 20px;
+}
+
+.closeButton {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    padding: 0;
+    background: transparent;
+    color: var(--foreground);
+    cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    a.item:not([data-active]):hover {
+        background: var(--surface-muted);
+        color: var(--foreground);
+    }
+
+    .menuButton:hover,
+    .closeButton:hover {
+        background: var(--surface-muted);
+    }
+
+    .railToggle:hover {
+        background: var(--surface-muted);
+        color: var(--foreground);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .backdrop,
+    .drawer,
+    .backdrop[data-open],
+    .drawer[data-open],
+    .sidebar {
+        transition: none;
+    }
+}
+
+@media (max-width: 639px) {
+    .hideSmall {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    .shell {
+        display: flex;
+        align-items: stretch;
+    }
+
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        width: 272px;
+        flex: none;
+        border-right: 1px solid var(--border);
+        background: var(--surface);
+        transition: width var(--duration-standard) var(--ease-in-out);
+        z-index: 21;
+    }
+
+    .sidebar .nav {
+        overflow-x: clip;
+    }
+
+    .shell[data-collapsed] .sidebar {
+        width: 76px;
+    }
+
+    .shell[data-collapsed] .sidebar .brand {
+        justify-content: center;
+    }
+
+    .shell[data-collapsed] .sidebar .brandText,
+    .shell[data-collapsed] .sidebar .groupLabel,
+    .shell[data-collapsed] .sidebar .itemLabel,
+    .shell[data-collapsed] .sidebar .moduleSwitch,
+    .shell[data-collapsed] .sidebar .sideFoot {
+        display: none;
+    }
+
+    .shell[data-collapsed] .sidebar .item {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .main {
+        flex: 1;
+    }
+
+    .menuButton {
+        display: none;
+    }
+
+    .backdrop,
+    .drawer {
+        display: none;
+    }
+}

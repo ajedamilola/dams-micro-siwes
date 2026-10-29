@@ -1,0 +1,172 @@
+/* Layout for the report settings page. */
+.page {
+    display: grid;
+    gap: 24px;
+    align-content: start;
+}
+
+.page > * {
+    min-width: 0;
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.headerText {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    max-width: 68ch;
+}
+
+.title {
+    margin: 0;
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.description {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-surface);
+    background: var(--surface);
+    padding: 20px;
+    display: grid;
+    gap: 16px;
+    align-content: start;
+}
+
+.cardTitle {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.count {
+    margin: 4px 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.heading {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-control);
+    background: var(--surface-muted);
+}
+
+.headingHead {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100%;
+    padding: 4px 4px 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    color: var(--foreground);
+}
+
+.chip span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chip button {
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .chip button:hover {
+        background: var(--surface-muted);
+        color: var(--foreground);
+    }
+}
+
+.addRow {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+}
+
+.unmapped {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.unmappedName {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+}
+
+.hint {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+}
+
+.formError {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    color: var(--danger);
+}

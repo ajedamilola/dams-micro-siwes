@@ -1,0 +1,62 @@
+.card {
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-panel);
+    background: var(--surface);
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: var(--leading-body);
+    color: var(--text-muted);
+}
+
+.icon {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-control);
+    background: var(--surface-muted);
+    color: var(--text-secondary);
+}
+
+.value {
+    margin: 0;
+    font-size: clamp(1.35rem, 1.4vw + 0.9rem, 1.75rem);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+.context {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    color: var(--text-secondary);
+}
+
+.card[data-tone='positive'] .icon {
+    background: color-mix(in oklab, var(--success) 14%, transparent);
+    color: var(--success);
+}
+
+.card[data-tone='warning'] .icon {
+    background: color-mix(in oklab, var(--warning) 16%, transparent);
+    color: var(--warning);
+}

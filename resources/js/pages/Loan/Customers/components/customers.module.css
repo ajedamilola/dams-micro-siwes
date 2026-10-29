@@ -1,0 +1,253 @@
+.page {
+    display: grid;
+    gap: 24px;
+    align-content: start;
+}
+
+.page > * {
+    min-width: 0;
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.headerText {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    max-width: 68ch;
+}
+
+.title {
+    margin: 0;
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.description {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    align-items: flex-end;
+}
+
+.search {
+    flex: 2 1 240px;
+    min-width: 0;
+}
+
+.filter {
+    flex: 1 1 160px;
+    min-width: 0;
+}
+
+.sectionHead {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sectionTitle {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.count {
+    margin: 4px 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.sectionActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tableWrap {
+    margin-top: 16px;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+}
+
+.form > * {
+    min-width: 0;
+}
+
+.wideDialog {
+    --dialog-width: 920px;
+}
+
+.stepperWrap {
+    padding: 4px 0 8px;
+}
+
+.wizardStep {
+    display: grid;
+    gap: 12px;
+}
+
+.wizardNav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.wizardBack {
+    display: flex;
+    gap: 12px;
+}
+
+.reviewGrid {
+    display: grid;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-surface);
+    background: var(--surface);
+    padding: 16px;
+}
+
+.reviewRow {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 16px;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+}
+
+.reviewRow dt {
+    margin: 0;
+    color: var(--text-muted);
+}
+
+.reviewRow dd {
+    margin: 0;
+    color: var(--foreground);
+    overflow-wrap: anywhere;
+}
+
+.formGrid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.formSection {
+    display: grid;
+    gap: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-surface);
+    padding: 16px;
+    background: var(--surface);
+}
+
+.formSectionTitle {
+    margin: 0;
+    font-size: var(--text-base);
+    font-weight: 500;
+    line-height: var(--leading-body);
+    color: var(--foreground);
+}
+
+.formSectionNote {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    color: var(--text-secondary);
+}
+
+.formError {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--danger);
+}
+
+.formActions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.nameCell {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.nameMain {
+    font-weight: 500;
+    color: var(--foreground);
+    overflow-wrap: anywhere;
+}
+
+.nameSub {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.mono {
+    font-variant-numeric: tabular-nums;
+}
+
+.negative {
+    color: var(--danger);
+}
+
+@media (min-width: 720px) {
+    .formGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .spanFull {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 639px) {
+    .reviewRow {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 4px;
+    }
+}

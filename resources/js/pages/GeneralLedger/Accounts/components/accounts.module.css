@@ -1,0 +1,198 @@
+/* Layout for the chart of accounts page. Colors, type, radii, and spacing
+   come from the Arc foundation tokens; this module only owns the layout. */
+
+.page {
+    display: grid;
+    gap: 24px;
+    align-content: start;
+}
+
+.page > * {
+    min-width: 0;
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.headerText {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    max-width: 68ch;
+}
+
+.title {
+    margin: 0;
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.description {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    align-items: flex-end;
+}
+
+.search {
+    flex: 2 1 240px;
+    min-width: 0;
+}
+
+.filter {
+    flex: 1 1 160px;
+    min-width: 0;
+}
+
+.sectionHead {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sectionTitle {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--foreground);
+}
+
+.count {
+    margin: 4px 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.sectionActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tableWrap {
+    margin-top: 16px;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+}
+
+.form > * {
+    min-width: 0;
+}
+
+.formError {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking-body);
+    color: var(--danger);
+}
+
+.formActions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+/* Table cell compositions (rendered inside the Arc data table). */
+
+.nameCell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.chevron {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    flex: none;
+    border: 0;
+    border-radius: var(--radius-control);
+    padding: 0;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.chevron svg {
+    transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.chevron[data-open] svg {
+    transform: rotate(90deg);
+}
+
+.leafSpacer {
+    width: 32px;
+    flex: none;
+}
+
+.groupName {
+    font-weight: 500;
+}
+
+.childCount {
+    flex: none;
+    font-size: var(--text-xs);
+    line-height: var(--leading-body);
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.normal {
+    color: var(--text-secondary);
+}
+
+.negative {
+    color: var(--danger);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .chevron:hover {
+        background: var(--surface-muted);
+        color: var(--foreground);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chevron svg {
+        transition: none;
+    }
+}
