@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { router } from '@inertiajs/react';
 import { Button } from '@/components/arc/button/button';
+import { addDays, useBusinessDate } from '@/lib/business-date';
 import { Input } from '@/components/arc/input/input';
 import type { OverviewFilters } from '@/types/overview';
 import styles from './date-range-filter.module.css';
@@ -11,16 +12,8 @@ interface DateRangeFilterProps {
     url: string;
 }
 
-function isoDate(date: Date): string {
-    return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-}
-
-function presetRange(days: number): OverviewFilters {
-    const to = new Date();
-    const from = new Date();
-    from.setDate(from.getDate() - (days - 1));
-
-    return { from: isoDate(from), to: isoDate(to) };
+function presetRange(days: number, today: string): OverviewFilters {
+    return { from: addDays(today, -(days - 1)), to: today };
 }
 
 const PRESETS = [
@@ -30,9 +23,15 @@ const PRESETS = [
 ];
 
 export function DateRangeFilter({ filters, url }: DateRangeFilterProps) {
+    const businessDate = useBusinessDate();
     const [from, setFrom] = useState(filters.from);
     const [to, setTo] = useState(filters.to);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        setFrom(filters.from);
+        setTo(filters.to);
+    }, [filters.from, filters.to]);
 
     function visit(next: OverviewFilters): void {
         if (!next.from || !next.to) {
@@ -48,7 +47,7 @@ export function DateRangeFilter({ filters, url }: DateRangeFilterProps) {
     }
 
     function applyPreset(days: number): void {
-        const next = presetRange(days);
+        const next = presetRange(days, businessDate);
         setFrom(next.from);
         setTo(next.to);
         visit(next);
@@ -87,6 +86,7 @@ export function DateRangeFilter({ filters, url }: DateRangeFilterProps) {
                     type="date"
                     value={to}
                     min={from}
+                    max={businessDate}
                     onChange={(event) => setTo(event.target.value)}
                 />
                 <Button type="submit" size="sm" className={styles.apply}>

@@ -86,14 +86,28 @@ class LoanOperationsSeeder extends Seeder
                     ],
                 );
             }
+
+            // Enforce the intended tree on every run. Receivable accounts are
+            // independent leaves; income accounts hang under their revenue
+            // parents. This also repairs any stale parent/subledger links.
             foreach (self::ACCOUNTS as $row) {
-                if (! isset($row['parent'])) {
-                    continue;
+                $parentId = null;
+                if (isset($row['parent'])) {
+                    $parentId = Account::query()
+                        ->where('ledger_id', $master->id)
+                        ->where('code', $row['parent'])
+                        ->value('id');
                 }
-                $parent = Account::query()->where('ledger_id', $master->id)->where('code', $row['parent'])->first();
-                if ($parent) {
-                    $byCode[$row['code']]->update(['parent_id' => $parent->id]);
-                }
+
+                $byCode[$row['code']]->update([
+                    'name' => $row['name'],
+                    'description' => $row['description'],
+                    'balance_type' => $row['balance_type'],
+                    'category' => $row['category']->value,
+                    'parent_id' => $parentId,
+                    'subledger_id' => null,
+                    'status' => 'active',
+                ]);
             }
         }
     }

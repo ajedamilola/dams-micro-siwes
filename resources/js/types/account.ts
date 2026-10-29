@@ -39,3 +39,22 @@ export type ChartAccount = {
     created_at: string | null;
     updated_at: string | null;
 };
+
+export type AccountStatementRow = {
+    id: string;
+    date: string | null;
+    ref: string;
+    description: string;
+    debit: number | null;
+    credit: number | null;
+    balance: number;
+};
+
+export type AccountStatement = {
+    opening_balance: number;
+    closing_balance: number;
+    debits: number;
+    credits: number;
+    balance_type: NormalBalance;
+    rows: AccountStatementRow[];
+};

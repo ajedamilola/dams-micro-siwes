@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Company;
+use App\Support\BusinessDate;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -45,6 +46,8 @@ class HandleInertiaRequests extends Middleware
             // Companies for the global picker. Selecting one does
             // not scope data yet; per-page filters do that for now.
             'companies' => Company::orderBy('name')->get(['id', 'name', 'code']),
+            'business_date' => BusinessDate::today(),
+            'unposted_journals' => BusinessDate::unpostedCount(),
         ];
     }
 }

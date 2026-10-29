@@ -3,7 +3,6 @@
 use Database\Seeders\BalanceSheetLayoutSeeder;
 use Database\Seeders\ChartOfAccountsSeeder;
 use Database\Seeders\CompanySeeder;
-use Database\Seeders\CustomerAccountSeeder;
 use Database\Seeders\JournalTransactionSeeder;
 use Database\Seeders\LedgerSeeder;
 use Database\Seeders\SystemSettingsSeeder;
@@ -14,7 +13,6 @@ beforeEach(function () {
         CompanySeeder::class,
         LedgerSeeder::class,
         ChartOfAccountsSeeder::class,
-        CustomerAccountSeeder::class,
         BalanceSheetLayoutSeeder::class,
         JournalTransactionSeeder::class,
     ]);
@@ -52,9 +50,9 @@ test('trial balance as at an earlier date excludes later postings', function () 
     $response->assertOk();
     $statement = $response->viewData('page')['props']['statement'];
 
-    // Only the backdated postings (TXN-0001, TXN-0005..0007) fall inside.
-    expect(bccomp($statement['debit_total'], '600000.0000', 4))->toBe(0);
-    expect(bccomp($statement['credit_total'], '600000.0000', 4))->toBe(0);
+    // Only the backdated owner contribution (TXN-0001) falls inside.
+    expect(bccomp($statement['debit_total'], '500000.0000', 4))->toBe(0);
+    expect(bccomp($statement['credit_total'], '500000.0000', 4))->toBe(0);
 });
 
 test('balance sheet balances assets against liabilities and equity', function () {
@@ -92,7 +90,7 @@ test('balance sheet follows the configured headings', function () {
     expect(bccomp($currentLiabilities['Trade Payables']['total'], '370000.0000', 4))->toBe(0);
 
     $currentAssets = $groupByLabel($statement['assets_current']);
-    expect(bccomp($currentAssets['Trade Receivables']['total'], '75000.0000', 4))->toBe(0);
-    $codes = array_column($currentAssets['Trade Receivables']['lines'], 'code');
-    expect($codes)->toEqualCanonicalizing(['CUST-001', 'CUST-002', 'CUST-003']);
+    // Customer activity is no longer seeded as raw GL credits.
+    expect(bccomp($currentAssets['Trade Receivables']['total'], '0', 4))->toBe(0);
+    expect(bccomp($currentAssets['Cash and Bank']['total'], '740000.0000', 4))->toBe(0);
 });

@@ -31,10 +31,10 @@ class DatabaseSeeder extends Seeder
             ChartOfAccountsSeeder::class,
             LoanOperationsSeeder::class,
             LoanProductSeeder::class,
-            CustomerAccountSeeder::class,
             LoanCustomerSeeder::class,
             BalanceSheetLayoutSeeder::class,
             JournalTransactionSeeder::class,
+            LoanSeeder::class,
         ]);
     }
 }

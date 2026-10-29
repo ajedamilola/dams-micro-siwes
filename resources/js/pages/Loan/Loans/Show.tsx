@@ -12,6 +12,7 @@ import {
     type DataColumn,
 } from '@/components/arc/sortable-data-table/sortable-data-table';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { useBusinessDate } from '@/lib/business-date';
 import { formatNGN } from '@/lib/format';
 import { humanizeToken } from '@/lib/loan-customers';
 import type { LoanDetail, LoanRepaymentRow, LoanScheduleRow } from '@/types/loan';
@@ -287,16 +288,17 @@ export default function LoanShow({ loan }: { loan: LoanDetail }) {
 }
 
 function DisburseDialog({ loanId, onClose }: { loanId: string; onClose: () => void }) {
+    const businessDate = useBusinessDate();
     const form = useForm({
         bank_account_id: '',
-        disbursement_date: new Date().toISOString().slice(0, 10),
+        disbursement_date: businessDate,
     });
 
     return (
         <Dialog open onOpenChange={(open) => !open && onClose()}>
             <DialogContent
                 title="Disburse loan"
-                description="Moves the loan to active. Posts Dr customer / Cr bank (+ fee income) as a submitted journal."
+                description="Moves the loan to active and posts Dr customer / Cr bank (+ fee income) to the ledger immediately."
                 className={styles.wideDialog}
             >
                 <form
@@ -318,6 +320,7 @@ function DisburseDialog({ loanId, onClose }: { loanId: string; onClose: () => vo
                             <Input
                                 label="Disbursement date"
                                 type="date"
+                                max={businessDate}
                                 value={form.data.disbursement_date}
                                 onChange={(e) => form.setData('disbursement_date', e.target.value)}
                                 error={form.errors.disbursement_date}
@@ -341,10 +344,11 @@ function DisburseDialog({ loanId, onClose }: { loanId: string; onClose: () => vo
 }
 
 function RepayDialog({ loanId, outstanding, onClose }: { loanId: string; outstanding: string; onClose: () => void }) {
+    const businessDate = useBusinessDate();
     const form = useForm({
         amount: null as number | null,
         payment_account_id: '',
-        payment_date: new Date().toISOString().slice(0, 10),
+        payment_date: businessDate,
         notes: '',
     });
 
@@ -389,6 +393,7 @@ function RepayDialog({ loanId, outstanding, onClose }: { loanId: string; outstan
                             <Input
                                 label="Payment date"
                                 type="date"
+                                max={businessDate}
                                 value={form.data.payment_date}
                                 onChange={(e) => form.setData('payment_date', e.target.value)}
                                 error={form.errors.payment_date}

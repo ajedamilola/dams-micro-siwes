@@ -72,7 +72,7 @@ function seedLifecycleCompany(): array
         'status' => 'active',
     ]);
 
-    return compact('company', 'master', 'customers', 'bank', 'product', 'customer', 'interestRec', 'penaltyRec', 'interestInc', 'feeInc');
+    return compact('company', 'master', 'customers', 'bank', 'product', 'customer', 'custAccount', 'interestRec', 'penaltyRec', 'interestInc', 'feeInc');
 }
 
 test('flat schedule math splits principal and interest evenly', function () {
@@ -88,7 +88,7 @@ test('flat schedule math splits principal and interest evenly', function () {
 });
 
 test('full loan flow posts journals and repays to close', function () {
-    ['bank' => $bank, 'product' => $product, 'customer' => $customer] = seedLifecycleCompany();
+    ['bank' => $bank, 'product' => $product, 'customer' => $customer, 'custAccount' => $custAccount, 'feeInc' => $feeInc] = seedLifecycleCompany();
 
     $firstDue = now()->addMonth()->toDateString();
     $this->post(route('loans.loans.store'), [
@@ -122,8 +122,10 @@ test('full loan flow posts journals and repays to close', function () {
     $debits = $txn->entries()->where('type', 'debit')->sum('value');
     $credits = $txn->entries()->where('type', 'credit')->sum('value');
     expect((float) $debits)->toBe((float) $credits);
-    // Dr customer P+fee (122400), Cr bank P (120000) + Cr fee (2400)
-    expect((float) $debits)->toBe(122400.0);
+    // Dr bank P (120000), Cr customer net of fee (117600), Cr fee income (2400)
+    expect((float) $debits)->toBe(120000.0);
+    expect((float) $txn->entries()->where('account_id', $custAccount->id)->where('type', 'credit')->sum('value'))->toBe(117600.0);
+    expect((float) $txn->entries()->where('account_id', $feeInc->id)->where('type', 'credit')->sum('value'))->toBe(2400.0);
 
     // Accrue some interest after disbursement (idempotent)
     $accrualDate = now()->addDays(5)->toDateString();

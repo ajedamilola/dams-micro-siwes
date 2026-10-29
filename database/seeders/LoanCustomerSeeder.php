@@ -322,7 +322,7 @@ class LoanCustomerSeeder extends Seeder
         foreach (self::CUSTOMERS as $entry) {
             $displayName = $entry['customer_type'] === 'corporate' || $entry['customer_type'] === 'group'
                 ? ($entry['business_name'] ?? "{$entry['first_name']} {$entry['last_name']}")
-                : trim("{$entry['first_name']} ".($entry['middle_name'] ? "{$entry['middle_name']} " : '')."{$entry['last_name']}");
+                : trim("{$entry['first_name']} " . ($entry['middle_name'] ? "{$entry['middle_name']} " : '') . "{$entry['last_name']}");
 
             $account = Account::query()->firstOrCreate(
                 [
@@ -332,7 +332,7 @@ class LoanCustomerSeeder extends Seeder
                 [
                     'name' => $displayName,
                     'description' => "Loan customer account for {$displayName}.",
-                    'balance_type' => 'debit',
+                    'balance_type' => 'credit',
                     'category' => AccountCategory::AccountsReceivable->value,
                     'status' => 'active',
                 ],

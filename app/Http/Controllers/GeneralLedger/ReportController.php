@@ -9,6 +9,7 @@ use App\Models\GeneralLedger\AccountOpeningBalance;
 use App\Models\GeneralLedger\JournalEntry;
 use App\Models\SystemSettings;
 use App\Support\BalanceSheetLayout;
+use App\Support\BusinessDate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -22,7 +23,7 @@ class ReportController extends Controller
     public function trialBalance(Request $request)
     {
         $data = $request->validate([
-            'as_at' => ['sometimes', 'nullable', 'date'],
+            'as_at' => ['sometimes', 'nullable', 'date', 'before_or_equal:'.BusinessDate::today()],
         ]);
 
         $company = self::company();
@@ -68,7 +69,7 @@ class ReportController extends Controller
                 'credit_total' => $creditTotal,
             ],
             'filters' => ['as_at' => $asAt->toDateString()],
-            'business_date' => self::businessDate(),
+            'business_date' => BusinessDate::today(),
         ]);
     }
 
@@ -80,7 +81,7 @@ class ReportController extends Controller
     public function balanceSheet(Request $request)
     {
         $data = $request->validate([
-            'as_at' => ['sometimes', 'nullable', 'date'],
+            'as_at' => ['sometimes', 'nullable', 'date', 'before_or_equal:'.BusinessDate::today()],
         ]);
 
         $company = self::company();
@@ -134,7 +135,7 @@ class ReportController extends Controller
         return Inertia::render('GeneralLedger/Reports/BalanceSheet', [
             'statement' => $statement,
             'filters' => ['as_at' => $asAt->toDateString()],
-            'business_date' => self::businessDate(),
+            'business_date' => BusinessDate::today(),
         ]);
     }
 
@@ -143,16 +144,9 @@ class ReportController extends Controller
         return Company::query()->orderBy('code')->firstOrFail();
     }
 
-    private static function businessDate(): string
-    {
-        $value = SystemSettings::query()->where('name', 'business_date')->first()?->value;
-
-        return $value ? Carbon::parse($value)->toDateString() : now()->toDateString();
-    }
-
     private static function asAt(?string $asAt): Carbon
     {
-        return Carbon::parse($asAt ?? self::businessDate())->endOfDay();
+        return Carbon::parse($asAt ?? BusinessDate::today())->endOfDay();
     }
 
     /**

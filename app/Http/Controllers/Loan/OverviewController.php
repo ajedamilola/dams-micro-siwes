@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Loan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Loan\Loan;
+use App\Support\BusinessDate;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +19,16 @@ class OverviewController extends Controller
             'to' => ['sometimes', 'nullable', 'date'],
         ]);
 
-        $from = CarbonImmutable::parse($data['from'] ?? now()->subDays(29)->toDateString())->startOfDay();
-        $to = CarbonImmutable::parse($data['to'] ?? now()->toDateString())->endOfDay();
+        $from = CarbonImmutable::parse($data['from'] ?? BusinessDate::current()->subDays(29)->toDateString())->startOfDay();
+        $to = CarbonImmutable::parse($data['to'] ?? BusinessDate::today())->endOfDay();
+
+        $ceiling = BusinessDate::current()->endOfDay();
+        if ($from->gt($ceiling)) {
+            $from = $ceiling->startOfDay();
+        }
+        if ($to->gt($ceiling)) {
+            $to = $ceiling;
+        }
 
         if ($from->gt($to)) {
             [$from, $to] = [$to->startOfDay(), $from->endOfDay()];
@@ -107,7 +116,7 @@ class OverviewController extends Controller
             ->join('loans', 'schedule.loan_id', '=', 'loans.id')
             ->where('loans.status', 'active')
             ->whereNull('loans.deleted_at')
-            ->whereDate('schedule.due_date', '<', now()->toDateString())
+            ->whereDate('schedule.due_date', '<', BusinessDate::today())
             ->whereRaw('(schedule.total_due - schedule.principal_paid - schedule.interest_paid - schedule.fee_paid - schedule.penalty_paid) > 0')
             ->distinct('loans.id')
             ->count('loans.id');

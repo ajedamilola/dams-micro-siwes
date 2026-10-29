@@ -15,7 +15,8 @@ import {
 } from '@/components/arc/sortable-data-table/sortable-data-table';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { accountUrl, humanizeCategory } from '@/lib/accounts';
-import type { ChartAccount } from '@/types/account';
+import { DateRangeFilter } from '@/components/overview/DateRangeFilter';
+import type { AccountStatement, ChartAccount } from '@/types/account';
 import type { LedgerOption } from '@/types/ledger';
 import { capitalize, formatNGN } from '@/lib/format';
 import { AccountFormModal } from './components/AccountFormModal';
@@ -44,6 +45,9 @@ interface ShowProps {
     children: ChartAccount[];
     accounts: AccountOption[];
     ledgers: LedgerOption[];
+    is_leaf: boolean;
+    statement: AccountStatement | null;
+    statement_filters: { from: string; to: string };
 }
 
 export default function AccountShow({
@@ -52,6 +56,9 @@ export default function AccountShow({
     children,
     accounts,
     ledgers,
+    is_leaf,
+    statement,
+    statement_filters,
 }: ShowProps) {
     const [editing, setEditing] = useState(false);
     const [confirmingDelete, setConfirmingDelete] = useState(false);
@@ -193,6 +200,22 @@ export default function AccountShow({
         },
     ];
 
+    const exportUrl = `${accountUrl(account.id, account.ledger_id)}/statement/export?from=${encodeURIComponent(
+        statement_filters.from,
+    )}&to=${encodeURIComponent(statement_filters.to)}`;
+
+    function formatStatementDate(iso: string | null): string {
+        if (!iso) {
+            return '—';
+        }
+
+        return new Date(`${iso}T00:00:00`).toLocaleDateString('en-NG', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+        });
+    }
+
     return (
         <>
             <Head title={`${account.code} ${account.name}`} />
@@ -304,7 +327,156 @@ export default function AccountShow({
                     </section>
                 </div>
 
-                <section aria-labelledby="children-heading">
+                {is_leaf && statement ? (
+                    <section aria-labelledby="statement-heading">
+                        <div className={styles.sectionHead}>
+                            <div>
+                                <h2
+                                    id="statement-heading"
+                                    className={styles.sectionTitle}
+                                >
+                                    Account statement
+                                </h2>
+                                <p className={styles.statementNote}>
+                                    Posted movements for the selected period.
+                                    Balances follow the account&apos;s{' '}
+                                    {statement.balance_type}-normal direction.
+                                </p>
+                            </div>
+                            <Button
+                                variant="secondary"
+                                onClick={() =>
+                                    window.location.assign(exportUrl)
+                                }
+                            >
+                                Export to Excel
+                            </Button>
+                        </div>
+
+                        <div className={styles.statementFilters}>
+                            <DateRangeFilter
+                                filters={statement_filters}
+                                url={accountUrl(
+                                    account.id,
+                                    account.ledger_id,
+                                )}
+                            />
+                        </div>
+
+                        <div className={styles.tableWrap}>
+                            <table className={styles.statementTable}>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Reference</th>
+                                        <th scope="col">Description</th>
+                                        <th
+                                            scope="col"
+                                            className={styles.numeric}
+                                        >
+                                            Debit
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className={styles.numeric}
+                                        >
+                                            Credit
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className={styles.numeric}
+                                        >
+                                            Balance
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className={styles.openingRow}>
+                                        <td>
+                                            {formatStatementDate(
+                                                statement_filters.from,
+                                            )}
+                                        </td>
+                                        <td>—</td>
+                                        <td>Opening balance</td>
+                                        <td className={styles.numeric}>—</td>
+                                        <td className={styles.numeric}>—</td>
+                                        <td className={styles.numeric}>
+                                            {formatNGN(
+                                                statement.opening_balance,
+                                            )}
+                                        </td>
+                                    </tr>
+                                    {statement.rows.length === 0 ? (
+                                        <tr>
+                                            <td
+                                                colSpan={6}
+                                                className={styles.emptyCell}
+                                            >
+                                                No posted movements in this
+                                                period.
+                                            </td>
+                                        </tr>
+                                    ) : (
+                                        statement.rows.map((row) => (
+                                            <tr key={row.id}>
+                                                <td>
+                                                    {formatStatementDate(
+                                                        row.date,
+                                                    )}
+                                                </td>
+                                                <td className={styles.refCell}>
+                                                    {row.ref}
+                                                </td>
+                                                <td className={styles.descCell}>
+                                                    {row.description}
+                                                </td>
+                                                <td className={styles.numeric}>
+                                                    {row.debit === null
+                                                        ? '—'
+                                                        : formatNGN(row.debit)}
+                                                </td>
+                                                <td className={styles.numeric}>
+                                                    {row.credit === null
+                                                        ? '—'
+                                                        : formatNGN(row.credit)}
+                                                </td>
+                                                <td className={styles.numeric}>
+                                                    {formatNGN(row.balance)}
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colSpan={3}>
+                                            Closing balance ·{' '}
+                                            {statement.rows.length}{' '}
+                                            {statement.rows.length === 1
+                                                ? 'movement'
+                                                : 'movements'}
+                                        </td>
+                                        <td className={styles.numeric}>
+                                            {formatNGN(statement.debits)}
+                                        </td>
+                                        <td className={styles.numeric}>
+                                            {formatNGN(statement.credits)}
+                                        </td>
+                                        <td className={styles.numeric}>
+                                            {formatNGN(
+                                                statement.closing_balance,
+                                            )}
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </section>
+                ) : null}
+
+                {!is_leaf ? (
+                    <section aria-labelledby="children-heading">
                     <h2 id="children-heading" className={styles.sectionTitle}>
                         Sub-accounts
                     </h2>
@@ -326,7 +498,8 @@ export default function AccountShow({
                             No sub-accounts. This is a postable account.
                         </p>
                     )}
-                </section>
+                    </section>
+                ) : null}
 
                 {editing ? (
                     <AccountFormModal

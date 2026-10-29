@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\GeneralLedger\Account;
 use App\Models\GeneralLedger\JournalEntry;
 use App\Models\GeneralLedger\Ledger;
+use App\Services\GeneralLedger\AccountStatement;
+use App\Support\BusinessDate;
+use App\Support\SimpleXlsx;
+use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
@@ -82,9 +86,11 @@ class AccountController extends Controller
      * Display the specified resource. The ledger id scopes the lookup
      * since codes repeat across ledgers.
      */
-    public function show(string $ledger, string $account)
+    public function show(Request $request, string $ledger, string $account)
     {
         $account = Account::with('ledger.company')->where('ledger_id', $ledger)->findOrFail($account);
+        [$from, $to] = self::statementRange($request);
+        $isLeaf = self::isLeaf($account);
 
         $ledgerAccounts = Account::where('ledger_id', $account->ledger_id)->orderBy('code')->get();
 
@@ -118,7 +124,51 @@ class AccountController extends Controller
                 'is_group' => $ledgerAccounts->contains('parent_id', $row->id),
             ])->values(),
             'ledgers' => self::ledgerOptions(),
+            'is_leaf' => $isLeaf,
+            'statement' => $isLeaf ? app(AccountStatement::class)->build($account, $from, $to) : null,
+            'statement_filters' => [
+                'from' => $from->toDateString(),
+                'to' => $to->toDateString(),
+            ],
         ]);
+    }
+
+    public function exportStatement(Request $request, string $ledger, string $account)
+    {
+        $account = Account::with('ledger.company')->where('ledger_id', $ledger)->findOrFail($account);
+        abort_unless(self::isLeaf($account), 404, 'Statements are only available for leaf accounts.');
+
+        [$from, $to] = self::statementRange($request);
+        $statement = app(AccountStatement::class)->build($account, $from, $to);
+        $ledgerName = trim(($account->ledger?->code ?? '').' '.($account->ledger?->name ?? ''));
+
+        $rows = [
+            ['Account statement'],
+            ["{$account->code} {$account->name}"],
+            ["Ledger: {$ledgerName}"],
+            ["Period: {$from->toDateString()} to {$to->toDateString()}"],
+            [],
+            ['Date', 'Reference', 'Description', 'Debit', 'Credit', 'Balance'],
+            [$from->toDateString(), '', 'Opening balance', null, null, $statement['opening_balance']],
+        ];
+
+        foreach ($statement['rows'] as $row) {
+            $rows[] = [
+                $row['date'],
+                $row['ref'],
+                $row['description'],
+                $row['debit'],
+                $row['credit'],
+                $row['balance'],
+            ];
+        }
+
+        $rows[] = [];
+        $rows[] = ['', '', 'Closing balance', $statement['debits'], $statement['credits'], $statement['closing_balance']];
+
+        $filename = "statement-{$account->code}-{$from->toDateString()}-to-{$to->toDateString()}.xlsx";
+
+        return SimpleXlsx::download($filename, $rows, [0, 5], [13, 16, 52, 16, 16, 18]);
     }
 
     /**
@@ -218,6 +268,35 @@ class AccountController extends Controller
             ->get(['id', 'code', 'name', 'balance_type', 'status', 'ledger_id']);
 
         return response()->json(['data' => $accounts]);
+    }
+
+    /**
+     * @return array{0: CarbonImmutable, 1: CarbonImmutable}
+     */
+    private static function statementRange(Request $request): array
+    {
+        $data = $request->validate([
+            'from' => ['sometimes', 'nullable', 'date'],
+            'to' => ['sometimes', 'nullable', 'date'],
+        ]);
+
+        $businessDate = BusinessDate::current();
+        $from = CarbonImmutable::parse($data['from'] ?? $businessDate->subDays(29)->toDateString())->startOfDay();
+        $to = CarbonImmutable::parse($data['to'] ?? $businessDate->toDateString())->endOfDay();
+
+        if ($to->gt($businessDate->endOfDay())) {
+            $to = $businessDate->endOfDay();
+        }
+        if ($from->gt($to)) {
+            [$from, $to] = [$to->startOfDay(), $from->endOfDay()];
+        }
+
+        return [$from, $to];
+    }
+
+    private static function isLeaf(Account $account): bool
+    {
+        return $account->subledger_id === null && ! $account->childAccounts()->exists();
     }
 
     /**

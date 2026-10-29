@@ -8,6 +8,7 @@ import {
 } from '@/components/arc/dialog/dialog';
 import { Input } from '@/components/arc/input/input';
 import { Textarea } from '@/components/arc/textarea/textarea';
+import { useBusinessDate } from '@/lib/business-date';
 import { toDateInput } from '@/lib/transactions';
 import styles from './transactions.module.css';
 
@@ -30,9 +31,10 @@ export function TransactionFormModal({
     transactionRef,
     initial,
 }: TransactionFormModalProps) {
+    const businessDate = useBusinessDate();
     const form = useForm({
         description: initial?.description ?? '',
-        effective_date: initial ? toDateInput(initial.effective_date) : '',
+        effective_date: initial ? toDateInput(initial.effective_date) : businessDate,
     });
 
     function handleSubmit(event: FormEvent): void {
@@ -80,6 +82,7 @@ export function TransactionFormModal({
                     <Input
                         label="Effective date"
                         type="date"
+                        max={businessDate}
                         value={form.data.effective_date}
                         onChange={(event) =>
                             form.setData('effective_date', event.target.value)

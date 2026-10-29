@@ -8,6 +8,7 @@ import { MoneyInput } from '@/components/arc/money-input/money-input';
 import { Select } from '@/components/arc/select/select';
 import { Stepper } from '@/components/arc/stepper/stepper';
 import { Textarea } from '@/components/arc/textarea/textarea';
+import { addDays, useBusinessDate } from '@/lib/business-date';
 import { customerUrl } from '@/lib/loan-customers';
 import type { CompanyOption } from '@/types/ledger';
 import type { LoanCustomer } from '@/types/loan-customer';
@@ -135,6 +136,8 @@ function toKobo(value: string | number | null | undefined): number | null {
 }
 
 export function CustomerFormModal({ open, onOpenChange, mode, initial, companies }: CustomerFormModalProps) {
+    const businessDate = useBusinessDate();
+    const idExpiryFloor = addDays(businessDate, 1);
     const [step, setStep] = useState(0);
     const [stepError, setStepError] = useState<string | null>(null);
 
@@ -434,6 +437,7 @@ export function CustomerFormModal({ open, onOpenChange, mode, initial, companies
                                     <Input
                                         label="Date of birth"
                                         type="date"
+                                        max={businessDate}
                                         value={data.date_of_birth}
                                         onChange={(event) => form.setData('date_of_birth', event.target.value)}
                                         error={form.errors.date_of_birth}
@@ -585,6 +589,7 @@ export function CustomerFormModal({ open, onOpenChange, mode, initial, companies
                                     <Input
                                         label="ID expiry date"
                                         type="date"
+                                        min={idExpiryFloor}
                                         value={data.id_expiry_date}
                                         onChange={(event) => form.setData('id_expiry_date', event.target.value)}
                                         error={form.errors.id_expiry_date}

@@ -45,7 +45,7 @@ class CustomerAccountSeeder extends Seeder
                 [
                     'name' => $name,
                     'description' => "Customer account for {$name}.",
-                    'balance_type' => 'debit',
+                    'balance_type' => 'credit',
                     'category' => AccountCategory::AccountsReceivable->value,
                 ],
             );

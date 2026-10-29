@@ -6,6 +6,7 @@ import { Dialog, DialogClose, DialogContent } from '@/components/arc/dialog/dial
 import { Input } from '@/components/arc/input/input';
 import { MoneyInput } from '@/components/arc/money-input/money-input';
 import { Select } from '@/components/arc/select/select';
+import { addDays, addMonths, formatBusinessDate, useBusinessDate } from '@/lib/business-date';
 import { formatNGN } from '@/lib/format';
 import { humanizeToken } from '@/lib/loan-customers';
 import type { ProductOption } from '@/types/loan';
@@ -45,13 +46,14 @@ function previewTotals(principal: number, annualRate: number, method: string, fr
 }
 
 export function BookLoanModal({ open, onOpenChange, products }: BookLoanModalProps) {
-    const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+    const businessDate = useBusinessDate();
+    const minDueDate = addDays(businessDate, 1);
     const form = useForm({
         loan_product_id: products[0]?.id ?? '',
         loan_customer_id: '',
         principal: 10000000 as number | null, // 100000.00 NGN in minor units (kobo)
         tenor: '6',
-        first_due_date: '',
+        first_due_date: addMonths(businessDate, 1),
         notes: '',
     });
 
@@ -135,6 +137,7 @@ export function BookLoanModal({ open, onOpenChange, products }: BookLoanModalPro
                             <Input
                                 label="First due date"
                                 type="date"
+                                min={minDueDate}
                                 value={form.data.first_due_date}
                                 onChange={(event) => form.setData('first_due_date', event.target.value)}
                                 error={form.errors.first_due_date}
@@ -167,7 +170,7 @@ export function BookLoanModal({ open, onOpenChange, products }: BookLoanModalPro
                     ) : null}
                     {form.errors.first_due_date && !preview ? (
                         <p className={styles.formError} role="alert">
-                            Pick a first due date after {tomorrow}.
+                            Pick a first due date after {formatBusinessDate(businessDate)}.
                         </p>
                     ) : null}
 

@@ -18,6 +18,7 @@ use App\Models\GeneralLedger\Account;
 use App\Models\GeneralLedger\JournalEntry;
 use App\Models\GeneralLedger\Ledger;
 use App\Models\Loan\LoanCustomer;
+use App\Support\BusinessDate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -303,7 +304,7 @@ class LoanCustomerController extends Controller
             'business_name' => ['nullable', 'string', 'max:255', Rule::requiredIf(fn () => $request->input('customer_type') === 'corporate')],
             'rc_number' => ['nullable', 'string', 'max:50', Rule::requiredIf(fn () => $request->input('customer_type') === 'corporate')],
             'gender' => ['nullable', Rule::enum(Gender::class)],
-            'date_of_birth' => ['nullable', 'date', 'before_or_equal:'.now()->subYears(18)->toDateString()],
+            'date_of_birth' => ['nullable', 'date', 'before_or_equal:'.BusinessDate::current()->subYears(18)->toDateString()],
             'marital_status' => ['nullable', Rule::enum(MaritalStatus::class)],
             'phone' => [
                 'required',
@@ -334,7 +335,7 @@ class LoanCustomerController extends Controller
             ],
             'means_of_id_type' => ['nullable', Rule::enum(MeansOfIdType::class)],
             'means_of_id_number' => ['nullable', 'string', 'max:100'],
-            'id_expiry_date' => ['nullable', 'date', 'after:today'],
+            'id_expiry_date' => ['nullable', 'date', 'after:'.BusinessDate::today()],
             'proof_of_address_type' => ['nullable', Rule::enum(ProofOfAddressType::class)],
             'kyc_tier' => ['required', Rule::enum(KycTier::class)],
             'kyc_status' => ['sometimes', Rule::enum(KycStatus::class)],
@@ -412,7 +413,7 @@ class LoanCustomerController extends Controller
 
     private function nextCustomerNo(int $companyId): string
     {
-        $year = now()->format('Y');
+        $year = BusinessDate::current()->format('Y');
         $prefix = "LC-{$year}-";
 
         $max = LoanCustomer::where('company_id', $companyId)

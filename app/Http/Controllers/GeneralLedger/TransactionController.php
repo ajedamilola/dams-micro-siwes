@@ -5,6 +5,7 @@ namespace App\Http\Controllers\GeneralLedger;
 use App\Enums\GeneralLedger\TransactionStatus;
 use App\Http\Controllers\Controller;
 use App\Models\GeneralLedger\JournalTransaction;
+use App\Support\BusinessDate;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -63,7 +64,7 @@ class TransactionController extends Controller
     {
         $data = $request->validate([
             'description' => ['required', 'string', 'min:5', 'max:255'],
-            'effective_date' => ['required', 'date'],
+            'effective_date' => ['required', 'date', 'before_or_equal:'.BusinessDate::today()],
         ]);
 
         $transaction = JournalTransaction::create([
@@ -109,7 +110,7 @@ class TransactionController extends Controller
 
         $data = $request->validate([
             'description' => ['sometimes', 'required', 'string', 'min:5', 'max:255'],
-            'effective_date' => ['sometimes', 'required', 'date'],
+            'effective_date' => ['sometimes', 'required', 'date', 'before_or_equal:'.BusinessDate::today()],
             'status' => ['sometimes', 'required', Rule::in([TransactionStatus::SUBMITTED->value, TransactionStatus::CANCELLED->value])],
         ]);
 
@@ -177,7 +178,7 @@ class TransactionController extends Controller
     {
         $data = $request->validate([
             'description' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'effective_date' => ['sometimes', 'nullable', 'date'],
+            'effective_date' => ['sometimes', 'nullable', 'date', 'before_or_equal:'.BusinessDate::today()],
         ]);
 
         $description = trim((string) ($data['description'] ?? ''));
@@ -186,7 +187,7 @@ class TransactionController extends Controller
             $reversal = $transaction->reverseTransaction(
                 self::nextRef(),
                 $description !== '' ? $description : "Reversal of {$transaction->ref}",
-                $data['effective_date'] ?? now()->toDateString(),
+                $data['effective_date'] ?? BusinessDate::today(),
             );
         } catch (BadRequestHttpException $e) {
             return back()->withErrors(['transaction' => $e->getMessage()]);

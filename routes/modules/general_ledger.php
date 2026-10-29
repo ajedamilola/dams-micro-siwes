@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GeneralLedger\AccountController;
+use App\Http\Controllers\GeneralLedger\BusinessDateController;
 use App\Http\Controllers\GeneralLedger\JournalEntryController;
 use App\Http\Controllers\GeneralLedger\OverviewController;
 use App\Http\Controllers\GeneralLedger\ReportController;
@@ -9,12 +10,14 @@ use App\Http\Controllers\GeneralLedger\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [OverviewController::class, 'index'])->name('general-ledger.overview');
+Route::post('/business-date', [BusinessDateController::class, 'advance'])->name('general-ledger.business-date.advance');
 
 Route::prefix('accounts')->name('general-ledger.accounts.')->controller(AccountController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
     Route::get('/search', 'search')->name('search');
     Route::get('/{ledger}/{account}', 'show')->name('show');
+    Route::get('/{ledger}/{account}/statement/export', 'exportStatement')->name('statement.export');
     Route::put('/{ledger}/{account}', 'update')->name('update');
     Route::delete('/{ledger}/{account}', 'destroy')->name('destroy');
 });

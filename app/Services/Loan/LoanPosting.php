@@ -15,8 +15,9 @@ use Illuminate\Validation\ValidationException;
  * Creates and posts balanced journal transactions for loan events.
  *
  * Posting model (v1):
- * - Disbursement: Dr Customer (P + fee) / Cr Bank (P) / Cr FeeIncome (fee).
- *   The customer subledger account carries principal + capitalised fee.
+ * - Disbursement: Dr Bank (P) / Cr Customer (P - fee) / Cr FeeIncome (fee).
+ *   The customer receives the principal net of the processing fee, and the
+ *   fee is recognised as income at disbursement.
  * - Accrual: Dr InterestReceivable / Cr InterestIncome.
  * - Penalty: Dr PenaltyReceivable / Cr PenaltyIncome.
  * - Repayment: Dr Bank / Cr Customer (principal+fee) / Cr InterestReceivable
@@ -40,31 +41,41 @@ class LoanPosting
         $principal = (string) $loan->principal;
         $fee = (string) $loan->processing_fee;
 
-        return DB::transaction(function () use ($loan, $customerAccount, $bankAccount, $feeIncomeAccount, $principal, $fee) {
+        if (bccomp($fee, $principal, 2) >= 0) {
+            throw ValidationException::withMessages([
+                'processing_fee' => 'The processing fee must be less than the principal.',
+            ]);
+        }
+
+        $netProceeds = bcsub($principal, $fee, 2);
+
+        return DB::transaction(function () use ($loan, $customerAccount, $bankAccount, $feeIncomeAccount, $principal, $fee, $netProceeds) {
             $txn = JournalTransaction::create([
                 'description' => "Loan disbursement {$loan->loan_no}",
                 'ref' => $this->nextRef(),
                 'status' => TransactionStatus::DRAFT->value,
-                'effective_date' => $loan->disbursement_date?->toDateString() ?? now()->toDateString(),
+                'effective_date' => $loan->disbursement_date?->toDateString() ?? BusinessDate::today(),
             ]);
 
-            $txn->entries()->create([
-                'account_id' => $customerAccount->id,
-                'type' => 'credit',
-                'value' => bcadd($principal, $fee, 2),
-                'balance_after' => 0,
-            ]);
             $txn->entries()->create([
                 'account_id' => $bankAccount->id,
                 'type' => 'debit',
                 'value' => $principal,
                 'balance_after' => 0,
             ]);
+            if (bccomp($netProceeds, '0', 2) > 0) {
+                $txn->entries()->create([
+                    'account_id' => $customerAccount->id,
+                    'type' => 'credit',
+                    'value' => $netProceeds,
+                    'balance_after' => 0,
+                ]);
+            }
             if (bccomp($fee, '0', 2) > 0) {
                 abort_unless($feeIncomeAccount !== null, 422, 'Fee income account is not mapped for this product.');
                 $txn->entries()->create([
                     'account_id' => $feeIncomeAccount->id,
-                    'type' => 'debit',
+                    'type' => 'credit',
                     'value' => $fee,
                     'balance_after' => 0,
                 ]);

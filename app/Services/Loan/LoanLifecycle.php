@@ -10,6 +10,7 @@ use App\Models\GeneralLedger\Account;
 use App\Models\Loan\Loan;
 use App\Models\Loan\LoanProduct;
 use App\Models\Loan\LoanRepayment;
+use App\Support\BusinessDate;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -344,7 +345,7 @@ class LoanLifecycle
 
     private function nextLoanNo(string $companyId): string
     {
-        $year = now()->format('Y');
+        $year = BusinessDate::current()->format('Y');
         $prefix = "LN-{$year}-";
         $max = Loan::where('company_id', $companyId)->where('loan_no', 'like', "{$prefix}%")->orderByDesc('loan_no')->value('loan_no');
         $next = 1;

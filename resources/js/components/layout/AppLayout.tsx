@@ -4,6 +4,7 @@ import { Link, router, usePage } from '@inertiajs/react';
 import { Badge } from '@/components/arc/badge/badge';
 import { DropdownMenu } from '@/components/arc/dropdown-menu/dropdown-menu';
 import { UserMenu } from '@/components/arc/user-menu/user-menu';
+import { BusinessDateControl } from '@/components/layout/BusinessDateControl';
 import {
     ArrowLeftRight,
     BookCopy,
@@ -426,6 +427,7 @@ export function AppLayout({ title, section, children }: AppLayoutProps) {
                         </ol>
                     </nav>
                     <div className={styles.topbarRight}>
+                        <BusinessDateControl />
                         {/* Global company picker. Selecting a company does
                             not scope data yet; per-page filters do that. */}
                         {company ? (

@@ -73,6 +73,45 @@ function toCSV(rows: AccountRow[]): string {
     return [header.join(','), ...lines].join('\n');
 }
 
+function orderByHierarchy(rows: AccountRow[]): AccountRow[] {
+    const included = new Set(rows.map((row) => row.id));
+    const children = new Map<string, AccountRow[]>();
+    const roots: AccountRow[] = [];
+
+    for (const row of rows) {
+        if (row.parent_id !== null && included.has(row.parent_id)) {
+            const bucket = children.get(row.parent_id) ?? [];
+            bucket.push(row);
+            children.set(row.parent_id, bucket);
+        } else {
+            roots.push(row);
+        }
+    }
+
+    const ordered: AccountRow[] = [];
+    const seen = new Set<string>();
+
+    const visit = (row: AccountRow): void => {
+        if (seen.has(row.id)) {
+            return;
+        }
+        seen.add(row.id);
+        ordered.push(row);
+        for (const child of children.get(row.id) ?? []) {
+            visit(child);
+        }
+    };
+
+    for (const root of roots) {
+        visit(root);
+    }
+    for (const row of rows) {
+        visit(row);
+    }
+
+    return ordered;
+}
+
 export default function AccountsIndex({
     accounts,
     ledgers,
@@ -125,9 +164,16 @@ export default function AccountsIndex({
         });
     }, [rows, collapsedIds]);
 
-    const filteredRows = useMemo(() => {
+    const filtersActive =
+        query.trim() !== '' ||
+        ledgerFilter !== 'all' ||
+        typeFilter !== 'all' ||
+        statusFilter !== 'all';
+
+    const matchingRows = useMemo(() => {
         const needle = query.trim().toLowerCase();
-        return visibleRows.filter((row) => {
+
+        return rows.filter((row) => {
             if (ledgerFilter !== 'all' && row.ledger_id !== ledgerFilter) {
                 return false;
             }
@@ -146,7 +192,40 @@ export default function AccountsIndex({
                 (row.description ?? '').toLowerCase().includes(needle)
             );
         });
-    }, [visibleRows, query, ledgerFilter, typeFilter, statusFilter]);
+    }, [rows, query, ledgerFilter, typeFilter, statusFilter]);
+
+    const treeFiltering =
+        query.trim() !== '' || typeFilter !== 'all' || statusFilter !== 'all';
+
+    /**
+     * Filtering keeps the hierarchy intact: every match brings its
+     * ancestors along, and the result is ordered parent-before-child
+     * instead of a flat code sort. Collapsing is ignored while tree
+     * filtering so a match cannot hide behind a closed group.
+     */
+    const filteredRows = useMemo(() => {
+        if (!treeFiltering) {
+            const visibleIds = new Set(visibleRows.map((row) => row.id));
+
+            return matchingRows.filter((row) => visibleIds.has(row.id));
+        }
+
+        const byId = new Map(rows.map((row) => [row.id, row]));
+        const included = new Set(matchingRows.map((row) => row.id));
+
+        for (const row of matchingRows) {
+            let parentId = row.parent_id;
+
+            while (parentId !== null && !included.has(parentId)) {
+                included.add(parentId);
+                parentId = byId.get(parentId)?.parent_id ?? null;
+            }
+        }
+
+        return orderByHierarchy(
+            rows.filter((row) => included.has(row.id)),
+        );
+    }, [treeFiltering, matchingRows, rows, visibleRows]);
 
     const ledgerTotal = useMemo(
         () =>
@@ -155,12 +234,6 @@ export default function AccountsIndex({
                 : rows.filter((row) => row.ledger_id === ledgerFilter).length,
         [rows, ledgerFilter],
     );
-
-    const filtersActive =
-        query.trim() !== '' ||
-        ledgerFilter !== 'all' ||
-        typeFilter !== 'all' ||
-        statusFilter !== 'all';
 
     function clearFilters(): void {
         setQuery('');
@@ -203,7 +276,7 @@ export default function AccountsIndex({
     }
 
     function exportCSV(): void {
-        const blob = new Blob([toCSV(filteredRows)], {
+        const blob = new Blob([toCSV(treeFiltering ? matchingRows : filteredRows)], {
             type: 'text/csv;charset=utf-8',
         });
         const url = URL.createObjectURL(blob);
@@ -257,9 +330,13 @@ export default function AccountsIndex({
 
                 <AccountsTable
                     rows={filteredRows}
-                    totalFiltered={filteredRows.length}
+                    totalFiltered={
+                        treeFiltering
+                            ? matchingRows.length
+                            : filteredRows.length
+                    }
                     totalAll={ledgerTotal}
-                    collapsedIds={collapsedIds}
+                    collapsedIds={treeFiltering ? [] : collapsedIds}
                     onToggleCollapse={toggleCollapse}
                     onExpandAll={() => setCollapsedIds([])}
                     onCollapseAll={() => setCollapsedIds(groupIds)}

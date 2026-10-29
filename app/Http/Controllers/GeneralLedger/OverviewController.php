@@ -5,6 +5,7 @@ namespace App\Http\Controllers\GeneralLedger;
 use App\Http\Controllers\Controller;
 use App\Models\GeneralLedger\Account;
 use App\Models\GeneralLedger\JournalTransaction;
+use App\Support\BusinessDate;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +20,16 @@ class OverviewController extends Controller
             'to' => ['sometimes', 'nullable', 'date'],
         ]);
 
-        $from = CarbonImmutable::parse($data['from'] ?? now()->subDays(29)->toDateString())->startOfDay();
-        $to = CarbonImmutable::parse($data['to'] ?? now()->toDateString())->endOfDay();
+        $from = CarbonImmutable::parse($data['from'] ?? BusinessDate::current()->subDays(29)->toDateString())->startOfDay();
+        $to = CarbonImmutable::parse($data['to'] ?? BusinessDate::today())->endOfDay();
+
+        $ceiling = BusinessDate::current()->endOfDay();
+        if ($from->gt($ceiling)) {
+            $from = $ceiling->startOfDay();
+        }
+        if ($to->gt($ceiling)) {
+            $to = $ceiling;
+        }
 
         if ($from->gt($to)) {
             [$from, $to] = [$to->startOfDay(), $from->endOfDay()];

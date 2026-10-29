@@ -8,6 +8,7 @@ use App\Models\Loan\Loan;
 use App\Models\Loan\LoanCustomer;
 use App\Models\Loan\LoanProduct;
 use App\Services\Loan\LoanLifecycle;
+use App\Support\BusinessDate;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
@@ -61,7 +62,7 @@ class LoanController extends Controller
             'loan_customer_id' => ['required', 'string', 'exists:loan_customers,id'],
             'principal' => ['required', 'numeric', 'min:1'],
             'tenor' => ['required', 'integer', 'min:1', 'max:600'],
-            'first_due_date' => ['required', 'date', 'after:today'],
+            'first_due_date' => ['required', 'date', 'after:'.BusinessDate::today()],
             'notes' => ['nullable', 'string', 'max:2000'],
         ]);
 
@@ -119,7 +120,7 @@ class LoanController extends Controller
         $loan = Loan::findOrFail($loan);
         $data = $request->validate([
             'bank_account_id' => ['required', 'string', 'exists:accounts,id'],
-            'disbursement_date' => ['required', 'date'],
+            'disbursement_date' => ['required', 'date', 'before_or_equal:'.BusinessDate::today()],
         ]);
 
         $bank = Account::findOrFail($data['bank_account_id']);
@@ -141,7 +142,7 @@ class LoanController extends Controller
         $data = $request->validate([
             'amount' => ['required', 'numeric', 'min:0.01'],
             'payment_account_id' => ['required', 'string', 'exists:accounts,id'],
-            'payment_date' => ['required', 'date'],
+            'payment_date' => ['required', 'date', 'before_or_equal:'.BusinessDate::today()],
             'notes' => ['nullable', 'string', 'max:2000'],
         ]);
 
