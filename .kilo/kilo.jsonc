@@ -1,0 +1,8 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "postman": {
+    "type": "remote",
+    "url": "https://mcp.postman.com/mcp",
+    "enabled": false
+  }
+}

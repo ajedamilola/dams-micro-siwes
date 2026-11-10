@@ -1,0 +1,4584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MFB Core System · SIWES Presentation</title>
+<meta name="description" content="SIWES presentation for the MFB Core System, a double-entry accounting and lending core for a microfinance bank.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F9FC;
+    --surface: #FFFFFF;
+    --surface-2: #EEF2F8;
+    --border: #DDE4EE;
+    --brand: #12305C;
+    --text: #0B1B33;
+    --text-muted: #5B6B84;
+    --accent: #0B8A5F;
+    --accent-strong: #086B4A;
+    --accent-ink: #076244;
+    --accent-soft: #E3F5EE;
+    --accent-2: #B7791F;
+    --accent-2-ink: #7A4E0F;
+    --accent-2-soft: #FBF1DD;
+    --danger: #C73E3E;
+    --danger-ink: #A32E2E;
+    --danger-soft: #FBE7E7;
+    --radius: 16px;
+    --radius-small: 12px;
+    --shadow: 0 1px 2px rgba(11, 27, 51, .06), 0 8px 24px rgba(11, 27, 51, .06);
+    --font-head: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+    --font-body: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  html,
+  body { height: 100%; }
+
+  body {
+    margin: 0;
+    background: #E7ECF4;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 24px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  [hidden] { display: none !important; }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 auto;
+    vertical-align: -0.18em;
+    pointer-events: none;
+  }
+
+  .viewer {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: rgba(18, 48, 92, .12);
+    z-index: 60;
+  }
+
+  .progress span {
+    display: block;
+    height: 100%;
+    width: 6.6667%;
+    background: var(--accent);
+    transition: width 250ms ease;
+  }
+
+  .stage-wrap {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    transition: margin-right 200ms ease;
+  }
+
+  .stage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1920px;
+    height: 1080px;
+    margin-left: -960px;
+    margin-top: -540px;
+    transform-origin: center center;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .slide.is-active {
+    display: block;
+    animation: slide-in 250ms ease both;
+  }
+
+  .slide-inner {
+    width: 100%;
+    height: 100%;
+    padding: 96px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    position: relative;
+  }
+
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .slide-head {
+    flex: 0 0 auto;
+    margin-bottom: 26px;
+  }
+
+  .section-label {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 12px;
+  }
+
+  .slide-title {
+    font-family: var(--font-head);
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -.022em;
+    color: var(--text);
+    margin: 0;
+    max-width: 1500px;
+  }
+
+  .lede {
+    font-size: 28px;
+    line-height: 1.42;
+    color: var(--text-muted);
+    margin: 14px 0 0;
+    max-width: 1420px;
+  }
+
+  .slide-body {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .slide-footer {
+    position: absolute;
+    left: 96px;
+    right: 96px;
+    bottom: 34px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--text-muted);
+  }
+
+  .slide-footer .folio {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .02em;
+  }
+
+  .stack > * + * { margin-top: 18px; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    min-width: 0;
+  }
+
+  .card.soft { background: var(--surface-2); }
+
+  .card.tinted {
+    background: var(--accent-soft);
+    border-color: #C9E9DC;
+  }
+
+  .card.gold {
+    background: var(--accent-2-soft);
+    border-color: #EEDCB9;
+  }
+
+  .card-title {
+    font-family: var(--font-head);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.012em;
+    margin: 0 0 10px;
+  }
+
+  .body-text {
+    font-size: 24px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .small-text {
+    font-size: 20px;
+    line-height: 1.45;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .caption {
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fill {
+    color: var(--accent-2-ink);
+    border-bottom: 2px dashed rgba(183, 121, 31, .45);
+    padding-bottom: 1px;
+  }
+
+  .eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: var(--accent-soft);
+    color: var(--accent);
+    flex: 0 0 auto;
+  }
+
+  .icon-badge.danger {
+    background: var(--danger-soft);
+    color: var(--danger);
+  }
+
+  .icon-badge.gold {
+    background: var(--accent-2-soft);
+    color: var(--accent-2);
+  }
+
+  .icon-badge.brand {
+    background: var(--surface-2);
+    color: var(--brand);
+  }
+
+  .icon-badge .icon { width: 26px; height: 26px; }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 7px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .tag .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex: 0 0 auto;
+  }
+
+  .tag.accent {
+    background: var(--accent-soft);
+    border-color: #C9E9DC;
+  }
+
+  .tag.accent .dot { background: var(--accent); }
+
+  .tag.gold {
+    background: var(--accent-2-soft);
+    border-color: #EEDCB9;
+  }
+
+  .tag.gold .dot { background: var(--accent-2); }
+
+  .tag.danger {
+    background: var(--danger-soft);
+    border-color: #F0C9C9;
+  }
+
+  .tag.danger .dot { background: var(--danger); }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    border: 0;
+    margin: 0;
+  }
+
+  /* ---------- toolbar ---------- */
+
+  .toolbar {
+    flex: 0 0 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 0 20px 0 24px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    z-index: 40;
+  }
+
+  .toolbar-hint {
+    font-size: 20px;
+    color: var(--text-muted);
+  }
+
+  .toolbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .toolbar-counter {
+    min-width: 92px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+  }
+
+  .tool-button {
+    width: 44px;
+    height: 44px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text);
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background 160ms ease, border-color 160ms ease;
+  }
+
+  .tool-button:hover { background: var(--surface-2); border-color: var(--border); }
+  .tool-button:active { background: var(--accent-soft); }
+
+  .tool-button .icon { width: 22px; height: 22px; }
+
+  /* ---------- notes ---------- */
+
+  .notes-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 56px;
+    width: 440px;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -8px 0 24px rgba(11, 27, 51, .05);
+  }
+
+  .notes-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 24px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .notes-head h2 {
+    font-family: var(--font-head);
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .notes-head .section-label { margin-bottom: 8px; }
+
+  .notes-body {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 22px 24px;
+  }
+
+  .notes-body p {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.55;
+  }
+
+  .notes-next {
+    flex: 0 0 auto;
+    border-top: 1px solid var(--border);
+    padding: 18px 24px 24px;
+    background: var(--surface-2);
+  }
+
+  .notes-next p {
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .live-region {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ---------- title slide ---------- */
+
+  .slide-title-slide .slide-inner,
+  .slide-closing .slide-inner {
+    background-image:
+      linear-gradient(to bottom right, var(--brand) 0%, var(--brand) 6%, rgba(18, 48, 92, .97) 25%, rgba(18, 48, 92, .93) 60%, rgba(18, 48, 92, .93) 100%),
+      url("screenshots/gl-overview.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .slide-title-slide { background: var(--brand); }
+
+  .slide-title,
+  .title-main,
+  .closing-title,
+  .card-title,
+  .decision h2,
+  .challenge-copy h2 { text-wrap: balance; }
+
+  .slide-title-slide .slide-inner {
+    gap: 56px;
+    color: #FFFFFF;
+  }
+
+  .title-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 64px;
+    flex: 0 0 auto;
+  }
+
+  .title-logos {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 18px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    flex: 0 0 auto;
+  }
+
+  .title-logo {
+    display: block;
+    height: 112px;
+    object-fit: contain;
+  }
+
+  .title-logo-lasu { width: 112px; }
+
+  .title-logo-organisation {
+    width: 352px;
+    padding-left: 32px;
+    border-left: 1px solid var(--border);
+  }
+
+  .title-left {
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .title-kicker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+  }
+
+  .title-kicker::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    background: var(--accent-soft);
+    flex: 0 0 auto;
+  }
+
+  .title-main {
+    font-family: var(--font-head);
+    font-size: 96px;
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -.035em;
+    margin: 26px 0 18px;
+    max-width: 1400px;
+  }
+
+  .title-sub {
+    font-size: 28px;
+    line-height: 1.42;
+    color: #D6E0EF;
+    margin: 0;
+    max-width: 1100px;
+  }
+
+  .title-meta {
+    margin-top: 38px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 48px;
+    width: 100%;
+    max-width: 1450px;
+  }
+
+  .title-meta .meta-label {
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: #AEBED6;
+    margin-bottom: 4px;
+  }
+
+  .title-meta .meta-value {
+    display: block;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: #FFFFFF;
+  }
+
+  .title-left .fill {
+    color: #F3D9A8;
+    border-bottom-color: rgba(243, 217, 168, .55);
+  }
+
+  .title-tech {
+    margin: 34px 0 0;
+    font-size: 20px;
+    line-height: 1.45;
+    color: #C7D3E6;
+  }
+
+  .title-quote {
+    font-family: var(--font-head);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #FFFFFF;
+    margin: 0;
+    max-width: 430px;
+    text-align: right;
+  }
+
+  .title-quote span { color: #A7E3CE; }
+
+  /* ---------- screenshot frames ---------- */
+
+  .shot-frame {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    box-shadow: var(--shadow);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .browser-bar {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 2px 12px;
+  }
+
+  .browser-bar i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #C9D3E3;
+    display: block;
+  }
+
+  .shot-body {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    background: var(--surface-2);
+    border: 1px dashed #C5D2E4;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .shot-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #FFFFFF;
+  }
+
+  .has-shot .shot-body { border-style: solid; }
+
+  .shot-zoom {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--brand);
+    font: inherit;
+    cursor: zoom-in;
+    z-index: 3;
+  }
+
+  .shot-zoom span {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    font: 500 20px var(--font-body);
+    box-shadow: var(--shadow);
+  }
+
+  .shot-zoom:hover span,
+  .shot-zoom:focus-visible span { background: var(--accent-soft); }
+
+  .image-viewer {
+    width: min(1440px, calc(100vw - 32px));
+    max-width: none;
+    max-height: calc(100dvh - 32px);
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow);
+  }
+
+  .image-viewer::backdrop { background: rgba(11, 27, 51, .7); }
+
+  .image-viewer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .image-viewer-head h2 { margin: 0; font: 500 20px var(--font-body); }
+  .image-viewer-body { max-height: calc(100dvh - 110px); overflow: auto; }
+  .image-viewer-body img { display: block; width: 100%; height: auto; }
+
+  .shot-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 22px;
+    text-align: center;
+  }
+
+  .shot-placeholder .icon {
+    width: 42px;
+    height: 42px;
+    color: var(--text-muted);
+  }
+
+  .shot-title {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .shot-sub {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--text-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .shot-frame figcaption {
+    flex: 0 0 auto;
+    margin-top: 12px;
+    font-size: 20px;
+    line-height: 1.35;
+    color: var(--text-muted);
+  }
+
+  .shot-num {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-strong);
+    color: #FFFFFF;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(11, 27, 51, .18);
+  }
+
+  /* ---------- slide 2 ---------- */
+
+  .org-grid {
+    display: grid;
+    grid-template-columns: 1.38fr .9fr;
+    gap: 24px;
+    height: 100%;
+  }
+
+  .org-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 34px;
+  }
+
+  .org-main .organisation-name {
+    font-family: var(--font-head);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -.018em;
+    margin: 14px 0 12px;
+  }
+
+  .org-focus {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    margin-top: 24px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-small);
+    font-size: 22px;
+    line-height: 1.45;
+  }
+
+  .org-focus .icon {
+    width: 26px;
+    height: 26px;
+    color: var(--accent);
+    margin-top: 2px;
+  }
+
+  .org-focus p { margin: 0; }
+
+  .org-meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 28px;
+  }
+
+  .meta-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    padding: 18px;
+    min-width: 0;
+  }
+
+  .meta-block .meta-label {
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .meta-block .meta-value {
+    display: block;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .org-side {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 0;
+  }
+
+  .logo-frame {
+    flex: 0 0 300px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .logo-frame .logo-mark {
+    width: 88px;
+    height: 88px;
+    border-radius: 20px;
+    background: var(--surface-2);
+    display: grid;
+    place-items: center;
+    color: var(--brand);
+  }
+
+  .logo-frame .logo-mark .icon { width: 46px; height: 46px; }
+
+  .logo-frame .logo-img {
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    max-height: 180px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .logo-frame.has-shot figcaption { display: none; }
+
+  .logo-frame figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .logo-frame .shot-title,
+  .logo-frame .shot-sub { display: block; }
+
+  .org-note {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  /* ---------- slide 3 ---------- */
+
+  .scope-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .scope-card {
+    padding: 34px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scope-foot {
+    margin: auto 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .scope-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-head);
+    font-size: 32px;
+    line-height: 1.2;
+    margin: 0 0 24px;
+  }
+
+  .bullet-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .bullet-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 24px;
+    line-height: 1.45;
+  }
+
+  .bullet-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .bullet-list li:first-child { padding-top: 0; }
+
+  .bullet-list .icon {
+    width: 26px;
+    height: 26px;
+    color: var(--accent);
+    margin-top: 5px;
+  }
+
+  .bullet-list.numbered { counter-reset: scope; }
+
+  .bullet-list.numbered li::before {
+    counter-increment: scope;
+    content: "0" counter(scope);
+    flex: 0 0 auto;
+    width: 46px;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent-ink);
+    padding-top: 3px;
+  }
+
+  .scope-note {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 28px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .scope-note p {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  /* ---------- slide 4 ---------- */
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .problem-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 30px;
+    min-height: 500px;
+  }
+
+  .problem-card h2 {
+    font-family: var(--font-head);
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .problem-card p {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.45;
+    color: var(--text-muted);
+  }
+
+  .problem-card .tag { align-self: flex-start; margin-top: auto; }
+
+  .problem-result {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 22px 28px;
+    border-radius: var(--radius);
+    background: var(--danger-soft);
+    border: 1px solid #F0C9C9;
+    font-size: 24px;
+    line-height: 1.4;
+  }
+
+  .problem-result .icon { color: var(--danger); width: 30px; height: 30px; }
+
+  /* ---------- slide 5 ---------- */
+
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1.12fr .88fr;
+    gap: 24px;
+    height: 100%;
+  }
+
+  .module-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    align-content: start;
+  }
+
+  .tile {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .tile h2 {
+    font-family: var(--font-head);
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .tile p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .tile .icon-badge { width: 42px; height: 42px; border-radius: 12px; }
+  .tile .icon-badge .icon { width: 22px; height: 22px; }
+
+  .solution-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 0;
+  }
+
+  .solution-side .shot-frame { flex: 0 0 380px; }
+
+  .no-side-ledger {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    padding: 26px;
+  }
+
+  .no-side-ledger h2 {
+    font-family: var(--font-head);
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .mini-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .mini-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .mini-list .icon { width: 22px; height: 22px; color: var(--accent); margin-top: 3px; }
+
+  /* ---------- slide 6 ---------- */
+
+  .layers {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .layer {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 26px;
+    align-items: center;
+    min-height: 140px;
+    padding: 20px 30px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    position: relative;
+  }
+
+  .layer.engine {
+    background: var(--accent-soft);
+    border-color: #C9E9DC;
+  }
+
+  .layer + .layer::before {
+    content: "";
+    position: absolute;
+    top: -18px;
+    left: 46px;
+    width: 2px;
+    height: 18px;
+    background: var(--border);
+  }
+
+  .layer-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  .layer-label .icon-badge { width: 44px; height: 44px; border-radius: 12px; }
+  .layer-label .icon-badge .icon { width: 24px; height: 24px; }
+
+  .layer-label h2 {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .layer-label p {
+    margin: 5px 0 0;
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--text-muted);
+  }
+
+  .layer-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 20px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .layer.engine .chip { background: #FFFFFF; border-color: #C9E9DC; }
+
+  .architecture-note {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .architecture-note .icon { color: var(--accent); width: 26px; height: 26px; }
+
+  /* ---------- slide 7 ---------- */
+
+  .accounting-grid {
+    display: grid;
+    grid-template-columns: 1.22fr .78fr;
+    gap: 24px;
+    height: 100%;
+  }
+
+  .hierarchy {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .hier-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    min-width: 0;
+  }
+
+  .hier-card.top { background: var(--surface-2); }
+  .hier-card.control { background: var(--accent-soft); border-color: #C9E9DC; }
+  .hier-card.detail { background: var(--surface); }
+
+  .hier-kicker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 8px;
+  }
+
+  .hier-title {
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .hier-title .code {
+    font-family: var(--font-mono);
+    font-size: 24px;
+    color: var(--accent-ink);
+    margin-right: 8px;
+  }
+
+  .hier-sub {
+    margin: 8px 0 0;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .hier-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0 10px 30px;
+    font-size: 20px;
+    color: var(--text-muted);
+    position: relative;
+  }
+
+  .hier-link::before {
+    content: "";
+    width: 2px;
+    height: 100%;
+    background: var(--border);
+    position: absolute;
+    left: 14px;
+    top: 0;
+  }
+
+  .hier-link .icon {
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+    margin-left: -8px;
+    background: var(--bg);
+    z-index: 1;
+  }
+
+  .subledger-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .subledger-chips .chip { font-family: var(--font-mono); font-size: 20px; }
+
+  .hier-note {
+    margin-top: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .hier-note .icon { color: var(--accent); width: 24px; height: 24px; margin-top: 2px; }
+
+  .definition-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+  }
+
+  .definition {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border);
+    border-radius: var(--radius-small);
+  }
+
+  .definition.accent { border-left-color: var(--accent); }
+  .definition.gold { border-left-color: var(--accent-2); }
+
+  .definition h2 {
+    font-family: var(--font-head);
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 0 0 6px;
+  }
+
+  .definition p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  /* ---------- slide 8 ---------- */
+
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .flow-node {
+    flex: 1 1 0;
+    min-width: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .flow-node.active {
+    border: 2px solid var(--accent);
+    background: var(--accent-soft);
+    padding: 21px 23px;
+  }
+
+  .flow-node .step {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent-ink);
+  }
+
+  .flow-node h2 {
+    font-family: var(--font-head);
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .flow-node p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .flow-arrow {
+    flex: 0 0 54px;
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+  }
+
+  .flow-arrow .icon { width: 24px; height: 24px; }
+
+  .flow-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 22px;
+    height: calc(100% - 232px);
+  }
+
+  .flow-bottom > div:first-child {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .flow-bottom .ledger-wrap { flex: 1 1 auto; }
+
+  .flow-bottom .ledger-table th { padding: 12px 18px; }
+  .flow-bottom .ledger-table td { padding: 12px 18px; }
+  .flow-bottom .ledger-table tfoot td { padding-top: 12px; padding-bottom: 12px; }
+
+  .ledger-foot {
+    margin-top: auto;
+    padding: 12px 22px;
+    border-top: 1px solid var(--border);
+    background: var(--surface-2);
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .ledger-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .ledger-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ledger-head .label {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 21px;
+    line-height: 1.3;
+    table-layout: fixed;
+  }
+
+  .ledger-table th {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 10px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ledger-table th.num,
+  .ledger-table td.num { text-align: right; }
+
+  .ledger-table td {
+    padding: 11px 22px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .ledger-table tbody tr:nth-child(even) td { background: var(--surface-2); }
+
+  .ledger-table td.num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .ledger-table tfoot td {
+    font-weight: 600;
+    border-top: 2px solid var(--text);
+    border-bottom: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .ledger-table tfoot td.num { font-family: var(--font-mono); }
+
+  .ledger-caption {
+    margin-top: 12px;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .flow-bottom .shot-frame { height: 100%; }
+
+  /* ---------- slide 9 ---------- */
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    height: calc(100% - 86px);
+  }
+
+  .product-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+    min-width: 0;
+  }
+
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .panel-head .panel-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  .panel-head h2 {
+    font-family: var(--font-head);
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .panel-head .icon-badge { width: 46px; height: 46px; border-radius: 13px; }
+
+  .lifecycle {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lifecycle .step {
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    font-size: 20px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .lifecycle .arr { color: var(--text-muted); display: grid; place-items: center; }
+  .lifecycle .arr .icon { width: 18px; height: 18px; }
+
+  .accrual {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr);
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .accrual .entry {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    padding: 12px 14px;
+    min-width: 0;
+  }
+
+  .accrual .entry .dr {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent-ink);
+  }
+
+  .accrual .entry .name {
+    display: block;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 3px 0 2px;
+  }
+
+  .accrual .entry .kind {
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--text-muted);
+  }
+
+  .accrual .arr { display: grid; place-items: center; color: var(--text-muted); }
+  .accrual .arr .icon { width: 22px; height: 22px; }
+
+  .product-panel .ledger-wrap { flex: 0 0 auto; }
+
+  .product-panel .ledger-table { font-size: 20px; }
+  .product-panel .ledger-table th { padding: 9px 18px; }
+  .product-panel .ledger-table td { padding: 9px 18px; }
+
+  .product-panel .shot-frame {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .product-panel .shot-frame figcaption { margin-top: 10px; font-size: 20px; }
+
+  .product-strip {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 24px;
+    background: var(--accent-soft);
+    border: 1px solid #C9E9DC;
+    border-radius: var(--radius);
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  .product-strip .icon { color: var(--accent); width: 26px; height: 26px; }
+
+  /* ---------- slide 10 ---------- */
+
+  .eod-top {
+    display: grid;
+    grid-template-columns: 1.06fr .82fr 1.12fr;
+    gap: 20px;
+    height: 410px;
+  }
+
+  .eod-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .eod-card h2 {
+    font-family: var(--font-head);
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .eod-card .card-sub {
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .check-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 21px;
+    line-height: 1.35;
+  }
+
+  .check-row:last-child { border-bottom: 0; }
+
+  .check-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+  }
+
+  .check-icon .icon { width: 18px; height: 18px; }
+
+  .advance-card {
+    background: var(--accent-soft);
+    border-color: #C9E9DC;
+    justify-content: space-between;
+  }
+
+  .advance-visual {
+    background: var(--accent-strong);
+    color: #FFFFFF;
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+
+  .advance-visual .icon { width: 46px; height: 46px; margin-bottom: 6px; }
+
+  .advance-visual .advance-label {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: .02em;
+  }
+
+  .advance-visual .advance-sub {
+    display: block;
+    margin-top: 4px;
+    font-size: 20px;
+    line-height: 1.35;
+    color: #D9F2E7;
+  }
+
+  .advance-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .advance-note .icon { color: var(--accent-ink); width: 22px; height: 22px; margin-top: 2px; }
+
+  .date-delta {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius-small);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+
+  .date-delta .from,
+  .date-delta .to {
+    font-family: var(--font-mono);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .date-delta .to { color: var(--accent-ink); }
+  .date-delta .arr { color: var(--text-muted); }
+  .date-delta .arr .icon { width: 20px; height: 20px; }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 2px;
+  }
+
+  .tl-step {
+    display: flex;
+    gap: 12px;
+    min-height: 52px;
+  }
+
+  .tl-rail {
+    flex: 0 0 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tl-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    background: var(--surface);
+    margin-top: 7px;
+  }
+
+  .tl-line {
+    width: 2px;
+    flex: 1 1 auto;
+    background: var(--border);
+    margin: 3px 0;
+  }
+
+  .tl-step:last-child .tl-line { display: none; }
+
+  .tl-copy strong {
+    display: block;
+    font-size: 21px;
+    line-height: 1.3;
+  }
+
+  .tl-copy span {
+    display: block;
+    font-size: 20px;
+    line-height: 1.35;
+    color: var(--text-muted);
+  }
+
+  .eod-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+    height: 250px;
+  }
+
+  .logged-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 2px;
+  }
+
+  .logged-item {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    padding: 12px 14px;
+    min-width: 0;
+  }
+
+  .logged-item .logged-label {
+    display: block;
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .logged-item .logged-value {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .eod-bottom .shot-frame { height: 100%; }
+
+  /* ---------- slide 11 ---------- */
+
+  .decision-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .decision {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--accent-2);
+    border-radius: var(--radius);
+    padding: 26px 26px 24px 28px;
+    min-height: 430px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  .decision .decision-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .decision .label {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent-2-ink);
+  }
+
+  .decision h2 {
+    font-family: var(--font-head);
+    font-size: 28px;
+    line-height: 1.22;
+    margin: 0;
+  }
+
+  .decision .kv {
+    display: grid;
+    gap: 4px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .decision .kv + .kv { margin-top: auto; }
+
+  .decision .kv .k {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .decision .kv .v {
+    font-size: 21px;
+    line-height: 1.45;
+  }
+
+  .decision-summary {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 23px;
+    line-height: 1.48;
+  }
+
+  .decision-foot {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 21px;
+    line-height: 1.42;
+  }
+
+  .decision-quote {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 23px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .decision-quote .icon { color: var(--accent-2); width: 26px; height: 26px; }
+
+  /* ---------- slide 12 ---------- */
+
+  .demo-grid {
+    display: grid;
+    grid-template-columns: 1.34fr .66fr;
+    gap: 24px;
+    height: 100%;
+  }
+
+  .demo-shots {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    align-content: start;
+    min-height: 0;
+  }
+
+  .demo-shots .shot-frame { height: 330px; }
+  .demo-shots .shot-frame figcaption { font-size: 20px; }
+
+  .demo-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 0;
+  }
+
+  .legend-item {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 14px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    padding: 16px 18px;
+  }
+
+  .legend-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-strong);
+    color: #FFFFFF;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .legend-item h2 {
+    font-family: var(--font-head);
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 0 0 3px;
+  }
+
+  .legend-item p {
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .demo-note {
+    margin-top: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .demo-note .icon { color: var(--accent-ink); width: 22px; height: 22px; margin-top: 2px; }
+
+  /* ---------- slide 13 ---------- */
+
+  .challenge-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .challenge-row {
+    display: grid;
+    grid-template-columns: 1fr 54px 1.16fr;
+    gap: 16px;
+    align-items: stretch;
+    min-height: 176px;
+  }
+
+  .challenge-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--danger);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .fix-card {
+    border-top-color: var(--accent);
+    background: var(--surface);
+  }
+
+  .challenge-card .tag { align-self: flex-start; }
+
+  .challenge-card h2 {
+    font-family: var(--font-head);
+    font-size: 26px;
+    line-height: 1.24;
+    margin: 0;
+  }
+
+  .challenge-card p {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  .challenge-arrow {
+    display: grid;
+    place-items: center;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .challenge-arrow .icon { width: 22px; height: 22px; }
+
+  .challenge-step {
+    display: grid;
+    grid-template-columns: 54px minmax(0, .95fr) 42px minmax(0, 1.15fr);
+    gap: 18px;
+    align-items: center;
+    min-height: 150px;
+    padding: 22px 26px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .challenge-number {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    color: var(--brand);
+    font: 600 20px/1 var(--font-mono);
+  }
+
+  .challenge-copy { min-width: 0; }
+
+  .challenge-label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .challenge-label.risk { color: var(--danger-ink); }
+  .challenge-label.control { color: var(--accent-ink); }
+  .challenge-copy h2 { margin: 0; font: 700 25px/1.24 var(--font-head); }
+  .challenge-copy p { margin: 6px 0 0; color: var(--text-muted); font-size: 20px; line-height: 1.38; }
+  .challenge-step > .icon { color: var(--text-muted); }
+
+  /* ---------- slide 14 ---------- */
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    height: 330px;
+  }
+
+  .skills-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 26px 30px;
+  }
+
+  .skills-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-head);
+    font-size: 28px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .skills-card .bullet-list li {
+    font-size: 22px;
+    padding: 9px 0;
+  }
+
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .outcome-card {
+    min-height: 290px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .outcome-card h2 { margin: 22px 0 12px; font: 700 27px/1.2 var(--font-head); }
+  .outcome-card p { margin: 0; color: var(--text-muted); font-size: 22px; line-height: 1.45; }
+
+  .next-card {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1.12fr .88fr;
+    gap: 24px;
+    height: 150px;
+    padding: 22px 28px;
+    align-items: center;
+  }
+
+  .next-card h2 {
+    font-family: var(--font-head);
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+
+  .next-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .recommendation {
+    border-left: 3px solid var(--accent);
+    padding-left: 18px;
+  }
+
+  .recommendation .label {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .recommendation p {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.4;
+  }
+
+  .closing-line {
+    margin: 20px 0 0;
+    font-family: var(--font-head);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.015em;
+    color: var(--text);
+  }
+
+  .closing-line span { color: var(--accent-ink); }
+
+  /* ---------- slide 15 ---------- */
+
+  .slide-closing { background: var(--brand); }
+
+  .slide-closing .slide-inner {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 64px;
+    align-items: center;
+    background-color: var(--brand);
+    color: #FFFFFF;
+  }
+
+  .closing-kicker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+  }
+
+  .closing-kicker::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    background: var(--accent-soft);
+  }
+
+  .closing-title {
+    font-family: var(--font-head);
+    font-size: 84px;
+    font-weight: 800;
+    line-height: .98;
+    letter-spacing: -.035em;
+    margin: 0;
+    color: #FFFFFF;
+  }
+
+  .closing-sub {
+    font-family: var(--font-head);
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #D6E0EF;
+    margin: 18px 0 0;
+  }
+
+  .closing-contact {
+    margin-top: 46px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    line-height: 1.35;
+    color: #FFFFFF;
+  }
+
+  .contact-row .icon { width: 24px; height: 24px; color: #A7E3CE; }
+
+  .contact-row .fill {
+    color: #F3D9A8;
+    border-bottom-color: rgba(243, 217, 168, .55);
+  }
+
+  .closing-card {
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+
+  .closing-card .icon-badge {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .10);
+    color: #A7E3CE;
+    margin-bottom: 18px;
+  }
+
+  .closing-card .icon-badge .icon { width: 30px; height: 30px; }
+
+  .closing-card p {
+    margin: 0;
+    font-family: var(--font-head);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #FFFFFF;
+  }
+
+  .closing-card small {
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+    line-height: 1.4;
+    color: #C7D3E6;
+  }
+
+  .closing-ledger {
+    margin-top: 20px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .closing-ledger .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    color: #D6E0EF;
+    border-bottom: 1px solid rgba(255, 255, 255, .14);
+    padding-bottom: 10px;
+  }
+
+  .closing-ledger .row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .closing-ledger .row .ok { color: #A7E3CE; }
+
+  .slide-closing .slide-footer { color: #AEBED6; }
+  .slide-closing .slide-footer .fill {
+    color: #F3D9A8;
+    border-bottom-color: rgba(243, 217, 168, .55);
+  }
+
+  /* Evidence-led layouts keep screenshots at their original proportions. */
+
+  .slide-head { position: relative; padding-top: 20px; }
+  .slide-head::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 4px;
+    background: var(--accent);
+  }
+
+  .slide-footer { padding-top: 16px; border-top: 1px solid var(--border); }
+  .slide-closing .slide-footer { border-top-color: rgba(255, 255, 255, .18); }
+  .definition-list { min-height: 0; }
+  .definition-list .shot-frame { flex: 1 1 auto; }
+  .definition-list .definition { flex: 0 0 auto; padding: 14px 20px; }
+  .definition-list .definition h2 { font-size: 22px; }
+
+  .loan-grid,
+  .eod-layout,
+  .reports-grid {
+    display: grid;
+    grid-template-columns: 1.12fr .88fr;
+    gap: 28px;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .loan-screen,
+  .loan-explainer,
+  .eod-process,
+  .report-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 0;
+  }
+
+  .loan-screen .shot-frame { flex: 1 1 auto; }
+  .loan-explainer .card { padding: 26px; }
+  .loan-explainer .card-title { font-size: 28px; }
+  .loan-explainer .accrual { margin-top: 20px; }
+  .loan-explainer .body-text { font-size: 23px; }
+  .loan-explainer .mini-list { gap: 14px; }
+  .loan-explainer .mini-list li { font-size: 23px; }
+  .loan-explainer .mini-list .icon { margin-top: 5px; }
+  .loan-explainer .card:last-child { flex: 1 1 auto; }
+
+  .eod-layout { grid-template-columns: 1.06fr .94fr; }
+  .eod-layout .shot-frame { height: 100%; }
+  .eod-process .card { padding: 24px 28px; }
+  .eod-process .card:last-child { flex: 1 1 auto; }
+  .eod-process .check-row { font-size: 23px; padding: 10px 0; }
+  .eod-process .tl-step { min-height: 56px; }
+  .eod-process .tl-copy strong { font-size: 23px; }
+  .eod-process .timeline { margin-top: 16px; }
+
+  .reports-grid { grid-template-columns: 1.5fr .75fr; }
+  .reports-grid > .shot-frame { height: 100%; }
+  .report-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 22px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+  }
+
+  .report-option strong { display: block; font: 700 25px var(--font-head); margin-bottom: 8px; }
+  .report-option span { display: block; font-size: 22px; color: var(--text-muted); }
+  .report-option[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+  .report-option:hover { border-color: var(--accent); }
+  .report-controls .card { margin-top: auto; padding: 22px 24px; }
+  .report-controls .card p { font-size: 22px; }
+  .report-print { display: none; }
+
+  /* ---------- clarity layouts ---------- */
+
+  .placement-grid,
+  .learning-grid,
+  .concept-split,
+  .journal-layout {
+    height: calc(100% - 56px);
+    min-height: 0;
+  }
+
+  .placement-grid {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 28px;
+  }
+
+  .placement-story,
+  .workstream-panel,
+  .learning-card,
+  .journal-story {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .placement-story {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 44px 48px;
+  }
+
+  .placement-story > .tag { align-self: flex-start; }
+
+  .placement-story h2 {
+    margin: 24px 0 18px;
+    max-width: 720px;
+    font: 700 44px/1.14 var(--font-head);
+    letter-spacing: -.018em;
+  }
+
+  .placement-story > p {
+    margin: 0;
+    max-width: 680px;
+    color: var(--text-muted);
+    font-size: 24px;
+    line-height: 1.48;
+  }
+
+  .placement-byline {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .placement-byline div + div {
+    padding-left: 28px;
+    border-left: 1px solid var(--border);
+  }
+
+  .placement-byline span {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text-muted);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .placement-byline strong { font-size: 22px; line-height: 1.3; }
+
+  .placement-insight {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 28px;
+    padding: 20px 22px;
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-small);
+    background: var(--accent-soft);
+    font-size: 22px;
+    line-height: 1.42;
+  }
+
+  .placement-insight .icon { color: var(--accent-ink); margin-top: 3px; }
+
+  .workstream-panel { padding: 32px 34px; }
+
+  .workstream-panel h2 {
+    margin: 0 0 20px;
+    font: 700 30px/1.2 var(--font-head);
+  }
+
+  .workstream-list { display: grid; gap: 12px; }
+
+  .workstream {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 16px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    background: var(--bg);
+  }
+
+  .workstream .icon-badge { width: 44px; height: 44px; border-radius: 12px; }
+  .workstream strong { display: block; font: 700 23px/1.2 var(--font-head); }
+  .workstream span { display: block; margin-top: 3px; color: var(--text-muted); font-size: 20px; line-height: 1.3; }
+
+  .workstream-map {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 44px;
+    background: var(--surface-2);
+  }
+
+  .workstream-map .concept-kicker { margin-bottom: 12px; }
+
+  .workstream-map h2 {
+    max-width: 560px;
+    margin: 0;
+    font: 700 38px/1.16 var(--font-head);
+    letter-spacing: -.018em;
+  }
+
+  .module-cloud {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .module-chip {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 82px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    background: var(--surface);
+    font: 700 22px/1.2 var(--font-head);
+  }
+
+  .module-chip:last-child {
+    grid-column: 1 / -1;
+    border-color: #C9E9DC;
+    background: var(--accent-soft);
+  }
+
+  .module-chip .icon { width: 24px; height: 24px; color: var(--accent-ink); }
+
+  .learning-wrap { height: calc(100% - 56px); }
+
+  .learning-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    height: calc(100% - 112px);
+  }
+
+  .learning-card { padding: 32px 36px; }
+
+  .learning-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 20px;
+    font: 700 30px/1.2 var(--font-head);
+  }
+
+  .learning-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+
+  .learning-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 22px;
+    line-height: 1.36;
+  }
+
+  .learning-list li:last-child { border-bottom: 0; }
+  .learning-list .icon { width: 22px; height: 22px; margin-top: 4px; color: var(--accent); }
+
+  .learning-bridge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    height: 88px;
+    margin-top: 24px;
+    padding: 20px 28px;
+    border: 1px solid #C9E9DC;
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+  }
+
+  .learning-bridge strong { font: 700 25px/1.2 var(--font-head); }
+  .learning-bridge span { color: var(--text-muted); font-size: 21px; }
+
+  .concept-split { position: relative; isolation: isolate; }
+
+  .concept-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: 59%;
+    height: 100%;
+  }
+
+  .concept-kicker {
+    margin: 0 0 18px;
+    color: var(--accent-ink);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .posting-path { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+
+  .path-step {
+    min-height: 220px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, .94);
+  }
+
+  .path-step.active { border-color: #C9E9DC; background: rgba(227, 245, 238, .96); }
+  .path-step .step { display: block; margin-bottom: 20px; color: var(--accent-ink); font: 600 20px/1 var(--font-mono); }
+  .path-step h2 { margin: 0 0 10px; font: 700 25px/1.2 var(--font-head); }
+  .path-step p { margin: 0; color: var(--text-muted); font-size: 20px; line-height: 1.4; }
+
+  .concept-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+    padding: 20px 22px;
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-small);
+    background: rgba(255, 255, 255, .92);
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  .concept-summary .icon { color: var(--accent); }
+
+  .ghost-visual {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 55%;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    pointer-events: none;
+  }
+
+  .ghost-visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+    opacity: .58;
+    filter: saturate(.82) contrast(.98);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .18) 18%, rgba(0, 0, 0, .65) 38%, #000 62%, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, .18) 18%, rgba(0, 0, 0, .65) 38%, #000 62%, #000 100%);
+  }
+
+  .ghost-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--bg) 0%, rgba(247, 249, 252, .58) 22%, transparent 55%);
+  }
+
+  .accounting-chain { display: grid; gap: 10px; }
+
+  .chain-card {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: 18px;
+    align-items: center;
+    padding: 20px 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, .95);
+  }
+
+  .chain-card.active { border-color: #C9E9DC; background: rgba(227, 245, 238, .96); }
+  .chain-card h2 { margin: 0 0 4px; font: 700 26px/1.2 var(--font-head); }
+  .chain-card p { margin: 0; color: var(--text-muted); font-size: 20px; line-height: 1.36; }
+  .chain-arrow { height: 28px; padding-left: 17px; color: var(--accent); }
+  .chain-arrow .icon { width: 20px; height: 20px; }
+
+  .journal-layout { display: grid; grid-template-columns: .74fr 1.26fr; gap: 28px; }
+
+  .journal-story {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 32px;
+  }
+
+  .journal-event {
+    padding: 20px 22px;
+    border-radius: var(--radius-small);
+    background: var(--accent-soft);
+  }
+
+  .journal-event span { color: var(--accent-ink); font: 600 20px/1.2 var(--font-mono); text-transform: uppercase; }
+  .journal-event h2 { margin: 8px 0 6px; font: 700 29px/1.2 var(--font-head); }
+  .journal-event p { margin: 0; color: var(--text-muted); font-size: 20px; }
+
+  .journal-rules { display: grid; gap: 0; margin: 22px 0 0; padding: 0; list-style: none; counter-reset: rule; }
+
+  .journal-rules li {
+    counter-increment: rule;
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 12px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 21px;
+    line-height: 1.38;
+  }
+
+  .journal-rules li::before {
+    content: "0" counter(rule);
+    color: var(--accent-ink);
+    font: 600 18px/1.4 var(--font-mono);
+  }
+
+  .journal-result {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 20px;
+    color: var(--accent-ink);
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .journal-layout .ledger-wrap { height: 100%; }
+  .journal-layout .ledger-head { padding: 22px 26px; }
+  .journal-layout .ledger-table { font-size: 23px; }
+  .journal-layout .ledger-table th,
+  .journal-layout .ledger-table td { padding: 19px 24px; }
+  .journal-layout .ledger-foot { padding: 18px 24px; font-size: 20px; }
+
+  .advance-sequence { display: grid; gap: 14px; }
+
+  .advance-step {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 18px;
+    align-items: center;
+    min-height: 130px;
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, .95);
+  }
+
+  .advance-step.active {
+    border-color: #C9E9DC;
+    background: rgba(227, 245, 238, .96);
+  }
+
+  .advance-number {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    color: var(--accent-ink);
+    font: 600 20px/1 var(--font-mono);
+  }
+
+  .advance-step.active .advance-number { background: #FFFFFF; }
+  .advance-step h2 { margin: 0 0 6px; font: 700 27px/1.2 var(--font-head); }
+  .advance-step p { margin: 0; color: var(--text-muted); font-size: 21px; line-height: 1.38; }
+
+  .advance-boundary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: auto;
+    padding: 20px 22px;
+    border-left: 4px solid var(--accent-2);
+    border-radius: var(--radius-small);
+    background: rgba(255, 255, 255, .94);
+    font-size: 21px;
+    line-height: 1.4;
+  }
+
+  .advance-boundary .icon { color: var(--accent-2-ink); }
+
+  .report-concept { height: calc(100% - 56px); }
+
+  .report-foreground {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: 59%;
+    height: 100%;
+  }
+
+  .report-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .report-tabs .report-option {
+    flex: 1 1 0;
+    width: auto;
+    padding: 13px 16px;
+    border-radius: 999px;
+    text-align: center;
+  }
+
+  .report-tabs .report-option strong {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .report-summary-card {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 34px 38px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, .95);
+  }
+
+  .report-summary-card h2 {
+    margin: 10px 0 24px;
+    max-width: 780px;
+    font: 700 38px/1.15 var(--font-head);
+    letter-spacing: -.018em;
+  }
+
+  .report-metric {
+    display: grid;
+    gap: 8px;
+    padding: 24px 26px;
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-small);
+    background: var(--accent-soft);
+  }
+
+  .report-metric strong {
+    color: var(--accent-ink);
+    font: 600 36px/1.15 var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .report-metric span {
+    color: var(--text-muted);
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  .report-explanation {
+    margin: 22px 0 0;
+    max-width: 780px;
+    color: var(--text-muted);
+    font-size: 22px;
+    line-height: 1.45;
+  }
+
+  .report-footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .report-caveat {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 20px;
+    line-height: 1.38;
+  }
+
+  .report-caveat .icon { color: var(--accent-2); margin-top: 3px; }
+
+  .report-inspect {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--brand);
+    font: 600 20px/1.2 var(--font-body);
+    cursor: pointer;
+  }
+
+  .report-inspect:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+  .report-ghost { pointer-events: none; }
+  .report-ghost img { opacity: .54; object-position: center top; }
+  .report-ghost .shot-body { height: 100%; border: 0; background: transparent; }
+  .report-ghost .shot-zoom { display: none; }
+
+  .report-live {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: visible;
+    font-size: 0;
+    line-height: 0;
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .tool-button:disabled { opacity: .35; cursor: default; }
+
+  @media (max-width: 760px) {
+    .toolbar { padding: 0 10px; gap: 8px; }
+    .toolbar-hint { font-size: 13px; max-width: 150px; }
+    .toolbar-controls { gap: 2px; }
+    .toolbar-counter { min-width: 60px; font-size: 16px; }
+    .notes-panel { width: min(440px, 100vw); }
+    .notes-body p { font-size: 18px; }
+    .notes-head h2 { font-size: 22px; }
+    .notes-next p { font-size: 16px; }
+    .image-viewer-head h2 { font-size: 16px; }
+  }
+
+  @media (max-width: 600px) {
+    .toolbar-hint { display: none; }
+    .toolbar { justify-content: center; }
+  }
+
+  /* ---------- motion and accessibility ---------- */
+
+  .stagger > * { animation: rise-in 250ms ease both; }
+  .stagger > *:nth-child(2) { animation-delay: 80ms; }
+  .stagger > *:nth-child(3) { animation-delay: 160ms; }
+  .stagger > *:nth-child(4) { animation-delay: 240ms; }
+  .stagger > *:nth-child(5) { animation-delay: 320ms; }
+  .stagger > *:nth-child(6) { animation-delay: 400ms; }
+
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      animation-delay: 0ms !important;
+      transition-duration: 1ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* ---------- print ---------- */
+
+  @media print {
+    @page { size: 13.333in 7.5in; margin: 0; }
+
+    html,
+    body {
+      width: 1280px;
+      height: auto;
+      background: #FFFFFF;
+      overflow: visible;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .progress,
+    .toolbar,
+    .notes-panel,
+    .image-viewer,
+    .shot-zoom,
+    .live-region { display: none !important; }
+
+    .viewer { position: static; display: block; }
+
+    .stage-wrap {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      margin: 0 !important;
+    }
+
+    .stage {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      transform: none !important;
+    }
+
+    .slide {
+      display: block !important;
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      zoom: .6666667;
+      overflow: hidden;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-after: page;
+      page-break-after: always;
+      animation: none !important;
+    }
+
+    .slide:last-child {
+      break-after: auto;
+      page-break-after: auto;
+    }
+
+    .report-option { cursor: default; }
+    .report-tabs,
+    .report-inspect { display: none !important; }
+    .report-print { display: flex; gap: 20px; flex: 1 1 auto; min-height: 0; }
+    .report-print .shot-frame { flex: 1 1 0; min-width: 0; }
+    .reports-grid > .shot-frame,
+    .report-controls { display: none; }
+    .reports-grid { display: flex; }
+
+    .slide *,
+    .slide *::before,
+    .slide *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <symbol id="i-landmark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18v-7"/><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></symbol>
+  <symbol id="i-book-open" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></symbol>
+  <symbol id="i-scale" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"/><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M7 21h10"/></symbol>
+  <symbol id="i-layers" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol>
+  <symbol id="i-arrow-left-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></symbol>
+  <symbol id="i-wallet" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+  <symbol id="i-hand-coins" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></symbol>
+  <symbol id="i-users" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></symbol>
+  <symbol id="i-shield-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-calendar-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3"/><path d="M16 2v3"/><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="m9 15 2 2 4-4"/></symbol>
+  <symbol id="i-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-database" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol>
+  <symbol id="i-monitor" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></symbol>
+  <symbol id="i-server" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></symbol>
+  <symbol id="i-repeat" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-file-text" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+  <symbol id="i-git-branch" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6a9 9 0 0 0-9 9V3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/></symbol>
+  <symbol id="i-circle-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16 9-5.5 5.5L8 12"/></symbol>
+  <symbol id="i-alert-triangle" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-lightbulb" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+  <symbol id="i-gauge" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+  <symbol id="i-lock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-rotate-ccw" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-banknote" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></symbol>
+  <symbol id="i-receipt" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V7"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-clock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-arrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-chevron-left" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-chevron-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-presentation" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></symbol>
+  <symbol id="i-maximize" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+  <symbol id="i-minimize" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></symbol>
+  <symbol id="i-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-circle-alert" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></symbol>
+  <symbol id="i-list-checks" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></symbol>
+  <symbol id="i-move-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></symbol>
+  <symbol id="i-building-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></symbol>
+  <symbol id="i-user-round" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
+  <symbol id="i-briefcase" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+  <symbol id="i-graduation-cap" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+  <symbol id="i-book-open-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="m16 12 2 2 4-4"/><path d="M22 6V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2h4.001A2 2 0 0022 17v-1.344"/></symbol>
+  <symbol id="i-badge-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m16 9-5.5 5.5L8 12"/></symbol>
+  <symbol id="i-split" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></symbol>
+  <symbol id="i-arrow-down-up" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></symbol>
+  <symbol id="i-mail" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol>
+  <symbol id="i-phone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></symbol>
+  <symbol id="i-map-pin" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-globe" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="i-panel-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></symbol>
+</svg>
+
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<div class="viewer" id="viewer">
+  <div class="stage-wrap" id="stageWrap">
+    <div class="stage" id="stage">
+      <main class="deck" id="deck" aria-label="SIWES presentation slides">
+        <!-- SLIDE 1 -->
+        <section class="slide slide-title-slide" id="slide-1" aria-label="1 of 15" aria-hidden="false">
+          <div class="slide-inner">
+            <div class="title-header">
+              <div class="title-logos" role="group" aria-label="Institution and placement organisation">
+                <img class="title-logo title-logo-lasu" src="images/lasu-logo.png" alt="Lagos State University (LASU) crest" width="112" height="112">
+                <img class="title-logo title-logo-organisation" src="images/gest-logo-black.png" alt="Golden Edge Softech logo" width="352" height="112">
+              </div>
+              <p class="title-quote">One system. Two sides.<br><span>Balanced books.</span></p>
+            </div>
+
+            <div class="title-left">
+              <p class="title-kicker">SIWES Presentation</p>
+              <h1 class="title-main">MFB Core System</h1>
+              <p class="title-sub">DAMS Micro: a double-entry accounting and loan management system.</p>
+
+              <div class="title-meta">
+                <div>
+                  <span class="meta-label">Presented by</span>
+                  <span class="meta-value">Aje Damilola</span>
+                </div>
+                <div>
+                  <span class="meta-label">Matric number</span>
+                  <span class="meta-value">230591336</span>
+                </div>
+                <div>
+                  <span class="meta-label">Department</span>
+                  <span class="meta-value">Computer Science</span>
+                </div>
+                <div>
+                  <span class="meta-label">Institution</span>
+                  <span class="meta-value">Lagos State University (LASU)</span>
+                </div>
+                <div>
+                  <span class="meta-label">Placement organisation</span>
+                  <span class="meta-value">Golden Edge Softech</span>
+                </div>
+                <div>
+                  <span class="meta-label">SIWES period</span>
+                  <span class="meta-value">March – September 2026</span>
+                </div>
+              </div>
+
+              <p class="title-tech">Built with Laravel 13 · PostgreSQL · React 19 and Inertia · Tailwind CSS 4</p>
+            </div>
+
+          </div>
+          <div class="notes-source" hidden>My name is Aje Damilola, and my matric number is 230591336. This is my SIWES presentation on DAMS Micro, an accounting and loan-management prototype inspired by the backend work I did during my placement. I will first explain that real asset-management project, then show how I applied its engineering and accounting lessons in my own system.</div>
+        </section>
+
+        <!-- SLIDE 2 -->
+        <section class="slide" id="slide-2" aria-label="2 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">My industrial experience</p>
+              <h1 class="slide-title">I worked on the backend of a real investment platform</h1>
+              <p class="lede">At Golden Edge Softech, I contributed to a project for an asset management firm that manages investments for its customers.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="placement-grid">
+                <article class="placement-story">
+                  <span class="tag accent"><span class="dot"></span>Backend development</span>
+                  <h2>I built the rules behind financial actions.</h2>
+                  <p>My Laravel work focused on the services, validations and database operations behind customer investments and accounting workflows.</p>
+                  <div class="placement-byline">
+                    <div>
+                      <span>Placement</span>
+                      <strong>Golden Edge Softech</strong>
+                    </div>
+                    <div>
+                      <span>Role</span>
+                      <strong>Backend Developer · Laravel</strong>
+                    </div>
+                  </div>
+                  <div class="placement-insight">
+                    <svg class="icon" aria-hidden="true"><use href="#i-lightbulb"></use></svg>
+                    <span>Loans showed me how one event can affect schedules, customer balances and the ledger at the same time.</span>
+                  </div>
+                </article>
+
+                <article class="workstream-panel workstream-map">
+                  <p class="concept-kicker">Platform coverage</p>
+                  <h2>One backend, five financial areas</h2>
+                  <div class="module-cloud" aria-label="Backend modules">
+                    <div class="module-chip">
+                      <svg class="icon" aria-hidden="true"><use href="#i-book-open-check"></use></svg>
+                      <span>General ledger</span>
+                    </div>
+                    <div class="module-chip">
+                      <svg class="icon" aria-hidden="true"><use href="#i-building-2"></use></svg>
+                      <span>Fixed assets</span>
+                    </div>
+                    <div class="module-chip">
+                      <svg class="icon" aria-hidden="true"><use href="#i-gauge"></use></svg>
+                      <span>Investments</span>
+                    </div>
+                    <div class="module-chip">
+                      <svg class="icon" aria-hidden="true"><use href="#i-landmark"></use></svg>
+                      <span>Treasury placements</span>
+                    </div>
+                    <div class="module-chip">
+                      <svg class="icon" aria-hidden="true"><use href="#i-hand-coins"></use></svg>
+                      <span>Loans</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">02 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>I completed my placement at Golden Edge Softech, where I worked on the Laravel backend of a project for an asset management firm. The firm manages investments for its customers, so the platform covered financial areas including the general ledger, fixed assets, investments, treasury placements and loans. My role involved the server-side rules, validations and database operations behind those workflows. Loans were especially important to me because they later inspired this SIWES project.</div>
+        </section>
+
+        <!-- SLIDE 3 -->
+        <section class="slide" id="slide-3" aria-label="3 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">From experience to project</p>
+              <h1 class="slide-title">What I learned became the blueprint for DAMS Micro</h1>
+              <p class="lede">I applied both the engineering patterns and the accounting principles I encountered during my placement.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="learning-wrap">
+                <div class="learning-grid">
+                  <article class="learning-card">
+                  <h2>
+                      <span class="icon-badge brand"><svg class="icon" aria-hidden="true"><use href="#i-server"></use></svg></span>
+                      Code-wise
+                  </h2>
+                    <ul class="learning-list">
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Keep business rules in focused Laravel services.</li>
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Use database transactions for all-or-nothing financial actions.</li>
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Validate workflows before changing balances or status.</li>
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Test money paths and make important actions traceable.</li>
+                  </ul>
+                </article>
+
+                  <article class="learning-card">
+                  <h2>
+                      <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-scale"></use></svg></span>
+                      Accounting-wise
+                  </h2>
+                    <ul class="learning-list">
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Every transaction follows debit and credit rules.</li>
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Account types determine their normal balance.</li>
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>The chart of accounts gives every posting a home.</li>
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>The trial balance checks that total debits equal credits.</li>
+                  </ul>
+                </article>
+                </div>
+
+                <div class="learning-bridge">
+                  <strong>Workplace experience → DAMS Micro prototype</strong>
+                  <span>Loans inspired the project; the general ledger made every action accountable.</span>
+                </div>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">03 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>My SIWES project was a chance to apply what I learned rather than reproduce the production system. Code-wise, I used Laravel services, database transactions, validation and tests to make financial actions safe and traceable. Accounting-wise, I applied debit and credit rules, normal balances, account types, the chart of accounts and the trial balance. Loans inspired the prototype, while the general ledger became the accounting backbone that connects every action.</div>
+        </section>
+
+        <!-- SLIDE 4 -->
+        <section class="slide" id="slide-4" aria-label="4 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">The problem</p>
+              <h1 class="slide-title">Manual workflows can make reconciliation harder</h1>
+              <p class="lede">DAMS Micro explores the risk of keeping loan activity, journals and business dates in separate routines.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="problem-grid stagger">
+                <article class="problem-card card">
+                  <div class="icon-badge danger"><svg class="icon" aria-hidden="true"><use href="#i-scale"></use></svg></div>
+                  <h2>Balancing depends on manual checks</h2>
+                  <p>Without posting controls, an incomplete or mistyped entry can go unnoticed.</p>
+                  <span class="tag danger"><span class="dot"></span>Control gap</span>
+                </article>
+
+                <article class="problem-card card">
+                  <div class="icon-badge danger"><svg class="icon" aria-hidden="true"><use href="#i-split"></use></svg></div>
+                  <h2>Loan trackers live outside the ledger</h2>
+                  <p>Separate records increase the risk of missed interest, fees and repayments.</p>
+                  <span class="tag danger"><span class="dot"></span>Reconciliation gap</span>
+                </article>
+
+                <article class="problem-card card">
+                  <div class="icon-badge danger"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg></div>
+                  <h2>Day-end is a manual routine</h2>
+                  <p>Unposted work can be overlooked when the business date changes.</p>
+                  <span class="tag danger"><span class="dot"></span>Audit gap</span>
+                </article>
+              </div>
+
+              <div class="problem-result">
+                <svg class="icon" aria-hidden="true"><use href="#i-alert-triangle"></use></svg>
+                <span>The result: more reconciliation work and less confidence in financial reports.</span>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">04 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>This slide describes the control risks that DAMS Micro is designed to address; it is not a claim about my placement organisation. When loan records, journal entries and date controls are handled separately, people must reconcile them manually. The prototype turns those checks into explicit application rules.</div>
+        </section>
+
+        <!-- SLIDE 5 -->
+        <section class="slide" id="slide-5" aria-label="5 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">The solution</p>
+              <h1 class="slide-title">Every workflow follows one path into the books</h1>
+              <p class="lede">DAMS Micro turns a loan event or manual journal into validated entries, then posts them once to the general ledger.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="concept-split">
+                <div class="concept-content">
+                  <p class="concept-kicker">One posting path</p>
+                  <div class="posting-path stagger">
+                    <article class="path-step">
+                      <span class="step">01</span>
+                      <h2>Capture the event</h2>
+                      <p>A loan action or manual journal starts the workflow.</p>
+                    </article>
+                    <article class="path-step active">
+                      <span class="step">02</span>
+                      <h2>Validate and map</h2>
+                      <p>Laravel applies the account mapping and checks that debits equal credits.</p>
+                    </article>
+                    <article class="path-step">
+                      <span class="step">03</span>
+                      <h2>Post once</h2>
+                      <p>The same entries feed account statements, the trial balance and financial reports.</p>
+                    </article>
+                  </div>
+                  <div class="concept-summary">
+                    <svg class="icon" aria-hidden="true"><use href="#i-git-branch"></use></svg>
+                    <span>Loan operations and manual journals share the same accounting core; corrections use reversals rather than silent edits.</span>
+                  </div>
+                </div>
+                <figure class="ghost-visual" aria-label="Faded view of the General Ledger dashboard">
+                  <img src="screenshots/gl-overview-full.png" alt="General Ledger dashboard with posting totals, charts and recent activity">
+                </figure>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">05 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>DAMS Micro uses one posting path. A loan event or manual journal is captured, Laravel applies the configured account mapping, and the posting service verifies that total debits equal total credits. The entries are then posted once to the general ledger, where they feed statements, the trial balance and reports. This keeps lending and accounting connected without duplicating the books.</div>
+        </section>
+
+        <!-- SLIDE 6 -->
+        <section class="slide" id="slide-6" aria-label="6 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">System architecture</p>
+              <h1 class="slide-title">Posting rules belong on the server, not the screen</h1>
+              <p class="lede">The interface collects input. Server-side services validate and post the accounting entries.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="layers stagger">
+                <div class="layer">
+                  <div class="layer-label">
+                    <span class="icon-badge brand"><svg class="icon" aria-hidden="true"><use href="#i-users"></use></svg></span>
+                    <div>
+                      <h2>Users</h2>
+                      <p>People the system supports</p>
+                    </div>
+                  </div>
+                  <div class="layer-items">
+                    <span class="chip">Admin</span>
+                    <span class="chip">Accountant</span>
+                    <span class="chip">Credit Manager</span>
+                    <span class="chip">Auditor</span>
+                  </div>
+                </div>
+
+                <div class="layer">
+                  <div class="layer-label">
+                    <span class="icon-badge brand"><svg class="icon" aria-hidden="true"><use href="#i-monitor"></use></svg></span>
+                    <div>
+                      <h2>Application</h2>
+                      <p>Server-driven pages and actions</p>
+                    </div>
+                  </div>
+                  <div class="layer-items">
+                    <span class="chip">Laravel 13</span>
+                    <span class="chip">PHP 8.4</span>
+                    <span class="chip">React 19</span>
+                    <span class="chip">Inertia v3</span>
+                    <span class="chip">Tailwind 4</span>
+                  </div>
+                </div>
+
+                <div class="layer engine">
+                  <div class="layer-label">
+                    <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-gauge"></use></svg></span>
+                    <div>
+                      <h2>Accounting engine</h2>
+                      <p>Every balance-changing rule</p>
+                    </div>
+                  </div>
+                  <div class="layer-items">
+                    <span class="chip">Journal posting</span>
+                    <span class="chip">Balance resolution</span>
+                    <span class="chip">Accruals &amp; schedules</span>
+                    <span class="chip">Operation → GL mapping</span>
+                    <span class="chip">Balance snapshots</span>
+                  </div>
+                </div>
+
+                <div class="layer">
+                  <div class="layer-label">
+                    <span class="icon-badge brand"><svg class="icon" aria-hidden="true"><use href="#i-database"></use></svg></span>
+                    <div>
+                      <h2>Database</h2>
+                      <p>The durable record</p>
+                    </div>
+                  </div>
+                  <div class="layer-items">
+                    <span class="chip">PostgreSQL</span>
+                    <span class="chip">Companies</span>
+                    <span class="chip">Ledgers</span>
+                    <span class="chip">Journals</span>
+                    <span class="chip">Loans</span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="architecture-note">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-down-up"></use></svg>
+                <span>Requests flow through server-side validation before accounting services update the ledger.</span>
+              </p>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">06 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>For the DAMS Micro prototype, I built the Laravel backend that handles workflow rules, journal posting and balance changes. React and Inertia present the interface, while PostgreSQL stores the durable record. Keeping accounting rules on the server prevents the screen from becoming the source of financial decisions.</div>
+        </section>
+
+        <!-- SLIDE 7 -->
+        <section class="slide" id="slide-7" aria-label="7 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">Accounting backbone</p>
+              <h1 class="slide-title">The chart stays small while customer detail stays traceable</h1>
+              <p class="lede">A control account holds the summary; the customer subledger holds the individual balances behind it.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="concept-split">
+                <div class="concept-content">
+                  <p class="concept-kicker">One hierarchy, two levels of detail</p>
+                  <div class="accounting-chain">
+                    <article class="chain-card">
+                      <span class="icon-badge brand"><svg class="icon" aria-hidden="true"><use href="#i-book-open"></use></svg></span>
+                      <div>
+                        <h2>Chart of accounts</h2>
+                        <p>Groups the company's assets, liabilities, equity, revenue and expenses.</p>
+                      </div>
+                    </article>
+                    <div class="chain-arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow-down-up"></use></svg></div>
+                    <article class="chain-card active">
+                      <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-layers"></use></svg></span>
+                      <div>
+                        <h2><span class="mono">1100</span> Customer Control</h2>
+                        <p>A summary account whose balance equals the total of all customer accounts.</p>
+                      </div>
+                    </article>
+                    <div class="chain-arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow-down-up"></use></svg></div>
+                    <article class="chain-card">
+                      <span class="icon-badge brand"><svg class="icon" aria-hidden="true"><use href="#i-users"></use></svg></span>
+                      <div>
+                        <h2>Customer subledger</h2>
+                        <p>Stores each customer's movements and balance without crowding the main chart.</p>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="concept-summary">
+                    <svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg>
+                    <span>Only leaf accounts accept postings. Control accounts receive totals, not direct entries.</span>
+                  </div>
+                </div>
+                <figure class="ghost-visual" aria-label="Faded chart of accounts from the working system">
+                  <img src="screenshots/chart-of-accounts.png" alt="Chart of accounts showing account hierarchy, types, statuses and balances">
+                </figure>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">07 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>The chart of accounts provides the financial structure. Customer Control is a control account: its balance summarises all customer accounts, while the customer subledger preserves each person's detailed movements. This keeps the main chart manageable and the detail traceable. Only leaf accounts accept postings, so the control account receives totals rather than direct journal entries.</div>
+        </section>
+
+        <!-- SLIDE 8 -->
+        <section class="slide" id="slide-8" aria-label="8 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">Transaction flow</p>
+              <h1 class="slide-title">A journal must balance before it reaches the ledger</h1>
+              <p class="lede">The posting service rejects an entry when total debits and total credits do not match.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="journal-layout">
+                <article class="journal-story">
+                  <div class="journal-event">
+                    <span>Illustrative loan disbursement</span>
+                    <h2>₦200,000 leaves the bank</h2>
+                    <p>The same amount becomes a loan receivable from the customer.</p>
+                  </div>
+                  <ol class="journal-rules">
+                    <li>Account mapping converts the business event into journal lines.</li>
+                    <li>The service totals both sides and blocks an imbalance.</li>
+                    <li>Posted entries update their accounts and running balances together.</li>
+                  </ol>
+                  <div class="journal-result">
+                    <svg class="icon" aria-hidden="true"><use href="#i-circle-check"></use></svg>
+                    <span>Debit ₦200,000 = Credit ₦200,000</span>
+                  </div>
+                </article>
+
+                <div class="ledger-wrap">
+                  <div class="ledger-head">
+                    <span class="label">Balanced journal</span>
+                    <span class="tag accent"><span class="dot"></span>Posted</span>
+                  </div>
+                  <table class="ledger-table" aria-label="Illustrative loan disbursement journal with equal debits and credits of 200,000 naira">
+                    <thead>
+                      <tr>
+                        <th style="width:46%">Account</th>
+                        <th class="num">Debit</th>
+                        <th class="num">Credit</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-debit="200000" data-credit="0">
+                        <td>Loan receivable</td>
+                        <td class="num">₦200,000.00</td>
+                        <td class="num">—</td>
+                      </tr>
+                      <tr data-debit="0" data-credit="200000">
+                        <td>Bank account</td>
+                        <td class="num">—</td>
+                        <td class="num">₦200,000.00</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td>Total</td>
+                        <td class="num">₦200,000.00</td>
+                        <td class="num">₦200,000.00</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  <div class="ledger-foot">Debit the loan asset; credit the bank asset. Corrections use reversals rather than editing posted history.</div>
+                </div>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">08 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>This simplified example shows the economic event before the software rule. When a 200,000 naira loan is disbursed, the organisation gains a loan receivable, so that asset is debited. Cash leaves the bank, so the bank asset is credited. The posting service checks that both sides equal 200,000 naira before writing the entries and their running balances together.</div>
+        </section>
+
+        <!-- SLIDE 9 -->
+        <section class="slide" id="slide-9" aria-label="9 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">Loan management</p>
+              <h1 class="slide-title">Loan schedules connect what is due with what is paid</h1>
+              <p class="lede">Product settings define interest and fees. Repayment schedules make each instalment visible.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="concept-split">
+                <div class="concept-content loan-explainer">
+                  <div class="lifecycle" aria-label="Loan lifecycle">
+                    <span class="step">Book</span>
+                    <span class="arr" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+                    <span class="step">Approve</span>
+                    <span class="arr" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+                    <span class="step">Disburse</span>
+                    <span class="arr" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+                    <span class="step">Repay</span>
+                    <span class="arr" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"></use></svg></span>
+                    <span class="step">Close</span>
+                  </div>
+                  <article class="card">
+                    <h2 class="card-title">Accrual separates earning from collection</h2>
+                    <p class="body-text">Accrual records interest when it is earned, even before the borrower pays.</p>
+                    <div class="accrual" aria-label="Loan interest accrual entry">
+                      <div class="entry">
+                        <span class="dr">Dr</span>
+                        <span class="name">Interest receivable</span>
+                        <span class="kind">Asset: interest still owed</span>
+                      </div>
+                      <div class="arr" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"></use></svg></div>
+                      <div class="entry">
+                        <span class="dr">Cr</span>
+                        <span class="name">Interest income</span>
+                        <span class="kind">Revenue: interest earned</span>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="card tinted">
+                    <h2 class="card-title">One schedule, a clear repayment history</h2>
+                    <ul class="mini-list">
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Track principal, interest, fees and penalties separately.</li>
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>See each instalment's due amount and remaining balance.</li>
+                      <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Follow loan activity back to its journal entries.</li>
+                    </ul>
+                    <p class="small-text" style="margin-top:20px">Interest accrual runs separately from the Advance Day action.</p>
+                  </article>
+                </div>
+                <figure class="ghost-visual" aria-label="Faded loan detail from the working system">
+                  <img src="screenshots/loan-detail.png" alt="Active sample loan showing principal, outstanding balance and paid and pending instalments">
+                </figure>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">09 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>The loan workflow covers customer and KYC records, product selection, booking, approval, disbursement, repayment, and closure. The loan-detail screenshot shows this lifecycle in the application. Interest accrual is a separate command; it is not performed automatically when the business date advances. Next, I will show the business-date control itself.</div>
+        </section>
+
+        <!-- SLIDE 10 -->
+        <section class="slide" id="slide-10" aria-label="10 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">Business-date control</p>
+              <h1 class="slide-title">Advance Day moves the financial clock safely</h1>
+              <p class="lede">It checks for unresolved journals, carries balances forward and changes the date in one transaction.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="concept-split">
+                <div class="concept-content">
+                  <div class="advance-sequence">
+                    <article class="advance-step">
+                      <span class="advance-number">01</span>
+                      <div>
+                        <h2>Clear the queue</h2>
+                        <p>Draft and submitted journals must be resolved, and the target date must be later.</p>
+                      </div>
+                    </article>
+                    <article class="advance-step active">
+                      <span class="advance-number">02</span>
+                      <div>
+                        <h2>Snapshot balances</h2>
+                        <p>Lock the business date and carry every leaf-account balance to the selected date.</p>
+                      </div>
+                    </article>
+                    <article class="advance-step">
+                      <span class="advance-number">03</span>
+                      <div>
+                        <h2>Advance or roll back</h2>
+                        <p>All changes succeed together. If one step fails, the database keeps the previous day.</p>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="advance-boundary">
+                    <svg class="icon" aria-hidden="true"><use href="#i-alert-triangle"></use></svg>
+                    <span><strong>Boundary:</strong> this moves the date and balances only. Interest accrual runs separately.</span>
+                  </div>
+                </div>
+                <figure class="ghost-visual" aria-label="Faded Advance Day dialog from the working system">
+                  <img src="screenshots/advance-day.png" alt="Business-date dialog showing the current date, selected later date and unposted-journal check">
+                </figure>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">10 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>The business date is the system's financial clock. Advance Day first checks that draft and submitted journals have been resolved and that the target date is later. It then locks the date, snapshots every leaf-account balance and advances the date in one database transaction. Every step succeeds together or the system rolls back. Interest accrual remains a separate process.</div>
+        </section>
+
+        <!-- SLIDE 11 -->
+        <section class="slide" id="slide-11" aria-label="11 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">Key design decisions</p>
+              <h1 class="slide-title">Three decisions keep posted balances traceable</h1>
+              <p class="lede">Each decision favors a clear audit trail over hidden convenience.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="decision-grid stagger">
+                <article class="decision">
+                  <div class="decision-top">
+                    <span class="label">Decision 01</span>
+                    <svg class="icon" aria-hidden="true" style="color:var(--accent-2)"><use href="#i-gauge"></use></svg>
+                  </div>
+                  <h2>Store <span class="mono">balance_after</span></h2>
+                  <p class="decision-summary">Statements can read the latest posted balance without replaying the full ledger.</p>
+                  <p class="decision-foot"><strong>Trade-off:</strong> backdated entries require an ordered rebuild.</p>
+                </article>
+
+                <article class="decision">
+                  <div class="decision-top">
+                    <span class="label">Decision 02</span>
+                    <svg class="icon" aria-hidden="true" style="color:var(--accent-2)"><use href="#i-rotate-ccw"></use></svg>
+                  </div>
+                  <h2>Reverse; never rewrite history</h2>
+                  <p class="decision-summary">Posted mistakes are corrected with linked reversals, preserving what happened.</p>
+                  <p class="decision-foot"><strong>Result:</strong> the audit trail remains visible and explainable.</p>
+                </article>
+
+                <article class="decision">
+                  <div class="decision-top">
+                    <span class="label">Decision 03</span>
+                    <span class="tag gold"><span class="dot"></span>Out of scope</span>
+                  </div>
+                  <h2>Keep external settlement out of scope</h2>
+                  <p class="decision-summary">The prototype records internal accounting events but does not connect to a payment rail.</p>
+                  <p class="decision-foot"><strong>Boundary:</strong> settlement integration remains future work.</p>
+                </article>
+              </div>
+
+              <p class="decision-quote">
+                <svg class="icon" aria-hidden="true"><use href="#i-lightbulb"></use></svg>
+                <span>The principle: keep balances traceable and be explicit about what the system does not do.</span>
+              </p>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">11 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>I made three explicit design choices. First, each posted entry stores its resulting balance so statements stay fast, with an ordered rebuild for backdated changes. Second, posted history is never silently edited; corrections use linked reversals. Third, the prototype records internal accounting events but does not connect to an external payment network.</div>
+        </section>
+
+        <!-- SLIDE 12 -->
+        <section class="slide" id="slide-12" aria-label="12 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">Reports from the working system</p>
+              <h1 class="slide-title">Reports turn ledger entries into control checks</h1>
+              <p class="lede">The key result stays readable; the full application capture remains available for inspection.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="concept-split report-concept">
+                <div class="report-foreground">
+                  <div class="report-tabs" aria-label="Choose a report">
+                    <button class="report-option" type="button" aria-pressed="true" aria-controls="reportPreview reportSummary" data-report-src="screenshots/balance-sheet.png" data-report-position="center top" data-report-alt="Sample balance sheet showing assets, liabilities, equity and matching totals" data-report-caption="Balance sheet · assets equal liabilities plus equity." data-summary-label="Balance sheet" data-summary-title="Assets = liabilities + equity" data-summary-primary="₦1,036,787.20" data-summary-secondary="₦670,000.00 liabilities + ₦366,787.20 equity" data-summary-explanation="The statement balances at 30 October 2026.">
+                      <strong>Balance sheet</strong>
+                    </button>
+                    <button class="report-option" type="button" aria-pressed="false" aria-controls="reportPreview reportSummary" data-report-src="screenshots/trial-balance.png" data-report-position="center bottom" data-report-alt="Sample trial balance showing equal total debits and credits of 2,130,160.82 naira" data-report-caption="Trial balance · ₦2,130,160.82 on each side; difference ₦0.00." data-summary-label="Trial balance" data-summary-title="Total debits = total credits" data-summary-primary="₦2,130,160.82" data-summary-secondary="Difference ₦0.00" data-summary-explanation="A zero difference confirms arithmetic balance across the displayed accounts.">
+                      <strong>Trial balance</strong>
+                    </button>
+                    <button class="report-option" type="button" aria-pressed="false" aria-controls="reportPreview reportSummary" data-report-src="screenshots/chart-of-accounts.png" data-report-position="center top" data-report-alt="Chart of accounts showing account hierarchy, types, statuses and balances" data-report-caption="Chart of accounts · account hierarchy, types and balances." data-summary-label="Chart of accounts" data-summary-title="76 accounts, grouped by type and hierarchy" data-summary-primary="5 account types" data-summary-secondary="Assets · Liabilities · Equity · Revenue · Expenses" data-summary-explanation="The hierarchy gives every posting a defined home; only leaf accounts accept entries.">
+                      <strong>Chart of accounts</strong>
+                    </button>
+                  </div>
+
+                  <article class="report-summary-card" id="reportSummary" aria-live="polite">
+                    <p class="concept-kicker" id="reportSummaryLabel">Balance sheet</p>
+                    <h2 id="reportSummaryTitle">Assets = liabilities + equity</h2>
+                    <div class="report-metric">
+                      <strong id="reportSummaryPrimary">₦1,036,787.20</strong>
+                      <span id="reportSummarySecondary">₦670,000.00 liabilities + ₦366,787.20 equity</span>
+                    </div>
+                    <p class="report-explanation" id="reportSummaryExplanation">The statement balances at 30 October 2026.</p>
+                  </article>
+
+                  <div class="report-footer-row">
+                    <p class="report-caveat">
+                      <svg class="icon" aria-hidden="true"><use href="#i-alert-triangle"></use></svg>
+                      <span>Balanced totals are a control check, not proof that every account was chosen correctly.</span>
+                    </p>
+                    <button class="report-inspect" id="reportInspect" type="button">
+                      <svg class="icon" aria-hidden="true"><use href="#i-maximize"></use></svg>
+                      <span>Inspect full report</span>
+                    </button>
+                  </div>
+                </div>
+
+                <figure class="ghost-visual report-ghost" id="reportPreview" data-shot="screenshots/balance-sheet.png">
+                  <div class="shot-body">
+                    <img class="shot-img" alt="Sample balance sheet showing assets, liabilities, equity and matching totals" hidden>
+                  </div>
+                  <figcaption class="report-live" aria-live="polite">Balance sheet · assets equal liabilities plus equity.</figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">12 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>These reports turn posted ledger entries into reviewable controls. The balance sheet shows assets of 1,036,787.20 naira, matched by 670,000 naira in liabilities and 366,787.20 naira in equity. The trial balance shows 2,130,160.82 naira on both sides with zero difference. Those results confirm arithmetic balance, but they do not prove that every business event was classified correctly.</div>
+        </section>
+
+        <!-- SLIDE 13 -->
+        <section class="slide" id="slide-13" aria-label="13 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">Challenges and fixes</p>
+              <h1 class="slide-title">Three accounting risks shaped the implementation</h1>
+              <p class="lede">Each risk led to a specific control, rather than another manual workaround.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="challenge-list">
+                <article class="challenge-step">
+                  <span class="challenge-number">01</span>
+                  <div class="challenge-copy">
+                    <span class="challenge-label risk">Risk</span>
+                    <h2>Corrections can disturb later running balances</h2>
+                  </div>
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+                  <div class="challenge-copy">
+                    <span class="challenge-label control">Control</span>
+                    <h2>Reverse the mistake, then rebuild in date order</h2>
+                    <p>Posted history remains intact while later balances are recalculated.</p>
+                  </div>
+                </article>
+
+                <article class="challenge-step">
+                  <span class="challenge-number">02</span>
+                  <div class="challenge-copy">
+                    <span class="challenge-label risk">Risk</span>
+                    <h2>Customer detail can overwhelm the main chart</h2>
+                  </div>
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+                  <div class="challenge-copy">
+                    <span class="challenge-label control">Control</span>
+                    <h2>Use a control account with a customer subledger</h2>
+                    <p>The chart keeps one summary while individual balances stay traceable.</p>
+                  </div>
+                </article>
+
+                <article class="challenge-step">
+                  <span class="challenge-number">03</span>
+                  <div class="challenge-copy">
+                    <span class="challenge-label risk">Risk</span>
+                    <h2>The date could advance with unresolved journals</h2>
+                  </div>
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+                  <div class="challenge-copy">
+                    <span class="challenge-label control">Control</span>
+                    <h2>Block the change and advance atomically</h2>
+                    <p>Either every balance snapshot and date change succeeds, or none does.</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">13 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>Three implementation risks became explicit controls. Running balances can drift after a backdated correction, so the system uses reversals and an ordered rebuild. Customer detail can overwhelm the chart, so a control account summarises a separate subledger. The business date must not move with unresolved journals, so the change is blocked and completed atomically.</div>
+        </section>
+
+        <!-- SLIDE 14 -->
+        <section class="slide" id="slide-14" aria-label="14 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div class="slide-head">
+              <p class="section-label">Skills and conclusion</p>
+              <h1 class="slide-title">The result was more than a working prototype</h1>
+              <p class="lede">I learned to connect backend engineering, accounting controls and clear communication.</p>
+            </div>
+
+            <div class="slide-body">
+              <div class="outcome-grid">
+                <article class="outcome-card">
+                  <span class="icon-badge"><svg class="icon" aria-hidden="true"><use href="#i-server"></use></svg></span>
+                  <h2>Engineering</h2>
+                  <p>I built Laravel services that validate workflows and post financial entries safely.</p>
+                </article>
+
+                <article class="outcome-card">
+                  <span class="icon-badge brand"><svg class="icon" aria-hidden="true"><use href="#i-scale"></use></svg></span>
+                  <h2>Accounting</h2>
+                  <p>I translated debit, credit, normal-balance and reconciliation rules into code.</p>
+                </article>
+
+                <article class="outcome-card">
+                  <span class="icon-badge gold"><svg class="icon" aria-hidden="true"><use href="#i-user-round"></use></svg></span>
+                  <h2>Communication</h2>
+                  <p>I documented the system for accountants and learned to explain technical trade-offs clearly.</p>
+                </article>
+              </div>
+
+              <div class="card next-card">
+                <div>
+                  <h2>What I would improve next</h2>
+                  <div class="next-tags">
+                    <span class="tag">External-settlement design</span>
+                    <span class="tag">Day-end audit logging</span>
+                    <span class="tag">More reconciliation tests</span>
+                  </div>
+                </div>
+                <div class="recommendation">
+                  <span class="label">Recommendation</span>
+                  <p>Resolve unposted journals and run required processes before advancing the business date.</p>
+                </div>
+              </div>
+
+              <p class="closing-line">Build for clarity. Post with controls. <span>Keep every balance traceable.</span></p>
+            </div>
+
+            <footer class="slide-footer">
+              <span>SIWES Presentation · Aje Damilola</span>
+              <span class="folio">14 / 15</span>
+            </footer>
+          </div>
+          <div class="notes-source" hidden>The main outcome was learning to connect three disciplines. I used backend engineering to make workflows safe, accounting knowledge to define correct postings and controls, and communication skills to document the system for its users. The prototype still has clear limits: external settlement, stronger audit logging and broader reconciliation tests remain future work.</div>
+        </section>
+
+        <!-- SLIDE 15 -->
+        <section class="slide slide-closing" id="slide-15" aria-label="15 of 15" aria-hidden="true">
+          <div class="slide-inner">
+            <div>
+              <p class="closing-kicker">SIWES · March – September 2026</p>
+              <h1 class="closing-title">Thank you.</h1>
+              <p class="closing-sub">Questions?</p>
+
+              <div class="closing-contact">
+                <span class="contact-row">
+                  <svg class="icon" aria-hidden="true"><use href="#i-user-round"></use></svg>
+                  <span>Aje Damilola · 230591336</span>
+                </span>
+                <span class="contact-row">
+                  <svg class="icon" aria-hidden="true"><use href="#i-book-open"></use></svg>
+                  <span>Computer Science · Lagos State University</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="closing-card">
+              <div class="icon-badge">
+                <svg class="icon" aria-hidden="true"><use href="#i-landmark"></use></svg>
+              </div>
+              <p>Every naira, both sides.</p>
+              <small>MFB Core System · double-entry accounting and lending core.</small>
+              <div class="closing-ledger" aria-label="Sample balanced totals">
+                <div class="row"><span>Debits</span><span class="ok">₦50,000.00</span></div>
+                <div class="row"><span>Credits</span><span class="ok">₦50,000.00</span></div>
+                <div class="row"><span>Difference</span><span class="ok">₦0.00</span></div>
+              </div>
+            </div>
+          </div>
+          <footer class="slide-footer">
+            <span>SIWES Presentation · Aje Damilola</span>
+            <span class="folio">15 / 15</span>
+          </footer>
+          <div class="notes-source" hidden>Thank you for listening. This project helped me connect software engineering with accounting controls, loan workflows and financial reporting. I welcome questions about the accounting model, the implementation choices or what I would improve next.</div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="toolbar" role="group" aria-label="Presentation controls">
+    <span class="toolbar-hint">← → Slides · P Notes · F Fullscreen · Click images to inspect</span>
+    <div class="toolbar-controls">
+      <button class="tool-button" id="prevBtn" type="button" aria-label="Previous slide" title="Previous slide">
+        <svg class="icon" aria-hidden="true"><use href="#i-chevron-left"></use></svg>
+      </button>
+      <span class="toolbar-counter" id="counter" aria-hidden="true">01 / 15</span>
+      <button class="tool-button" id="nextBtn" type="button" aria-label="Next slide" title="Next slide">
+        <svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg>
+      </button>
+      <button class="tool-button" id="notesBtn" type="button" aria-label="Toggle speaker notes" aria-pressed="false" aria-controls="notesPanel" title="Speaker notes (P)">
+        <svg class="icon" aria-hidden="true"><use href="#i-panel-right"></use></svg>
+      </button>
+      <button class="tool-button" id="fsBtn" type="button" aria-label="Enter fullscreen" aria-pressed="false" title="Fullscreen (F)">
+        <svg class="icon" aria-hidden="true"><use href="#i-maximize"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<aside class="notes-panel" id="notesPanel" aria-label="Speaker notes" hidden>
+  <div class="notes-head">
+    <div>
+      <p class="section-label">Speaker notes</p>
+      <h2 id="notesTitle">Slide 1</h2>
+    </div>
+    <button class="tool-button" id="notesClose" type="button" aria-label="Close speaker notes">
+      <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+    </button>
+  </div>
+  <div class="notes-body">
+    <p id="notesText"></p>
+  </div>
+  <div class="notes-next">
+    <p class="section-label" style="margin-bottom:6px">Up next</p>
+    <p id="nextTitle"></p>
+  </div>
+</aside>
+
+<dialog class="image-viewer" id="imageViewer" aria-labelledby="imageViewerTitle">
+  <div class="image-viewer-head">
+    <h2 id="imageViewerTitle">Screenshot</h2>
+    <button class="tool-button" id="imageViewerClose" type="button" aria-label="Close screenshot" title="Close (Esc)">
+      <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+    </button>
+  </div>
+  <div class="image-viewer-body" tabindex="0" role="region" aria-label="Full screenshot; scroll to inspect">
+    <img id="imageViewerImage" alt="Expanded application screenshot">
+  </div>
+</dialog>
+
+<p class="live-region" id="liveRegion" aria-live="polite"></p>
+<pre id="audit-result" hidden></pre>
+
+<script>
+(function () {
+  "use strict";
+
+  var stage = document.getElementById("stage");
+  var stageWrap = document.getElementById("stageWrap");
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var progressBar = document.getElementById("progressBar");
+  var counter = document.getElementById("counter");
+  var notesPanel = document.getElementById("notesPanel");
+  var notesTitle = document.getElementById("notesTitle");
+  var notesText = document.getElementById("notesText");
+  var nextTitle = document.getElementById("nextTitle");
+  var notesBtn = document.getElementById("notesBtn");
+  var fsBtn = document.getElementById("fsBtn");
+  var liveRegion = document.getElementById("liveRegion");
+  var imageViewer = document.getElementById("imageViewer");
+  var imageViewerImage = document.getElementById("imageViewerImage");
+  var current = 0;
+  var notesOpen = false;
+  var touchStartX = null;
+  var touchStartY = null;
+
+  function pad(n) { return n < 10 ? "0" + n : String(n); }
+
+  function slideTitle(slide) {
+    var h1 = slide.querySelector("h1");
+    return h1 ? h1.textContent.trim() : "Slide";
+  }
+
+  function slideNotes(slide) {
+    var note = slide.querySelector(".notes-source");
+    return note ? note.textContent.trim() : "";
+  }
+
+  function fitStage() {
+    if (!stageWrap) { return; }
+    stageWrap.style.marginRight = notesOpen && window.innerWidth > 760 ? "440px" : "0px";
+    var rect = stageWrap.getBoundingClientRect();
+    var scale = Math.min(rect.width / 1920, rect.height / 1080);
+    if (!isFinite(scale) || scale <= 0) { scale = 1; }
+    stage.style.transform = "scale(" + scale + ")";
+  }
+
+  function render(index, announce) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    slides.forEach(function (slide, i) {
+      var active = i === current;
+      slide.classList.toggle("is-active", active);
+      slide.setAttribute("aria-hidden", active ? "false" : "true");
+      if (active) {
+        slide.removeAttribute("inert");
+      } else {
+        slide.setAttribute("inert", "");
+      }
+    });
+
+    progressBar.style.width = ((current + 1) / slides.length * 100) + "%";
+    counter.textContent = pad(current + 1) + " / " + pad(slides.length);
+    document.getElementById("prevBtn").disabled = current === 0;
+    document.getElementById("nextBtn").disabled = current === slides.length - 1;
+    notesTitle.textContent = (current + 1) + ". " + slideTitle(slides[current]);
+    notesText.textContent = slideNotes(slides[current]);
+    nextTitle.textContent = current < slides.length - 1 ? slideTitle(slides[current + 1]) : "End of deck";
+    if (announce) {
+      liveRegion.textContent = "Slide " + (current + 1) + " of " + slides.length + ": " + slideTitle(slides[current]);
+    }
+  }
+
+  function next() { render(current + 1, true); }
+  function prev() { render(current - 1, true); }
+
+  function setNotes(open) {
+    notesOpen = open;
+    notesPanel.hidden = !open;
+    document.body.classList.toggle("notes-open", open);
+    notesBtn.setAttribute("aria-pressed", open ? "true" : "false");
+    fitStage();
+    if (open) {
+      notesPanel.querySelector("#notesClose").focus();
+    } else {
+      notesBtn.focus();
+    }
+    window.setTimeout(fitStage, 220);
+  }
+
+  function toggleNotes() { setNotes(!notesOpen); }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(function () {});
+      }
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen().catch(function () {});
+    }
+  }
+
+  document.getElementById("prevBtn").addEventListener("click", prev);
+  document.getElementById("nextBtn").addEventListener("click", next);
+  notesBtn.addEventListener("click", toggleNotes);
+  document.getElementById("notesClose").addEventListener("click", function () { setNotes(false); });
+  fsBtn.addEventListener("click", toggleFullscreen);
+
+  document.addEventListener("fullscreenchange", function () {
+    var active = Boolean(document.fullscreenElement);
+    fsBtn.setAttribute("aria-pressed", active ? "true" : "false");
+    fsBtn.setAttribute("aria-label", active ? "Exit fullscreen" : "Enter fullscreen");
+    var use = fsBtn.querySelector("use");
+    if (use) { use.setAttribute("href", active ? "#i-minimize" : "#i-maximize"); }
+    window.setTimeout(fitStage, 80);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (imageViewer.open || event.ctrlKey || event.metaKey || event.altKey) { return; }
+    var tag = (event.target && event.target.tagName) ? event.target.tagName.toLowerCase() : "";
+    if (tag === "input" || tag === "textarea" || tag === "select" || event.target.isContentEditable) { return; }
+    if ((tag === "button" || tag === "a") && (event.key === " " || event.key === "Enter")) { return; }
+    if (notesPanel.contains(event.target) && ["ArrowLeft", "ArrowRight", "PageUp", "PageDown", " ", "Home", "End"].indexOf(event.key) !== -1) { return; }
+
+    if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " " || event.key === "Spacebar") {
+      event.preventDefault();
+      next();
+    } else if (event.key === "ArrowLeft" || event.key === "PageUp") {
+      event.preventDefault();
+      prev();
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      render(0, true);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      render(slides.length - 1, true);
+    } else if (event.key === "f" || event.key === "F") {
+      event.preventDefault();
+      toggleFullscreen();
+    } else if (event.key === "p" || event.key === "P") {
+      event.preventDefault();
+      toggleNotes();
+    } else if (event.key === "Escape") {
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(function () {});
+      } else if (notesOpen) {
+        setNotes(false);
+      }
+    }
+  });
+
+  stageWrap.addEventListener("touchstart", function (event) {
+    if (!event.touches || event.touches.length !== 1) { return; }
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+  }, { passive: true });
+
+  stageWrap.addEventListener("touchend", function (event) {
+    if (touchStartX === null || !event.changedTouches || event.changedTouches.length !== 1) { return; }
+    var delta = event.changedTouches[0].clientX - touchStartX;
+    var deltaY = event.changedTouches[0].clientY - touchStartY;
+    touchStartX = null;
+    touchStartY = null;
+    if (Math.abs(delta) < 50 || Math.abs(deltaY) > Math.abs(delta)) { return; }
+    if (delta < 0) { next(); } else { prev(); }
+  }, { passive: true });
+
+  window.addEventListener("resize", fitStage);
+  if (window.ResizeObserver) {
+    new ResizeObserver(fitStage).observe(stageWrap);
+  }
+
+  document.getElementById("imageViewerClose").addEventListener("click", function () { imageViewer.close(); });
+  imageViewer.addEventListener("click", function (event) {
+    if (event.target !== imageViewer) { return; }
+    var rect = imageViewer.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) {
+      imageViewer.close();
+    }
+  });
+
+  function loadScreenshot(frame) {
+    return new Promise(function (resolve) {
+      var img = frame.querySelector(".shot-img, .logo-img");
+      var placeholder = frame.querySelector(".shot-placeholder, .logo-mark");
+      var src = frame.getAttribute("data-shot");
+      if (!img || !src) { resolve(); return; }
+      img.onload = function () {
+        img.hidden = false;
+        if (placeholder) { placeholder.hidden = true; }
+        frame.classList.add("has-shot");
+        var body = frame.querySelector(".shot-body");
+        if (body && !body.querySelector(".shot-zoom") && !frame.closest(".report-print")) {
+          var button = document.createElement("button");
+          button.type = "button";
+          button.className = "shot-zoom";
+          button.innerHTML = '<span><svg class="icon" aria-hidden="true"><use href="#i-maximize"></use></svg>Inspect</span>';
+          button.addEventListener("click", function () {
+            var caption = frame.querySelector("figcaption");
+            imageViewerImage.src = frame.getAttribute("data-full-shot") || frame.getAttribute("data-shot");
+            imageViewerImage.alt = img.alt;
+            document.getElementById("imageViewerTitle").textContent = caption ? caption.textContent : img.alt;
+            imageViewer.showModal();
+            imageViewer.querySelector(".image-viewer-body").scrollTop = 0;
+          });
+          body.appendChild(button);
+        }
+        var zoom = frame.querySelector(".shot-zoom");
+        if (zoom) {
+          zoom.hidden = false;
+          zoom.setAttribute("aria-label", "Inspect screenshot: " + img.alt);
+        }
+        resolve();
+      };
+      img.onerror = function () {
+        img.hidden = true;
+        frame.classList.remove("has-shot");
+        var zoom = frame.querySelector(".shot-zoom");
+        if (zoom) { zoom.hidden = true; }
+        if (!placeholder) {
+          placeholder = document.createElement("div");
+          placeholder.className = "shot-placeholder";
+          placeholder.textContent = "Screenshot unavailable: " + img.alt;
+          frame.querySelector(".shot-body").appendChild(placeholder);
+        }
+        if (placeholder) { placeholder.hidden = false; }
+        resolve();
+      };
+      img.src = src;
+    });
+  }
+
+  function enableScreenshots() {
+    return Promise.all(Array.prototype.slice.call(document.querySelectorAll("[data-shot]")).map(loadScreenshot));
+  }
+
+  document.querySelectorAll("[data-report-src]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var frame = document.getElementById("reportPreview");
+      document.querySelectorAll("[data-report-src]").forEach(function (option) {
+        option.setAttribute("aria-pressed", option === button ? "true" : "false");
+      });
+      frame.setAttribute("data-shot", button.getAttribute("data-report-src"));
+      frame.querySelector("img").alt = button.getAttribute("data-report-alt");
+      frame.querySelector("img").style.objectPosition = button.getAttribute("data-report-position") || "center top";
+      frame.querySelector("figcaption").textContent = button.getAttribute("data-report-caption");
+      document.getElementById("reportSummaryLabel").textContent = button.getAttribute("data-summary-label");
+      document.getElementById("reportSummaryTitle").textContent = button.getAttribute("data-summary-title");
+      document.getElementById("reportSummaryPrimary").textContent = button.getAttribute("data-summary-primary");
+      document.getElementById("reportSummarySecondary").textContent = button.getAttribute("data-summary-secondary");
+      document.getElementById("reportSummaryExplanation").textContent = button.getAttribute("data-summary-explanation");
+      loadScreenshot(frame);
+    });
+  });
+
+  document.getElementById("reportInspect").addEventListener("click", function () {
+    var zoom = document.querySelector("#reportPreview .shot-zoom");
+    if (zoom) { zoom.click(); }
+  });
+
+  function runAudit() {
+    var results = [];
+    slides.forEach(function (slide, i) {
+      slides.forEach(function (s) { s.classList.remove("is-active"); });
+      slide.classList.add("is-active");
+      var rect = slide.getBoundingClientRect();
+      var issues = [];
+
+      Array.prototype.slice.call(slide.querySelectorAll("*")).forEach(function (el) {
+        var cs = window.getComputedStyle(el);
+        if (cs.display === "none" || cs.visibility === "hidden") { return; }
+        var r = el.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0) { return; }
+        if (r.left < rect.left - 1 || r.top < rect.top - 1 || r.right > rect.right + 1 || r.bottom > rect.bottom + 1) {
+          issues.push({
+            kind: "outside",
+            tag: el.tagName.toLowerCase(),
+            cls: el.className && typeof el.className === "string" ? el.className : "",
+            text: (el.textContent || "").trim().slice(0, 70)
+          });
+        }
+        if (el.clientHeight > 0 && el.clientHeight < el.scrollHeight - 2) {
+          var overflowY = cs.overflowY;
+          if (overflowY !== "visible") {
+            issues.push({
+              kind: "clip-y",
+              tag: el.tagName.toLowerCase(),
+              cls: el.className && typeof el.className === "string" ? el.className : "",
+              text: (el.textContent || "").trim().slice(0, 70)
+            });
+          }
+        }
+      });
+
+      Array.prototype.slice.call(slide.querySelectorAll(".slide-body, .hierarchy, .definition-list, .loan-screen, .loan-explainer, .eod-process, .report-controls, .decision, .challenge-card, .scope-card, .problem-card, .ledger-wrap")).forEach(function (el) {
+        if (el.scrollHeight > el.clientHeight + 2 || el.scrollWidth > el.clientWidth + 2) {
+          issues.push({
+            kind: "panel-overflow",
+            tag: el.tagName.toLowerCase(),
+            cls: el.className && typeof el.className === "string" ? el.className : "",
+            text: (el.textContent || "").trim().slice(0, 70)
+          });
+        }
+      });
+
+      Array.prototype.slice.call(slide.querySelectorAll("*")).forEach(function (el) {
+        if (el.closest("svg")) { return; }
+        if (!(el.textContent || "").trim()) { return; }
+        if (el.closest(".slide-footer, .section-label")) { return; }
+        var fs = parseFloat(window.getComputedStyle(el).fontSize);
+        if (fs && fs < 19.5) {
+          issues.push({
+            kind: "small-text",
+            tag: el.tagName.toLowerCase(),
+            cls: el.className && typeof el.className === "string" ? el.className : "",
+            text: (el.textContent || "").trim().slice(0, 70)
+          });
+        }
+      });
+
+      results.push({
+        slide: i + 1,
+        title: slideTitle(slide),
+        h1: slide.querySelectorAll("h1").length,
+        notesLength: slideNotes(slide).length,
+        issues: issues.slice(0, 40)
+      });
+    });
+
+    render(current, false);
+
+    var text = slides.map(function (s) { return s.textContent || ""; }).join(" ");
+    var fills = Array.from(new Set(text.match(/\[TO FILL[^\]]*\]/g) || []));
+    var ledgerChecks = Array.prototype.slice.call(document.querySelectorAll(".ledger-table")).map(function (table, i) {
+      var debit = 0;
+      var credit = 0;
+      Array.prototype.slice.call(table.querySelectorAll("tbody tr")).forEach(function (row) {
+        debit += Number(row.getAttribute("data-debit") || 0);
+        credit += Number(row.getAttribute("data-credit") || 0);
+      });
+      return { table: i + 1, debit: debit, credit: credit, balanced: Math.abs(debit - credit) < 0.001 };
+    });
+
+    var payload = {
+      slides: slides.length,
+      h1Counts: results.map(function (r) { return r.h1; }),
+      notesLengths: results.map(function (r) { return r.notesLength; }),
+      issues: results.filter(function (r) { return r.issues.length > 0; }),
+      fills: fills,
+      ledgerChecks: ledgerChecks,
+      imagesWithoutAlt: Array.prototype.slice.call(document.querySelectorAll("img")).filter(function (img) { return !img.getAttribute("alt"); }).length,
+      placeholders: Array.prototype.slice.call(document.querySelectorAll(".shot-placeholder")).filter(function (el) { return !el.hidden; }).length,
+      screenshotFailures: Array.prototype.slice.call(document.querySelectorAll("[data-shot]")).filter(function (frame) { return !frame.classList.contains("has-shot"); }).map(function (frame) { return frame.getAttribute("data-shot"); })
+    };
+
+    document.getElementById("audit-result").textContent = JSON.stringify(payload, null, 2);
+    document.documentElement.setAttribute("data-audit", "ready");
+  }
+
+  var startParam = parseInt(new URLSearchParams(window.location.search).get("slide"), 10);
+  var startIndex = Number.isFinite(startParam) ? Math.max(0, Math.min(slides.length - 1, startParam - 1)) : 0;
+
+  var screenshotsReady = enableScreenshots();
+  render(startIndex, false);
+  fitStage();
+  window.setTimeout(fitStage, 120);
+
+  if (new URLSearchParams(window.location.search).get("notes") === "1") {
+    setNotes(true);
+  }
+
+  if (new URLSearchParams(window.location.search).get("audit") === "1") {
+    Promise.all([screenshotsReady, document.fonts.ready]).then(runAudit);
+  }
+})();
+</script>
+</body>
+</html>
