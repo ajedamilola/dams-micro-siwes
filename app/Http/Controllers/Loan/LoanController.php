@@ -10,6 +10,8 @@ use App\Models\Loan\LoanProduct;
 use App\Services\Loan\LoanLifecycle;
 use App\Support\BusinessDate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
@@ -22,20 +24,34 @@ class LoanController extends Controller
             'q' => ['sometimes', 'nullable', 'string', 'max:100'],
         ]);
 
-        $loans = Loan::with(['product', 'customer', 'company'])
-            ->when(! empty($data['status'] ?? null), fn ($q) => $q->where('status', $data['status']))
-            ->when(! empty($data['q'] ?? null), function ($q) use ($data) {
-                $token = strtolower(trim((string) $data['q']));
-                $q->where(function ($q) use ($token) {
-                    $q->whereRaw('lower(loan_no) like ?', ["%{$token}%"]);
-                });
-            })
-            ->orderByDesc('created_at')
-            ->limit(100)
-            ->get();
+        $sql = 'select l.id, l.loan_no, l.status, l.principal, l.total_repayable, l.maturity_date,
+                p.code as product_code, p.name as product_name,
+                c.customer_no, c.customer_type, c.first_name, c.middle_name, c.last_name, c.business_name
+            from loans l
+            left join loan_products p on p.id = l.loan_product_id
+            left join loan_customers c on c.id = l.loan_customer_id
+            where l.deleted_at is null';
+        $bindings = [];
+
+        if (! empty($data['status'] ?? null)) {
+            $sql .= ' and l.status = ?';
+            $bindings[] = $data['status'];
+        }
+
+        if (! empty($data['q'] ?? null)) {
+            $sql .= ' and lower(l.loan_no) like ?';
+            $bindings[] = '%'.strtolower(trim((string) $data['q'])).'%';
+        }
+
+        $sql .= ' order by l.created_at desc limit 100';
+
+        $loans = array_map(
+            fn (object $row) => self::presentBriefRow((array) $row),
+            DB::select($sql, $bindings)
+        );
 
         return Inertia::render('Loan/Loans/Index', [
-            'loans' => $loans->map(fn (Loan $l) => self::presentBrief($l))->values()->all(),
+            'loans' => $loans,
             'products' => LoanProduct::with('company')->where('status', 'active')->orderBy('code')->get()->map(fn (LoanProduct $p) => [
                 'id' => $p->id,
                 'code' => $p->code,
@@ -156,20 +172,24 @@ class LoanController extends Controller
         return back();
     }
 
-    /** @return array<string, mixed> */
-    private static function presentBrief(Loan $loan): array
+    /** @param array<string, mixed> $row */
+    private static function presentBriefRow(array $row): array
     {
+        $customerName = ($row['customer_type'] ?? 'individual') === 'corporate'
+            ? (string) ($row['business_name'] ?: trim("{$row['first_name']} {$row['last_name']}"))
+            : trim("{$row['first_name']} {$row['middle_name']} {$row['last_name']}");
+
         return [
-            'id' => $loan->id,
-            'loan_no' => $loan->loan_no,
-            'status' => $loan->status,
-            'principal' => (string) $loan->principal,
-            'total_repayable' => (string) $loan->total_repayable,
-            'product_code' => $loan->product?->code,
-            'product_name' => $loan->product?->name,
-            'customer_no' => $loan->customer?->customer_no,
-            'customer_name' => $loan->customer?->display_name,
-            'maturity_date' => $loan->maturity_date?->toDateString(),
+            'id' => $row['id'],
+            'loan_no' => $row['loan_no'],
+            'status' => $row['status'],
+            'principal' => (string) $row['principal'],
+            'total_repayable' => (string) $row['total_repayable'],
+            'product_code' => $row['product_code'] ?? null,
+            'product_name' => $row['product_name'] ?? null,
+            'customer_no' => $row['customer_no'] ?? null,
+            'customer_name' => $customerName,
+            'maturity_date' => $row['maturity_date'] ? Carbon::parse($row['maturity_date'])->toDateString() : null,
         ];
     }
 

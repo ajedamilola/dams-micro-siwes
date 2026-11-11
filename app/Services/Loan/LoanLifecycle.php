@@ -68,7 +68,10 @@ class LoanLifecycle
         if ($loan->status !== LoanStatus::PendingApproval->value && $loan->status !== LoanStatus::Draft->value) {
             throw ValidationException::withMessages(['status' => 'Only draft or pending loans can be approved.']);
         }
-        $loan->update(['status' => LoanStatus::Approved->value, 'approved_at' => now()]);
+        DB::update(
+            'update loans set status = ?, approved_at = ?, updated_at = ? where id = ?',
+            [LoanStatus::Approved->value, now(), now(), $loan->id]
+        );
 
         return $loan->refresh();
     }
@@ -78,7 +81,10 @@ class LoanLifecycle
         if (! in_array($loan->status, [LoanStatus::Draft->value, LoanStatus::PendingApproval->value], true)) {
             throw ValidationException::withMessages(['status' => 'Only draft or pending loans can be rejected.']);
         }
-        $loan->update(['status' => LoanStatus::Rejected->value]);
+        DB::update(
+            'update loans set status = ?, updated_at = ? where id = ?',
+            [LoanStatus::Rejected->value, now(), $loan->id]
+        );
 
         return $loan->refresh();
     }

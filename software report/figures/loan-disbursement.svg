@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-labelledby="title desc">
+  <title id="title">Loan disbursement flow</title>
+  <desc id="desc">An approved loan is checked, the processing fee is validated against the principal, net proceeds are calculated, a balanced journal is created and posted, and the loan becomes active.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="470" fill="#ffffff"/>
+
+  <rect x="20" y="34" width="190" height="72" rx="4" fill="#f2f2f2" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="115" y="64" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#1a1a1a">Approved loan</text>
+  <text x="115" y="87" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4a4a4a">status check</text>
+
+  <line x1="210" y1="70" x2="234" y2="70" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="238" y="34" width="190" height="72" rx="4" fill="#f2f2f2" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="333" y="64" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#1a1a1a">Settlement account</text>
+  <text x="333" y="87" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4a4a4a">cash, bank or clearing</text>
+
+  <line x1="428" y1="70" x2="452" y2="70" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="456" y="34" width="190" height="72" rx="4" fill="#f2f2f2" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="551" y="64" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#1a1a1a">Validate fee</text>
+  <text x="551" y="87" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4a4a4a">fee must be less than principal</text>
+
+  <line x1="646" y1="70" x2="670" y2="70" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="674" y="34" width="206" height="72" rx="4" fill="#f2f2f2" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="777" y="64" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#1a1a1a">Net proceeds</text>
+  <text x="777" y="87" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4a4a4a">principal minus fee</text>
+
+  <line x1="777" y1="106" x2="777" y2="150" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="300" y="154" width="560" height="160" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="580" y="182" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#1a1a1a">Journal created by the posting service</text>
+  <line x1="330" y1="198" x2="830" y2="198" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="330" y="226" font-family="'IBM Plex Mono', Courier, monospace" font-size="14" fill="#1a1a1a">Dr  Bank account</text>
+  <text x="830" y="226" font-family="'IBM Plex Mono', Courier, monospace" font-size="14" text-anchor="end" fill="#1a1a1a">principal</text>
+  <text x="330" y="254" font-family="'IBM Plex Mono', Courier, monospace" font-size="14" fill="#1a1a1a">Cr  Customer account</text>
+  <text x="830" y="254" font-family="'IBM Plex Mono', Courier, monospace" font-size="14" text-anchor="end" fill="#1a1a1a">principal - fee</text>
+  <text x="330" y="282" font-family="'IBM Plex Mono', Courier, monospace" font-size="14" fill="#1a1a1a">Cr  Fee income</text>
+  <text x="830" y="282" font-family="'IBM Plex Mono', Courier, monospace" font-size="14" text-anchor="end" fill="#1a1a1a">fee</text>
+  <text x="580" y="305" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4a4a4a">Debits equal credits because principal = net proceeds + fee.</text>
+
+  <line x1="580" y1="314" x2="580" y2="358" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="410" y="362" width="180" height="66" rx="4" fill="#e4e4e4" stroke="#1a1a1a" stroke-width="1.6"/>
+  <text x="500" y="401" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#1a1a1a">Post to ledger</text>
+
+  <line x1="590" y1="395" x2="660" y2="395" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="664" y="362" width="200" height="66" rx="4" fill="#e4e4e4" stroke="#1a1a1a" stroke-width="1.6"/>
+  <text x="764" y="393" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#1a1a1a">Loan Active</text>
+  <text x="764" y="414" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" fill="#4a4a4a">journal linked to loan</text>
+</svg>

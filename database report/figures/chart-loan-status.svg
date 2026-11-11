@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 370" role="img" aria-labelledby="title desc">
+  <title id="title">Loan status distribution</title>
+  <desc id="desc">Bar chart of loan statuses: active 3, pending approval 1, approved 1, draft 1, rejected 1, closed 1, written off 1.</desc>
+  <rect width="900" height="370" fill="#ffffff"/>
+  <g font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a">
+    <text x="220" y="22" font-size="11" fill="#5a5a5a">loans</text>
+    <g stroke="#d6d6d6" stroke-width="1">
+      <line x1="220" y1="30" x2="220" y2="330"/>
+      <line x1="360" y1="30" x2="360" y2="330"/>
+      <line x1="500" y1="30" x2="500" y2="330"/>
+      <line x1="640" y1="30" x2="640" y2="330"/>
+    </g>
+    <g fill="#5a5a5a" font-size="11" text-anchor="middle">
+      <text x="220" y="348">0</text><text x="360" y="348">1</text><text x="500" y="348">2</text><text x="640" y="348">3</text>
+    </g>
+
+    <g text-anchor="end" fill="#1a1a1a">
+      <text x="205" y="57">Active</text>
+      <text x="205" y="95">Pending approval</text>
+      <text x="205" y="133">Approved</text>
+      <text x="205" y="171">Draft</text>
+      <text x="205" y="209">Rejected</text>
+      <text x="205" y="247">Closed</text>
+      <text x="205" y="285">Written off</text>
+    </g>
+
+    <g fill="#333333">
+      <rect x="220" y="42" width="420" height="24"/>
+      <rect x="220" y="80" width="140" height="24"/>
+      <rect x="220" y="118" width="140" height="24"/>
+      <rect x="220" y="156" width="140" height="24"/>
+      <rect x="220" y="194" width="140" height="24"/>
+      <rect x="220" y="232" width="140" height="24"/>
+      <rect x="220" y="270" width="140" height="24"/>
+    </g>
+
+    <g fill="#1a1a1a" font-size="12">
+      <text x="650" y="59">3</text>
+      <text x="370" y="97">1</text>
+      <text x="370" y="135">1</text>
+      <text x="370" y="173">1</text>
+      <text x="370" y="211">1</text>
+      <text x="370" y="249">1</text>
+      <text x="370" y="287">1</text>
+    </g>
+  </g>
+</svg>

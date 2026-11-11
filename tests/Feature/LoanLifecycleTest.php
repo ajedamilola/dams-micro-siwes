@@ -153,6 +153,30 @@ test('full loan flow posts journals and repays to close', function () {
     expect($repayTxn->posted_at)->not->toBeNull();
 });
 
+test('loan index lists joined product and customer data', function () {
+    ['product' => $product, 'customer' => $customer] = seedLifecycleCompany();
+
+    $this->post(route('loans.loans.store'), [
+        'loan_product_id' => $product->id,
+        'loan_customer_id' => $customer->id,
+        'principal' => 50000,
+        'tenor' => 2,
+        'first_due_date' => now()->addMonth()->toDateString(),
+    ])->assertRedirect();
+
+    $loan = Loan::firstOrFail();
+    $response = $this->get(route('loans.loans.index'));
+
+    $response->assertOk();
+    $response->assertInertia(fn ($page) => $page
+        ->component('Loan/Loans/Index')
+        ->has('loans', 1)
+        ->where('loans.0.loan_no', $loan->loan_no)
+        ->where('loans.0.customer_no', $customer->customer_no)
+        ->where('loans.0.product_code', $product->code)
+    );
+});
+
 test('penalty accrues only on overdue and posts journals', function () {
     ['bank' => $bank, 'product' => $product, 'customer' => $customer] = seedLifecycleCompany();
 

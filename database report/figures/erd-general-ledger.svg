@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 690" role="img" aria-labelledby="title desc">
+  <title id="title">Entity-relationship diagram for the general ledger</title>
+  <desc id="desc">Companies own ledgers. Ledgers own accounts. Accounts post to journal entries, and journal transactions group those entries. Opening balances snapshot accounts. Two operational tables, end-of-day operations and system settings, stand alone.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6a6a6a"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="690" fill="#ffffff"/>
+  <g font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a">
+
+    <!-- companies -->
+    <g>
+      <rect x="30" y="40" width="210" height="88" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="30" y="40" width="210" height="28" fill="#1a1a1a"/>
+      <text x="42" y="59" fill="#ffffff" font-size="13" font-weight="600">companies</text>
+      <text x="42" y="87">id</text><text x="228" y="87" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="42" y="107">code</text>
+      <text x="42" y="127">name</text>
+    </g>
+
+    <!-- ledgers -->
+    <g>
+      <rect x="300" y="40" width="230" height="108" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="300" y="40" width="230" height="28" fill="#1a1a1a"/>
+      <text x="312" y="59" fill="#ffffff" font-size="13" font-weight="600">ledgers</text>
+      <text x="312" y="87">id</text><text x="518" y="87" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="312" y="107">company_id</text><text x="518" y="107" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="312" y="127">code</text>
+      <text x="312" y="147">name</text>
+    </g>
+
+    <!-- accounts -->
+    <g>
+      <rect x="590" y="30" width="300" height="208" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="590" y="30" width="300" height="28" fill="#1a1a1a"/>
+      <text x="602" y="49" fill="#ffffff" font-size="13" font-weight="600">accounts</text>
+      <text x="602" y="77">id</text><text x="878" y="77" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="602" y="97">ledger_id</text><text x="878" y="97" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="602" y="117">parent_id *</text>
+      <text x="602" y="137">subledger_id *</text>
+      <text x="602" y="157">code</text>
+      <text x="602" y="177">name</text>
+      <text x="602" y="197">category</text>
+      <text x="602" y="217">balance_type</text>
+      <text x="602" y="237">display_balance</text>
+    </g>
+
+    <!-- journal_transactions -->
+    <g>
+      <rect x="30" y="300" width="270" height="148" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="30" y="300" width="270" height="28" fill="#1a1a1a"/>
+      <text x="42" y="319" fill="#ffffff" font-size="13" font-weight="600">journal_transactions</text>
+      <text x="42" y="347">id</text><text x="288" y="347" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="42" y="367">ref</text>
+      <text x="42" y="387">status</text>
+      <text x="42" y="407">effective_date</text>
+      <text x="42" y="427">posted_at</text>
+      <text x="42" y="447">old_reversed_transaction_id *</text>
+    </g>
+
+    <!-- journal_entries -->
+    <g>
+      <rect x="360" y="300" width="280" height="148" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="360" y="300" width="280" height="28" fill="#1a1a1a"/>
+      <text x="372" y="319" fill="#ffffff" font-size="13" font-weight="600">journal_entries</text>
+      <text x="372" y="347">id</text><text x="628" y="347" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="372" y="367">journal_transaction_id *</text>
+      <text x="372" y="387">account_id *</text>
+      <text x="372" y="407">type</text>
+      <text x="372" y="427">value</text>
+      <text x="372" y="447">balance_after</text>
+    </g>
+
+    <!-- opening balances -->
+    <g>
+      <rect x="700" y="320" width="270" height="108" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="700" y="320" width="270" height="28" fill="#1a1a1a"/>
+      <text x="712" y="339" fill="#ffffff" font-size="13" font-weight="600">account_opening_balances</text>
+      <text x="712" y="367">id</text><text x="958" y="367" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="712" y="387">account_id</text><text x="958" y="387" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="712" y="407">date (varchar)</text>
+      <text x="712" y="427">balance</text>
+    </g>
+
+    <!-- eod -->
+    <g>
+      <rect x="30" y="540" width="240" height="108" fill="#ffffff" stroke="#6a6a6a" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <rect x="30" y="540" width="240" height="28" fill="#6a6a6a"/>
+      <text x="42" y="559" fill="#ffffff" font-size="13" font-weight="600">eod_operations</text>
+      <text x="42" y="587">id</text><text x="258" y="587" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="42" y="607">status</text>
+      <text x="42" y="627">date</text>
+      <text x="42" y="647">logs (json)</text>
+    </g>
+
+    <!-- settings -->
+    <g>
+      <rect x="700" y="520" width="250" height="88" fill="#ffffff" stroke="#6a6a6a" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <rect x="700" y="520" width="250" height="28" fill="#6a6a6a"/>
+      <text x="712" y="539" fill="#ffffff" font-size="13" font-weight="600">system_settings</text>
+      <text x="712" y="567">id</text><text x="938" y="567" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="712" y="587">name</text>
+      <text x="712" y="607">value (json)</text>
+    </g>
+
+    <!-- relationships -->
+    <line x1="240" y1="84" x2="292" y2="84" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="266" y="76" font-size="10" fill="#5a5a5a" text-anchor="middle">1:N</text>
+
+    <line x1="530" y1="84" x2="582" y2="84" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="556" y="76" font-size="10" fill="#5a5a5a" text-anchor="middle">1:N</text>
+
+    <path d="M700 238 V270 H500 V292" fill="none" stroke="#6a6a6a" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowMuted)"/>
+    <text x="610" y="264" font-size="10" fill="#5a5a5a" text-anchor="middle">account_id</text>
+
+    <line x1="300" y1="374" x2="352" y2="374" stroke="#6a6a6a" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowMuted)"/>
+    <text x="326" y="366" font-size="10" fill="#5a5a5a" text-anchor="middle">1:N</text>
+
+    <path d="M860 238 V312" fill="none" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="872" y="280" font-size="10" fill="#5a5a5a">account_id</text>
+
+    <!-- legend -->
+    <g font-size="10" fill="#5a5a5a">
+      <line x1="30" y1="674" x2="70" y2="674" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+      <text x="80" y="678">enforced foreign key</text>
+      <line x1="240" y1="674" x2="280" y2="674" stroke="#6a6a6a" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="290" y="678">logical reference or standalone table</text>
+      <text x="560" y="678">* logical reference: varchar storage or no foreign-key constraint.</text>
+    </g>
+  </g>
+</svg>

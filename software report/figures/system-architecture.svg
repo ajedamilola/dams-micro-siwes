@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 445" role="img" aria-labelledby="title desc">
+  <title id="title">DAMS Micro system architecture</title>
+  <desc id="desc">The browser interface communicates through Inertia with a Laravel backend containing controllers, domain services and Eloquent models, which read and write a PostgreSQL database.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="445" fill="#ffffff"/>
+
+  <rect x="24" y="145" width="150" height="130" rx="4" fill="#f2f2f2" stroke="#1a1a1a" stroke-width="1.6"/>
+  <text x="99" y="196" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="17" font-weight="600" text-anchor="middle" fill="#1a1a1a">Browser</text>
+  <text x="99" y="221" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#4a4a4a">React + TypeScript</text>
+  <text x="99" y="243" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#4a4a4a">user interface</text>
+
+  <line x1="174" y1="210" x2="198" y2="210" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <rect x="202" y="160" width="88" height="100" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+  <text x="246" y="202" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#1a1a1a">Inertia</text>
+  <text x="246" y="223" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4a4a4a">adapter</text>
+
+  <line x1="290" y1="210" x2="314" y2="210" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <rect x="318" y="28" width="330" height="404" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="338" y="62" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#1a1a1a">Laravel backend</text>
+
+  <rect x="338" y="82" width="290" height="58" rx="4" fill="#f2f2f2" stroke="#1a1a1a" stroke-width="1.4"/>
+  <text x="483" y="117" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1a1a1a">HTTP controllers and requests</text>
+
+  <line x1="483" y1="140" x2="483" y2="166" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <rect x="338" y="168" width="290" height="146" rx="4" fill="#f2f2f2" stroke="#1a1a1a" stroke-width="1.4"/>
+  <text x="483" y="194" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle" fill="#1a1a1a">Domain services</text>
+  <text x="483" y="222" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#4a4a4a">Journal posting</text>
+  <text x="483" y="248" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#4a4a4a">Loan lifecycle and posting</text>
+  <text x="483" y="274" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#4a4a4a">Business-date control</text>
+  <text x="483" y="300" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#4a4a4a">Reporting queries</text>
+
+  <line x1="483" y1="314" x2="483" y2="340" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <rect x="338" y="342" width="290" height="58" rx="4" fill="#f2f2f2" stroke="#1a1a1a" stroke-width="1.4"/>
+  <text x="483" y="377" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1a1a1a">Eloquent models</text>
+
+  <line x1="648" y1="215" x2="690" y2="215" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="669" y="200" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4a4a4a">SQL</text>
+
+  <rect x="694" y="132" width="182" height="176" rx="4" fill="#f2f2f2" stroke="#1a1a1a" stroke-width="1.6"/>
+  <text x="785" y="164" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="17" font-weight="600" text-anchor="middle" fill="#1a1a1a">PostgreSQL</text>
+  <text x="785" y="196" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">accounts and ledgers</text>
+  <text x="785" y="220" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">journals and entries</text>
+  <text x="785" y="244" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">customers and loans</text>
+  <text x="785" y="268" font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">repayment schedules</text>
+
+</svg>

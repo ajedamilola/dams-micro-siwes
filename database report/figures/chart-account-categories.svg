@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" role="img" aria-labelledby="title desc">
+  <title id="title">Top account categories by number of accounts</title>
+  <desc id="desc">Bar chart of the ten largest account categories: accounts receivable 12, operating expenses 8, property and equipment 5, operating revenue 5, cash and equivalents 4, other income 4, accounts payable 3, cost of goods sold 3, depreciation 3, dividends 3.</desc>
+  <rect width="900" height="460" fill="#ffffff"/>
+  <g font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a">
+    <text x="220" y="22" font-size="11" fill="#5a5a5a">accounts</text>
+    <g stroke="#d6d6d6" stroke-width="1">
+      <line x1="220" y1="30" x2="220" y2="410"/>
+      <line x1="340" y1="30" x2="340" y2="410"/>
+      <line x1="460" y1="30" x2="460" y2="410"/>
+      <line x1="580" y1="30" x2="580" y2="410"/>
+      <line x1="700" y1="30" x2="700" y2="410"/>
+    </g>
+    <g fill="#5a5a5a" font-size="11" text-anchor="middle">
+      <text x="220" y="428">0</text><text x="340" y="428">3</text><text x="460" y="428">6</text><text x="580" y="428">9</text><text x="700" y="428">12</text>
+    </g>
+
+    <g text-anchor="end" fill="#1a1a1a">
+      <text x="205" y="57">Accounts receivable</text>
+      <text x="205" y="95">Operating expenses</text>
+      <text x="205" y="133">Property and equipment</text>
+      <text x="205" y="171">Operating revenue</text>
+      <text x="205" y="209">Cash and equivalents</text>
+      <text x="205" y="247">Other income</text>
+      <text x="205" y="285">Accounts payable</text>
+      <text x="205" y="323">Cost of goods sold</text>
+      <text x="205" y="361">Depreciation</text>
+      <text x="205" y="399">Dividends</text>
+    </g>
+
+    <g fill="#333333">
+      <rect x="220" y="42" width="480" height="24"/>
+      <rect x="220" y="80" width="320" height="24"/>
+      <rect x="220" y="118" width="200" height="24"/>
+      <rect x="220" y="156" width="200" height="24"/>
+      <rect x="220" y="194" width="160" height="24"/>
+      <rect x="220" y="232" width="160" height="24"/>
+      <rect x="220" y="270" width="120" height="24"/>
+      <rect x="220" y="308" width="120" height="24"/>
+      <rect x="220" y="346" width="120" height="24"/>
+      <rect x="220" y="384" width="120" height="24"/>
+    </g>
+
+    <g fill="#1a1a1a" font-size="12">
+      <text x="710" y="59">12</text>
+      <text x="550" y="97">8</text>
+      <text x="430" y="135">5</text>
+      <text x="430" y="173">5</text>
+      <text x="390" y="211">4</text>
+      <text x="390" y="249">4</text>
+      <text x="350" y="287">3</text>
+      <text x="350" y="325">3</text>
+      <text x="350" y="363">3</text>
+      <text x="350" y="401">3</text>
+    </g>
+  </g>
+</svg>

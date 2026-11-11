@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" role="img" aria-labelledby="title desc">
+  <title id="title">Planning and execution times for three queries</title>
+  <desc id="desc">Grouped bar chart in milliseconds: customer listing plans in 1.240 and executes in 0.255; loan portfolio plans in 1.888 and executes in 0.573; journal summary plans in 0.350 and executes in 0.138.</desc>
+  <rect width="900" height="400" fill="#ffffff"/>
+  <g font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a">
+    <text x="90" y="20" font-size="11" fill="#5a5a5a">milliseconds</text>
+    <g stroke="#d6d6d6" stroke-width="1">
+      <line x1="90" y1="320" x2="850" y2="320"/>
+      <line x1="90" y1="245" x2="850" y2="245"/>
+      <line x1="90" y1="170" x2="850" y2="170"/>
+      <line x1="90" y1="95" x2="850" y2="95"/>
+      <line x1="90" y1="35" x2="850" y2="35"/>
+    </g>
+    <g fill="#5a5a5a" font-size="11" text-anchor="end">
+      <text x="80" y="324">0.0</text>
+      <text x="80" y="249">0.5</text>
+      <text x="80" y="174">1.0</text>
+      <text x="80" y="99">1.5</text>
+      <text x="80" y="39">2.0</text>
+    </g>
+
+    <g>
+      <rect x="175" y="134" width="50" height="186" fill="#2f2f2f"/>
+      <rect x="233" y="282" width="50" height="38" fill="#8a8a8a"/>
+      <rect x="425" y="37" width="50" height="283" fill="#2f2f2f"/>
+      <rect x="483" y="234" width="50" height="86" fill="#8a8a8a"/>
+      <rect x="675" y="268" width="50" height="52" fill="#2f2f2f"/>
+      <rect x="733" y="299" width="50" height="21" fill="#8a8a8a"/>
+    </g>
+
+    <g fill="#1a1a1a" font-size="11" text-anchor="middle">
+      <text x="200" y="127">1.240</text>
+      <text x="258" y="275">0.255</text>
+      <text x="450" y="30">1.888</text>
+      <text x="508" y="227">0.573</text>
+      <text x="700" y="261">0.350</text>
+      <text x="758" y="292">0.138</text>
+    </g>
+
+    <g text-anchor="middle" font-size="12">
+      <text x="229" y="348">Customer listing</text>
+      <text x="479" y="348">Loan portfolio</text>
+      <text x="729" y="348">Journal summary</text>
+    </g>
+
+    <g font-size="11">
+      <rect x="300" y="372" width="12" height="12" fill="#2f2f2f"/>
+      <text x="320" y="382">Planning time</text>
+      <rect x="430" y="372" width="12" height="12" fill="#8a8a8a"/>
+      <text x="450" y="382">Execution time</text>
+    </g>
+  </g>
+</svg>

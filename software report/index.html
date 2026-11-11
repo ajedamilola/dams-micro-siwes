@@ -1,0 +1,1251 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIWES Report | Aje Damilola</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #111111;
+      --body: #1c1c1c;
+      --muted: #4d4d4d;
+      --rule: #b5b5b5;
+      --shade: #f5f4f1;
+      --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+      --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+      --mono: "IBM Plex Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      color: var(--body);
+      background: #dedede;
+    }
+
+    body {
+      max-width: 210mm;
+      margin: 24px auto;
+      background: #ffffff;
+      font-family: var(--serif);
+      font-size: 11.5pt;
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    main {
+      padding: 20mm 20mm 20mm 25mm;
+    }
+
+    p {
+      margin: 0 0 0.9em;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    p code,
+    li code {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 0.5pt;
+      text-underline-offset: 2px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--sans);
+      color: var(--ink);
+      line-height: 1.25;
+      break-after: avoid;
+    }
+
+    h1 {
+      font-size: 15pt;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0 0 8mm;
+    }
+
+    h2 {
+      font-size: 12pt;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin: 7mm 0 2.5mm;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 600;
+      margin: 5mm 0 2mm;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 1em 1.2em;
+      padding-left: 1em;
+    }
+
+    li {
+      margin-bottom: 0.35em;
+      text-align: justify;
+    }
+
+    .page-break {
+      break-before: page;
+    }
+
+    /* Cover */
+    .cover {
+      min-height: 245mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      padding: 4mm 0;
+    }
+
+    .cover .logo {
+      width: 29mm;
+      height: auto;
+    }
+
+    .cover>div {
+      width: 100%;
+    }
+
+    .cover p {
+      font-family: var(--sans);
+      text-align: center;
+      margin: 0.28em 0;
+      font-size: 10.5pt;
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+    }
+
+    .cover .eyebrow {
+      font-size: 9pt;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .cover .title {
+      font-size: 15.5pt;
+      font-weight: 600;
+      line-height: 1.5;
+      max-width: 150mm;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cover .organisation {
+      font-size: 13pt;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .cover .address {
+      font-size: 9pt;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      text-transform: none;
+      max-width: 130mm;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cover .student {
+      font-size: 14pt;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+    }
+
+    .cover .matric {
+      font-size: 11pt;
+      letter-spacing: 0.12em;
+    }
+
+    .cover .rule {
+      width: 58mm;
+      border-top: 1pt solid var(--ink);
+      margin: 2mm auto;
+    }
+
+    .cover .course {
+      font-size: 10.5pt;
+      letter-spacing: 0.08em;
+    }
+
+    .cover .session {
+      font-size: 9.5pt;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .cover .submission {
+      font-size: 9pt;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-transform: none;
+    }
+
+    /* Preliminary pages */
+    .preliminary h1 {
+      margin-bottom: 10mm;
+    }
+
+    .preliminary p {
+      margin-bottom: 1em;
+    }
+
+    .signature {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20mm;
+      margin-top: 30mm;
+      font-family: var(--sans);
+      font-size: 9.5pt;
+    }
+
+    .signature div {
+      border-top: 0.75pt solid var(--ink);
+      min-width: 62mm;
+      padding-top: 2.5mm;
+      color: var(--muted);
+    }
+
+    .placeholder {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    /* Contents */
+    .contents {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-family: var(--sans);
+      font-size: 9pt;
+      line-height: 1.3;
+    }
+
+    .contents li {
+      border-bottom: 0.5pt dotted var(--rule);
+      padding: 0.9mm 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    .contents a {
+      text-decoration: none;
+    }
+
+    .contents .sub {
+      padding-left: 8mm;
+      font-size: 8.6pt;
+      color: var(--muted);
+    }
+
+    .contents .part {
+      font-weight: 600;
+      padding-top: 2mm;
+    }
+
+    .toc-note {
+      font-family: var(--sans);
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 6mm;
+      text-align: left;
+    }
+
+    /* Chapters */
+    .chapter>h1 {
+      border-bottom: 1.25pt solid var(--ink);
+      padding-bottom: 5mm;
+      margin-bottom: 8mm;
+      text-align: left;
+      font-size: 10.5pt;
+      letter-spacing: 0.16em;
+    }
+
+    .chapter>h1 span {
+      display: block;
+      margin-top: 2.5mm;
+      font-size: 20pt;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-transform: none;
+    }
+
+    /* Figures */
+    figure {
+      margin: 7mm 0;
+      break-inside: avoid;
+    }
+
+    figure img {
+      display: block;
+      max-width: 100%;
+      max-height: 108mm;
+      margin: 0 auto;
+      border: 0.75pt solid var(--rule);
+      background: #ffffff;
+      padding: 1.5mm;
+    }
+
+    figure.diagram img {
+      border: none;
+      padding: 0;
+      max-height: 92mm;
+    }
+
+    figure.tall img {
+      max-height: 165mm;
+    }
+
+    figcaption {
+      font-family: var(--sans);
+      font-size: 8.5pt;
+      line-height: 1.45;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 2.5mm;
+    }
+
+    /* Code listings */
+    .listing {
+      margin: 6mm 0;
+      border: 0.75pt solid var(--rule);
+      background: #fbfbfa;
+      break-inside: avoid;
+    }
+
+    .listing-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 6mm;
+      padding: 2mm 3mm;
+      border-bottom: 0.75pt solid var(--rule);
+      font-family: var(--sans);
+      font-size: 8.5pt;
+      color: var(--muted);
+    }
+
+    .listing-head strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .listing pre {
+      margin: 0;
+      padding: 3.5mm 4mm;
+      font-family: var(--mono);
+      font-size: 7.7pt;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      color: #1a1a1a;
+    }
+
+    .listing-source {
+      padding: 1.8mm 3mm;
+      border-top: 0.5pt solid var(--rule);
+      font-family: var(--sans);
+      font-size: 8pt;
+      color: var(--muted);
+    }
+
+    .listing-source code {
+      font-family: var(--mono);
+      font-size: 7.8pt;
+      color: var(--ink);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 4mm 0 6mm;
+      font-family: var(--sans);
+      font-size: 9pt;
+      break-inside: avoid;
+    }
+
+    th,
+    td {
+      border: 0.5pt solid var(--rule);
+      padding: 2mm 2.5mm;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: var(--shade);
+      font-weight: 600;
+    }
+
+    td p {
+      text-align: left;
+      margin: 0;
+    }
+
+    .note {
+      border-left: 2.25pt solid var(--ink);
+      padding: 2mm 0 2mm 4mm;
+      margin: 5mm 0;
+      font-size: 9.8pt;
+      color: var(--muted);
+    }
+
+    .note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .references {
+      font-size: 10pt;
+    }
+
+    .references li {
+      margin-bottom: 0.7em;
+      text-align: left;
+    }
+
+    @page {
+      size: A4;
+      margin: 20mm 20mm 20mm 25mm;
+    }
+
+    @media print {
+
+      html,
+      body {
+        background: #ffffff;
+        margin: 0;
+        max-width: none;
+      }
+
+      main {
+        padding: 0;
+      }
+
+      .cover {
+        min-height: 252mm;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      p {
+        orphans: 3;
+        widows: 3;
+      }
+
+      .listing,
+      figure,
+      table {
+        break-inside: avoid;
+      }
+    }
+
+    @media screen and (max-width: 700px) {
+      body {
+        margin: 0;
+      }
+
+      main {
+        padding: 22px 18px;
+      }
+
+      .cover {
+        min-height: 80vh;
+      }
+
+      .signature {
+        gap: 10mm;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+
+    <!-- Cover -->
+    <section class="cover">
+      <img class="logo" src="../presentation/images/lasu-logo.png" alt="Lagos State University logo">
+      <div>
+        <p class="eyebrow">Lagos State University</p>
+        <p class="eyebrow">Faculty of Computing</p>
+      </div>
+      <div>
+        <p class="title">A report on the Students' Industrial Work Experience Scheme (SIWES)</p>
+        <p style="margin-top:5mm">Undertaken at</p>
+        <p class="organisation">Golden Edge Softech</p>
+        <p class="address">C01 Tomsuite Plaza, 155 Igando Road<br>Bakare B/Stop, Ikotun, Lagos</p>
+      </div>
+      <div>
+        <p style="font-size:8.5pt;letter-spacing:.16em;color:#4d4d4d">By</p>
+        <p class="student">Aje Damilola</p>
+        <p class="matric">230591336</p>
+      </div>
+      <div class="rule"></div>
+      <div>
+        <p>Department of Computer Science</p>
+        <p>Faculty of Computing</p>
+        <p>Lagos State University</p>
+      </div>
+      <div>
+        <p class="course">CSC 392: Software Development</p>
+        <p class="session">March to September 2026</p>
+        <p class="submission">Academic session and submission month: to be completed</p>
+      </div>
+    </section>
+
+    <!-- Declaration -->
+    <section id="declaration" class="preliminary page-break">
+      <h1>Declaration</h1>
+      <p>I, <strong>Aje Damilola</strong>, with matriculation number <strong>230591336</strong>, declare that this
+        report on my Students' Industrial Work Experience Scheme at Golden Edge Softech was prepared by me. It describes
+        my industrial experience and <b>DAMS Micro</b>, a software project I developed after being inspired by the
+        financial and accouting concepts I encountered during my placement period.</p>
+      <p>I confirm that the work reported here is my own, except where the contributions of others are acknowledged or
+        where source code and documentation are cited. </p>
+      <div class="signature">
+        <div>Student's signature and date</div>
+        <div>Academic supervisor's signature and date</div>
+      </div>
+    </section>
+
+    <!-- Acknowledgement (no dedication, as requested) -->
+    <section id="acknowledgement" class="preliminary page-break">
+      <h1>Acknowledgement</h1>
+      <p>I thank <strong>Mr Macdonald Nnaodi</strong>, Chief Executive Officer and Founder of Golden Edge Softech and my
+        industrial
+        supervisor, for the opportunity to undertake my industrial training and for the guidance I received while
+        working with the development team.</p>
+      <!-- <p>I also thank <strong>Dr Raji Lawal</strong>, my academic supervisor, for her advice and for reviewing this
+        report. I appreciate the Department of Computer Science, Faculty of Computing, Lagos State University, for the
+        academic foundation that made the training useful, and I thank my family and colleagues for their support during
+        the placement.</p> -->
+    </section>
+
+    <!-- Abstract -->
+    <section id="abstract" class="preliminary page-break">
+      <h1>Abstract</h1>
+      <p>This report describes the industrial experience I gained at Golden Edge Softech between March and September
+        2026. During the placement, I worked on the backend of an accounting software project for an investment house.
+        My work covered the general ledger, fixed assets, customer management and accounts, investments,
+        treasury and loan modules. The project used PHP, Laravel and PostgreSQL, and the core financial calculations
+        were handled by a senior developer while I contributed to the surrounding backend workflows, data handling,
+        module logic and exposing the relevant APIs to the frontend</p>
+      <p>The placement introduced me to the accounting equation, account types and normal balances, chart-of-accounts
+        hierarchy, financial reporting, prepayments and accruals. I applied these ideas to DAMS Micro, a separate
+        microfinance accounting and lending prototype inspired by the project. The report examines its general ledger,
+        balanced journal workflow, loan lifecycle, loan-to-ledger posting, financial reports and business-date control,
+        with selected source code and diagrams. It concludes with the skills gained, the challenges encountered and
+        recommendations for further work.</p>
+    </section>
+
+    <!-- Table of contents -->
+    <nav class="preliminary page-break" aria-label="Table of contents">
+      <h1>Table of contents</h1>
+      <ul class="contents">
+        <li><a href="#declaration">Declaration</a></li>
+        <li><a href="#acknowledgement">Acknowledgement</a></li>
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#figures">List of figures and listings</a></li>
+        <li class="part"><a href="#chapter-one">Chapter One: Introduction</a></li>
+        <li class="sub"><a href="#one-one">1.1 Background</a></li>
+        <li class="sub"><a href="#one-two">1.2 Objectives of the training</a></li>
+        <li class="sub"><a href="#one-three">1.3 Scope and structure of the report</a></li>
+        <li class="part"><a href="#chapter-two">Chapter Two: Company Profile</a></li>
+        <li class="sub"><a href="#two-one">2.1 About Golden Edge Softech</a></li>
+        <li class="sub"><a href="#two-two">2.2 My role and responsibilities</a></li>
+        <li class="sub"><a href="#two-three">2.3 Financial concepts learned</a></li>
+        <li class="part"><a href="#chapter-three">Chapter Three: Industrial Experience and Project</a></li>
+        <li class="sub"><a href="#three-one">3.1 From the workplace to a prototype</a></li>
+        <li class="sub"><a href="#three-two">3.2 Project overview and scope</a></li>
+        <li class="sub"><a href="#three-three">3.3 Architecture and technology</a></li>
+        <li class="sub"><a href="#three-four">3.4 General ledger and chart of accounts</a></li>
+        <li class="sub"><a href="#three-five">3.5 Journal transactions and double-entry accounting</a></li>
+        <li class="sub"><a href="#three-six">3.6 Loan management and ledger integration</a></li>
+        <li class="sub"><a href="#three-seven">3.7 Financial reports</a></li>
+        <li class="sub"><a href="#three-eight">3.8 Business-date control</a></li>
+        <li class="sub"><a href="#three-nine">3.9 Design decisions and limitations</a></li>
+        <li class="part"><a href="#chapter-four">Chapter Four: Summary, Challenges, Recommendations and Conclusion</a>
+        </li>
+        <li class="sub"><a href="#four-one">4.1 Summary of the training</a></li>
+        <li class="sub"><a href="#four-two">4.2 Skills acquired</a></li>
+        <li class="sub"><a href="#four-three">4.3 Challenges and responses</a></li>
+        <li class="sub"><a href="#four-four">4.4 Recommendations</a></li>
+        <li class="sub"><a href="#four-five">4.5 Conclusion</a></li>
+        <li class="part"><a href="#references">References</a></li>
+        <li class="part"><a href="#appendix">Appendix A: Selected source files</a></li>
+      </ul>
+      <p class="toc-note">Page numbers will be inserted after the final PDF export, when pagination is fixed.</p>
+    </nav>
+
+    <!-- List of figures -->
+    <section id="figures" class="preliminary page-break">
+      <h1>List of figures and listings</h1>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22%">Number</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Figure 3.1</td>
+            <td>DAMS Micro system architecture</td>
+          </tr>
+          <tr>
+            <td>Figure 3.2</td>
+            <td>General ledger overview</td>
+          </tr>
+          <tr>
+            <td>Figure 3.3</td>
+            <td>Chart of accounts</td>
+          </tr>
+          <tr>
+            <td>Figure 3.4</td>
+            <td>Journal transaction lifecycle</td>
+          </tr>
+          <tr>
+            <td>Figure 3.5</td>
+            <td>Journal transaction detail</td>
+          </tr>
+          <tr>
+            <td>Figure 3.6</td>
+            <td>Account statement</td>
+          </tr>
+          <tr>
+            <td>Figure 3.7</td>
+            <td>Loan disbursement flow</td>
+          </tr>
+          <tr>
+            <td>Figure 3.8</td>
+            <td>Loan detail and repayment schedule</td>
+          </tr>
+          <tr>
+            <td>Figure 3.9</td>
+            <td>Trial balance report</td>
+          </tr>
+          <tr>
+            <td>Figure 3.10</td>
+            <td>Balance sheet report</td>
+          </tr>
+          <tr>
+            <td>Figure 3.11</td>
+            <td>Advance business date confirmation</td>
+          </tr>
+          <tr>
+            <td>Listing 3.1</td>
+            <td>Balance validation before submission</td>
+          </tr>
+          <tr>
+            <td>Listing 3.2</td>
+            <td>Fee validation and net proceeds calculation</td>
+          </tr>
+          <tr>
+            <td>Listing 3.3</td>
+            <td>Journal entries created for loan disbursement</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- CHAPTER ONE -->
+    <section id="chapter-one" class="chapter page-break">
+      <h1>Chapter One <span>Introduction</span></h1>
+
+      <h2 id="one-one">1.1 Background</h2>
+      <p>The Students' Industrial Work Experience Scheme (SIWES) is the part of the university programme that places
+        students in industry so that they can apply academic knowledge to real work. It also exposes them to the tools,
+        standards and working habits of professional practice. My placement at Golden Edge Softech, a software
+        development agency in Lagos, gave me that exposure in a financial software environment and more technical
+        experience.</p>
+      <p>During the placement, the company was developing accounting software for an investment house and an Asset
+        management company(I am not able to disclose this company's name due to an NDA i signed). I worked on the
+        backend of that project and came into contact with accounting rules that I had not studied in depth before: how
+        accounts are classified, why debits must equal credits, how a chart of accounts is organised and how financial
+        statements are produced from recorded transactions. That experience led me to build DAMS Micro, a separate
+        microfinance accounting and lending prototype, as a way of applying what I had learned.</p>
+
+      <h2 id="one-two">1.2 Objectives of the training</h2>
+      <p>The training was intended to achieve the following objectives:</p>
+      <ul>
+        <li>Apply software development concepts to a professional project.</li>
+        <li>Strengthen practical backend, database and collaborative skills.</li>
+        <li>Understand how financial rules and controls are represented in software.</li>
+        <li>Learn how client requirements become application behaviour.</li>
+        <li>Develop the discipline of testing, reviewing and documenting software.</li>
+      </ul>
+
+      <h2 id="one-three">1.3 Scope and structure of the report</h2>
+      <p>The report covers the organisation, my work and the prototype that grew out of it. Chapter Two introduces
+        Golden Edge Softech and the financial concepts I encountered. Chapter Three examines DAMS Micro's architecture,
+        general ledger, journal validation, loan posting, reports and business-date control, with selected code and
+        diagrams. Chapter Four summarises the skills gained, challenges and recommendations. The report concentrates on
+        the general ledger and loan modules; deposits, transfers and external settlement are outside its scope.</p>
+    </section>
+
+    <!-- CHAPTER TWO -->
+    <section id="chapter-two" class="chapter page-break">
+      <h1>Chapter Two <span>Company Profile</span></h1>
+
+      <h2 id="two-one">2.1 About Golden Edge Softech</h2>
+      <p>Golden Edge Softech is a software development agency based in Lagos, Nigeria. Its office is at C01 Tomsuite
+        Plaza, 155 Igando Road, Bakare B/Stop, Ikotun, Lagos. The company works with clients to design and build
+        software systems, and its development team handles both the user-facing parts of an application and the backend
+        services that support them.</p>
+      <p>At the time of my placement, the company had a project with an investment house to develop accounting software
+        for its operations. The system was intended to support the firm's financial records and reporting. I was
+        assigned to the backend team, where I contributed to several modules of that system. The client's identity and
+        internal financial data are not reproduced in this report(Again due to my NDA).</p>
+
+      <h2 id="two-two">2.2 My role and responsibilities</h2>
+      <p>I worked as a backend developer. My responsibilities covered the general ledger, fixed assets, customer
+        management and accounts, and the asset management area that handled investments and treasury. This gave me a
+        broad view of how a financial system is divided into modules and how those modules share common records such as
+        accounts, customers and transactions.</p>
+      <p>The core financial calculations in the employer's project were handled by my senior developer. My contribution
+        was in the surrounding backend work: implementing module logic, handling data and validation, connecting
+        workflows to the database, and supporting the behaviour that the user interface depended on. Working next to the
+        calculation layer was useful because it showed me how much care financial software requires. A small rounding
+        error or an unposted entry can change a reported balance, so the rules must be explicit and testable.</p>
+      <p>The project used <strong>PHP</strong>, <strong>Laravel</strong> and <strong>PostgreSQL</strong>. Laravel
+        provided the application structure, routing, validation and database access, while PostgreSQL stored the
+        records. Seeing these tools used in a production-oriented project helped me understand the difference between
+        writing code that works on a small exercise and writing code that other developers must maintain.</p>
+
+      <h2 id="two-three">2.3 Financial concepts learned</h2>
+      <p>The placement introduced several accounting ideas that later shaped DAMS Micro. They are summarised below in
+        the terms I came to understand them.</p>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30%">Concept</th>
+            <th>What it means in practice</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Accounting equation</strong></td>
+            <td>Assets equal liabilities plus equity. Every recorded transaction must keep this relationship true.</td>
+          </tr>
+          <tr>
+            <td><strong>Account types and normal balances</strong></td>
+            <td>Assets and expenses normally carry debit balances; liabilities, equity and income normally carry credit
+              balances. The type of an account determines how it increases or decreases.</td>
+          </tr>
+          <tr>
+            <td><strong>Chart of accounts and hierarchy</strong></td>
+            <td>Accounts are arranged under codes and parent headings so that detailed accounts roll up into summary
+              lines. Only leaf accounts should receive postings.</td>
+          </tr>
+          <tr>
+            <td><strong>Control accounts and subledgers</strong></td>
+            <td>A control account shows a summary total, while a subledger holds the individual customer or item detail
+              that makes up that total.</td>
+          </tr>
+          <tr>
+            <td><strong>Prepayments</strong></td>
+            <td>A payment made before the expense is consumed is initially an asset and is released to expense over the
+              relevant period.</td>
+          </tr>
+          <tr>
+            <td><strong>Accruals</strong></td>
+            <td>An expense or income is recognised in the period it relates to, even if cash has not yet moved.</td>
+          </tr>
+          <tr>
+            <td><strong>Financial reporting</strong></td>
+            <td>The trial balance checks that debit and credit totals agree, while the balance sheet presents assets,
+              liabilities and equity at a point in time.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>These ideas are simple to state but easy to contradict in code. A system can store numbers correctly and still
+        present a misleading report if postings are allowed to the wrong level of the chart, if unbalanced journals are
+        accepted, or if the date used for reporting is not controlled. That realisation became the starting point for
+        the prototype described in Chapter Three.</p>
+    </section>
+
+    <!-- CHAPTER THREE -->
+    <section id="chapter-three" class="chapter page-break">
+      <h1>Chapter Three <span>Industrial Experience and Project</span></h1>
+
+      <h2 id="three-one">3.1 From the workplace to a prototype</h2>
+      <p>My work at Golden Edge Softech gave me a view of accounting software as a set of connected rules rather than a
+        collection of screens. The investment house's project dealt with ledgers, fixed assets, customer accounts,
+        investments and treasury operations. Although I did not own the main calculations, I saw how those calculations
+        depended on clean data, controlled workflows and a reliable database.</p>
+      <p>I developed DAMS Micro as an independent prototype inspired by that experience. It is not the investment
+        house's application and does not contain the client's code or data. Its purpose is to demonstrate, on a smaller
+        scale, how a general ledger and a loan portfolio can share one accounting foundation. The remainder of this
+        chapter describes the prototype and the technical decisions behind it.</p>
+
+      <h2 id="three-two">3.2 Project overview and scope</h2>
+      <p>DAMS Micro is a microfinance accounting and lending system. It combines a <strong>general ledger</strong>,
+        where financial transactions are recorded as balanced double-entry journals, with a <strong>loan
+          portfolio</strong>, where borrowers are registered, loan products are configured and loans move through
+        booking, approval, disbursement and repayment.</p>
+      <p>The objectives of the prototype are to:</p>
+      <ul>
+        <li>record financial transactions in a way that preserves the double-entry rule;</li>
+        <li>organise accounts in a hierarchy that supports summary reporting and detailed customer records;</li>
+        <li>connect loan events to the ledger so that lending activity is reflected in the books;</li>
+        <li>produce a trial balance and balance sheet from posted records; and</li>
+        <li>control the financial date used by the application.</li>
+      </ul>
+      <p>The implemented scope covers the chart of accounts, journal transactions, customer records and KYC status, loan
+        products and lifecycle, financial reports and business-date control. Deposits, transfers and external settlement
+        are not part of the prototype. This boundary keeps the project focused on the accounting core that the placement
+        exposed me to.</p>
+
+      <h2 id="three-three">3.3 Architecture and technology</h2>
+      <p>The application follows a server-centred architecture. The user interface is built with <strong>React</strong>
+        and <strong>TypeScript</strong>, and <strong>Inertia</strong> connects it to Laravel routes without requiring a
+        separate API layer. The backend is written in <strong>PHP</strong> with <strong>Laravel</strong>, and
+        <strong>PostgreSQL</strong> is the database used in the project environment.
+      </p>
+      <figure class="diagram">
+        <img src="figures/system-architecture.svg" alt="Diagram of the DAMS Micro system architecture">
+        <figcaption>Figure 3.1: DAMS Micro system architecture. The interface communicates with Laravel through Inertia,
+          while financial rules and database access remain in the backend.</figcaption>
+      </figure>
+      <p>A request therefore moves from the browser, through an Inertia visit, to a Laravel controller. The controller
+        validates the request and delegates the work to application services or models. Those services apply the
+        accounting rules, write to PostgreSQL inside a transaction where necessary, and return the result to the
+        interface. The important consequence is that the interface does not decide whether a journal balances or whether
+        a loan may be disbursed. Those decisions are enforced on the server, where every client request passes through
+        the same rules.</p>
+      <p>The backend is organised around the two domains. General ledger code handles accounts, journal transactions,
+        entries and reports. Loan code handles customers, products, schedules, repayments and the posting service that
+        turns loan events into journals. The two domains meet at the journal: a loan disbursement or repayment produces
+        entries that the general ledger treats like any other posting.</p>
+
+      <h2 id="three-four">3.4 General ledger and chart of accounts</h2>
+      <p>The general ledger is the official record of the prototype's finances. Its chart of accounts gives each account
+        a code, a name, a ledger, a balance type and a category. Accounts may have a parent, which produces a hierarchy.
+        A parent account summarises the accounts beneath it, while a <strong>leaf account</strong>, one with no
+        children, is the level that accepts postings. This prevents detail from being posted to a heading that is meant
+        only for reporting.</p>
+      <p>Customer accounts illustrate why the hierarchy matters. Each customer can have an account in a customer
+        subledger, while a control account summarises the customer balances for the main chart. The ledger can therefore
+        answer two different questions: what the organisation owes or is owed in total, and what a particular customer
+        owes. Keeping both views consistent is one of the recurring problems in accounting software.</p>
+      <figure>
+        <img src="../presentation/screenshots/gl-overview.png"
+          alt="General ledger overview showing posting totals and recent activity">
+        <figcaption>Figure 3.2: General ledger overview, showing posted transactions, debit and credit volume, and
+          recent postings.</figcaption>
+      </figure>
+      <figure>
+        <img src="../presentation/screenshots/chart-of-accounts.png"
+          alt="Chart of accounts with codes, ledgers, categories and balance types">
+        <figcaption>Figure 3.3: Chart of accounts, showing the code, ledger, category and balance type of each account.
+        </figcaption>
+      </figure>
+
+      <h2 id="three-five">3.5 Journal transactions and double-entry accounting</h2>
+      <p>A journal transaction groups the entries that describe one financial event. Each entry names an account, a side
+        (debit or credit) and an amount. Under double-entry accounting, the total debits must equal the total credits. A
+        transaction also has an effective date and a status. In DAMS Micro the normal path is <strong>Draft</strong>,
+        then <strong>Submitted</strong>, then <strong>Posted</strong>, with cancellation or deletion available before
+        posting. A posted transaction is not edited in place; a correction is recorded as a linked reversal.</p>
+      <p>The submission check is a good example of a financial rule expressed in code. The controller refuses to move a
+        transaction to <em>Submitted</em> unless it has at least two entries, a positive debit total and equal debit and
+        credit totals. The comparison uses <strong>bcmath</strong> at four decimal places rather than floating-point
+        arithmetic, because binary floating point can produce small differences that should not exist in a ledger.</p>
+
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.1: Balance validation before submission</strong><span>PHP</span>
+        </div>
+        <pre><code>/** A transaction cannot be submitted unless it balances. */
+private static function assertSubmittable(JournalTransaction $transaction): void
+{
+    $totals = self::totals($transaction->entries);
+
+    if ($transaction->entries-&gt;count() &lt; 2) {
+        throw ValidationException::withMessages([
+            'status' =&gt; 'Add at least one debit and one credit before submitting.',
+        ]);
+    }
+
+    if (bccomp($totals['debits'], '0', 4) &lt;= 0
+        || bccomp($totals['debits'], $totals['credits'], 4) !== 0) {
+        throw ValidationException::withMessages([
+            'status' =&gt; 'Debits must equal credits before submitting.',
+        ]);
+    }
+}</code></pre>
+        <div class="listing-source">Source: <code>app/Http/Controllers/GeneralLedger/TransactionController.php</code>,
+          lines 210 to 226. Long lines reformatted for page width.</div>
+      </div>
+
+      <p>The listing is deliberately small, but it shows the shape of the rule: entry count first, then a positive debit
+        total, then equality of totals. The error messages are written for the person using the system, not only for the
+        developer. That matters in an accounting application, because a rejected posting must tell the user what to
+        correct.</p>
+      <p>Money is not handled as a floating-point number. PHP's <code>bcmath</code> extension provides
+        arbitrary-precision decimal arithmetic, and the application uses <code>bcadd</code> to add amounts and
+        <code>bcsub</code> to subtract them. A balance update can therefore be written as
+        <code>bcadd($balance, $amount, 2)</code>, and the net proceeds of a loan as
+        <code>bcsub($principal, $fee, 2)</code>. The final argument fixes the number of decimal places, so values such
+        as 0.10 and 0.20 do not acquire the small binary rounding errors that appear when they are added as
+        floating-point numbers. The trade-off is performance: bcmath works on strings and performs the operation in
+        software, so it is slower than native arithmetic. For ledger values, correctness is worth that cost, and the
+        slower path is limited to the places where money is actually calculated. The account statement service uses the
+        same pair to carry a running balance from one entry to the next, and repayment allocation uses them to split a
+        payment across penalty, fee, interest and principal without losing precision.</p>
+      <p>The check belongs to the manual submission path. Journals created by the loan posting service are generated on
+        the server and posted immediately, so they do not pass through this controller. Their balance is instead
+        guaranteed by the arithmetic used to construct them, as Section 3.6 explains. Recognising where a rule applies,
+        and where it does not, is part of understanding the system rather than assuming that one check covers every
+        path.</p>
+      <figure class="diagram">
+        <img src="figures/journal-lifecycle.svg" alt="Diagram of the journal transaction lifecycle">
+        <figcaption>Figure 3.4: Journal transaction lifecycle. Drafts can be deleted, submitted journals cancelled, and
+          posted journals corrected through a linked reversal.</figcaption>
+      </figure>
+      <figure>
+        <img src="../presentation/screenshots/transaction-detail.png"
+          alt="Journal transaction detail showing debit and credit entries that balance">
+        <figcaption>Figure 3.5: Journal transaction detail. The entries show a debit and matching credits, and the
+          transaction carries a reference and status.</figcaption>
+      </figure>
+      <p>Once a transaction is posted, its entries affect account balances. An account statement lists those movements
+        with a running balance, which allows a user to trace how a balance was reached instead of seeing only a final
+        figure. This is the same idea as a bank statement: the closing balance is useful, but the sequence of movements
+        is what makes it verifiable.</p>
+      <figure>
+        <img src="../presentation/screenshots/account-statement.png"
+          alt="Account statement showing dated movements and running balances">
+        <figcaption>Figure 3.6: Account statement for an account, showing dated movements and their running balance.
+        </figcaption>
+      </figure>
+
+      <h2 id="three-six">3.6 Loan management and ledger integration</h2>
+      <p>The loan module registers customers, records their KYC status and links each customer to a ledger account. A
+        loan product defines the lending terms: the interest method, annual rate, repayment frequency, principal and
+        tenor limits, processing fee, penalty rate and grace period. It also maps the product to the accounts used for
+        interest, fees and penalties. A loan cannot be booked for a customer whose KYC is not verified, and a product
+        cannot be used until its required mappings are complete.</p>
+      <p>The loan lifecycle moves from booking to approval or rejection, then to disbursement and repayment. Each stage
+        has a status check. For example, only an approved loan may be disbursed, and the operation runs inside a
+        database transaction so that the journal, the loan status and the link between them are saved together. This
+        prevents a loan from being marked active without its accounting entry, or the reverse.</p>
+      <p>Disbursement is the clearest point where lending meets accounting. The posting service debits the settlement
+        bank account with the gross principal, credits the customer account with the principal less the processing fee,
+        and credits fee income with the fee. Because the net proceeds plus the fee equal the principal, the journal
+        balances by construction. The service validates that the fee is less than the principal before it creates any
+        entries.</p>
+
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.2: Fee validation and net proceeds
+            calculation</strong><span>PHP</span></div>
+        <pre><code>$principal = (string) $loan-&gt;principal;
+$fee = (string) $loan-&gt;processing_fee;
+
+if (bccomp($fee, $principal, 2) &gt;= 0) {
+    throw ValidationException::withMessages([
+        'processing_fee' =&gt; 'The processing fee must be less than the principal.',
+    ]);
+}
+
+$netProceeds = bcsub($principal, $fee, 2);</code></pre>
+        <div class="listing-source">Source: <code>app/Services/Loan/LoanPosting.php</code>, lines 41 to 50.</div>
+      </div>
+
+      <p>The amounts are cast to strings and processed with <code>bccomp</code> and <code>bcsub</code>. This is a
+        practical defence against the rounding problems that can appear when money is stored or calculated as a binary
+        floating-point number. The validation also protects the journal from a nonsensical case: a fee equal to or
+        greater than the principal would leave no proceeds for the customer and would break the intended meaning of the
+        transaction.</p>
+
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.3: Journal entries created for loan
+            disbursement</strong><span>PHP</span></div>
+        <pre><code>$txn-&gt;entries()-&gt;create([
+    'account_id' =&gt; $bankAccount-&gt;id,
+    'type' =&gt; 'debit',
+    'value' =&gt; $principal,
+    'balance_after' =&gt; 0,
+]);
+if (bccomp($netProceeds, '0', 2) &gt; 0) {
+    $txn-&gt;entries()-&gt;create([
+        'account_id' =&gt; $customerAccount-&gt;id,
+        'type' =&gt; 'credit',
+        'value' =&gt; $netProceeds,
+        'balance_after' =&gt; 0,
+    ]);
+}
+if (bccomp($fee, '0', 2) &gt; 0) {
+        abort_unless($feeIncomeAccount !== null, 422,
+            'Fee income account is not mapped for this product.');
+    $txn-&gt;entries()-&gt;create([
+        'account_id' =&gt; $feeIncomeAccount-&gt;id,
+        'type' =&gt; 'credit',
+        'value' =&gt; $fee,
+        'balance_after' =&gt; 0,
+    ]);
+}</code></pre>
+        <div class="listing-source">Source: <code>app/Services/Loan/LoanPosting.php</code>, lines 60 to 82. Long lines
+          reformatted for page width.</div>
+      </div>
+
+      <p>The three entries can be read as a small accounting story. The bank account carries the gross principal, the
+        customer account carries the net proceeds, and fee income carries the processing fee. If the fee is zero, the
+        third entry is skipped; if the fee income account has not been mapped, the operation stops rather than posting
+        an incomplete journal. The direction of each entry follows the prototype's current posting convention; before
+        the system is used with real funds, that convention should be checked against the organisation's chart of
+        accounts and accounting policy, particularly the treatment of the customer and settlement accounts.</p>
+      <p>Repayment follows a similar pattern. A repayment is allocated to the oldest instalment first, and within each
+        instalment the order is penalty, fee, interest and principal. The schedule generated at booking provides the
+        amounts and due dates that this allocation works against. Interest accrual is handled by a separate scheduled
+        command, not by the business-date advance, and the operation is written to avoid double-counting if it is run
+        more than once.</p>
+      <figure class="diagram">
+        <img src="figures/loan-disbursement.svg" alt="Diagram of the loan disbursement flow and its journal entries">
+        <figcaption>Figure 3.7: Loan disbursement flow. The posting service validates the fee, calculates the net
+          proceeds and creates a journal that balances by construction.</figcaption>
+      </figure>
+      <figure>
+        <img src="../presentation/screenshots/loan-detail.png"
+          alt="Loan detail page showing loan terms, status and repayment schedule">
+        <figcaption>Figure 3.8: Loan detail view, showing loan terms, status and the repayment schedule generated at
+          booking.</figcaption>
+      </figure>
+
+      <h2 id="three-seven">3.7 Financial reports</h2>
+      <p>Reports are produced from posted records rather than from the loan module's own totals. That separation is
+        important: if a report were calculated independently of the ledger, the two could disagree. The <strong>trial
+          balance</strong> lists accounts with their debit and credit balances as at a selected date. Its totals should
+        match, and a mismatch is a signal to investigate unposted or reversed journals before relying on other reports.
+      </p>
+      <p>The <strong>balance sheet</strong> presents assets, liabilities and equity under configured headings, with the
+        current-period surplus or deficit included so that the sheet balances. Both reports accept an <em>as at</em>
+        date, which allows a user to reproduce a previous position instead of seeing only the current one.</p>
+      <figure class="tall">
+        <img src="../presentation/screenshots/trial-balance.png"
+          alt="Trial balance report with debit and credit columns">
+        <figcaption>Figure 3.9: Trial balance report. The debit and credit totals provide a check on the displayed
+          balances.</figcaption>
+      </figure>
+      <figure class="tall">
+        <img src="../presentation/screenshots/balance-sheet.png"
+          alt="Balance sheet report grouped into assets, liabilities and equity">
+        <figcaption>Figure 3.10: Balance sheet report, grouped into assets, liabilities and equity.</figcaption>
+      </figure>
+      <p>A matching trial balance is evidence that the displayed debits and credits agree; it is not proof that every
+        underlying business event was recorded correctly. That distinction is worth stating plainly, because accounting
+        reports can look authoritative even when the postings behind them are incomplete.</p>
+
+      <h2 id="three-eight">3.8 Business-date control</h2>
+      <p>The business date is the financial date used by the application. It is not simply the computer's clock.
+        Transactions are dated on or before the business date, and advancing the date is a controlled operation rather
+        than an ordinary settings change.</p>
+      <p>Before the date moves, the system counts journals that are still in draft or submitted status and refuses to
+        continue while any remain. It then locks the settings row with <code>lockForUpdate</code>, re-checks the date
+        and the unposted queue inside the lock, records closing balances for the old day as the opening position for the
+        new day, and advances the date. The whole operation runs inside one database transaction. If any step fails, the
+        date does not move.</p>
+      <p>The lock and the second check matter because two users could otherwise attempt to advance the date at the same
+        time. The first would succeed and the second could act on stale information. Re-reading the locked row closes
+        that gap. The snapshot gives the next day a consistent opening position, and the single transaction prevents a
+        partial close in which balances are recorded but the date is not changed.</p>
+      <figure>
+        <img src="../presentation/screenshots/advance-day-dialog.png" alt="Advance business date confirmation dialog">
+        <figcaption>Figure 3.11: Advance business date confirmation. The operation is blocked while unposted journals
+          remain.</figcaption>
+      </figure>
+
+      <h2 id="three-nine">3.9 Design decisions and limitations</h2>
+      <p>Several decisions run through the implementation:</p>
+      <ul>
+        <li><strong>Money is handled as decimal strings.</strong> The bcmath extension is used for addition,
+          subtraction and comparison (<code>bcadd</code>, <code>bcsub</code> and <code>bccomp</code>) so that amounts do
+          not acquire floating-point artefacts. This trades some performance for accuracy, which is appropriate for
+          ledger values.</li>
+        <li><strong>Financial rules live in the backend.</strong> The interface can present a form and show an error,
+          but the decision to accept a posting, disburse a loan or advance the date is made on the server.</li>
+        <li><strong>Server-generated journals are treated differently from manual journals.</strong> Loan journals are
+          posted directly because their entries are constructed by the posting service. Their correctness depends on the
+          service's arithmetic, which is why the fee check and the balance-by-construction pattern are important.</li>
+        <li><strong>Corrections are recorded, not erased.</strong> Reversals preserve the audit trail instead of editing
+          a posted transaction.</li>
+      </ul>
+      <p>The prototype also has limits. The product's principal-receivable mapping is informational in the current
+        posting model, while customer accounts roll up to a customer control account. The posting directions used for
+        loan disbursement should be reviewed against the intended accounting policy before production use. Deposits,
+        transfers and external settlement are not implemented. Audit logging, integration with external settlement
+        systems and broader reconciliation testing remain future work. These limits are part of an honest description of
+        the system and point to the next stage of its development.</p>
+    </section>
+
+    <!-- CHAPTER FOUR -->
+    <section id="chapter-four" class="chapter page-break">
+      <h1>Chapter Four <span>Summary, Challenges, Recommendations and Conclusion</span></h1>
+
+      <h2 id="four-one">4.1 Summary of the training</h2>
+      <p>My industrial training at Golden Edge Softech placed me inside a working software team and gave me a view of
+        financial software that a classroom exercise could not provide. I contributed to backend modules for the general
+        ledger, fixed assets, customer management and accounts, and investments and treasury, while the core
+        calculations remained with the senior developer. That arrangement allowed me to learn from the calculation layer
+        without being responsible for it, and it showed me how much of a financial system consists of rules, checks and
+        carefully handled data.</p>
+      <p>DAMS Micro turned those lessons into an independent project. Building it required me to connect accounting
+        concepts to database design, validation and reporting, and to decide where each rule should live. The result is
+        a prototype rather than a production system, but it demonstrates the accounting core that the placement
+        introduced me to.</p>
+
+      <h2 id="four-two">4.2 Skills acquired</h2>
+      <p><strong>Technical skills.</strong> I became more confident with Laravel application structure, controllers,
+        models, database transactions and PostgreSQL. I learned to use PHP's <code>bcmath</code> extension for monetary
+        arithmetic, including <code>bcadd</code>, <code>bcsub</code> and <code>bccomp</code>, and to accept its
+        performance cost in exchange for decimal accuracy. I also learned to design status-based workflows and to place
+        validation where every request must pass through it. I gained experience in reading an existing codebase and
+        working within conventions rather than starting from a blank file.</p>
+      <p><strong>Domain knowledge.</strong> I learned the accounting equation, the meaning of debit and credit balances,
+        account classification, chart-of-accounts hierarchy, control accounts and subledgers, prepayments, accruals and
+        the purpose of the trial balance and balance sheet. I also learned how loan products, repayment schedules and
+        interest accrual are represented in software.</p>
+      <p><strong>Professional skills.</strong> Working with a senior developer and the wider team taught me to ask about
+        requirements before writing code, to keep changes small and reviewable, and to explain technical decisions in
+        plain language. Those habits are as important as the programming itself.</p>
+
+      <h2 id="four-three">4.3 Challenges and responses</h2>
+      <p><strong>Understanding the domain before the code.</strong> Accounting terms such as accrual, prepayment,
+        control account and normal balance were unfamiliar at first. I addressed this by reading the project's
+        documentation, asking questions and tracing how a recorded transaction reached a report. Building DAMS Micro
+        forced me to turn that reading into working behaviour.</p>
+      <p><strong>Maintaining balances over time.</strong> A running balance is easy to store but harder to keep correct
+        when transactions can have different effective dates. The prototype includes a rebuild mechanism that
+        recalculates balances in effective-date order. This showed me that a stored balance is a convenience and must be
+        reproducible from the underlying entries.</p>
+      <p><strong>Organising customer detail.</strong> Putting every customer account into the main chart would make the
+        chart unmanageable. Control accounts and a customer subledger provide a structure that keeps the main chart
+        readable while preserving customer-level detail.</p>
+      <p><strong>Protecting the date change.</strong> Advancing the business date touches several records. Performing
+        the operation inside one database transaction, with a row lock and a re-check, prevents a partial close and
+        reduces the risk of two simultaneous advances. This was a practical lesson in concurrency control rather than a
+        theoretical one.</p>
+
+      <h2 id="four-four">4.4 Recommendations</h2>
+      <p>For DAMS Micro, the next steps should be audit logging, integration with external settlement, and broader
+        reconciliation testing. Audit logging would record who posted, approved, reversed or advanced the date.
+        Settlement integration would connect the ledger to real cash movements instead of relying on selected internal
+        accounts. Reconciliation tests would compare loan balances, customer control totals and ledger reports over
+        longer sequences of activity.</p>
+      <p>For students preparing for SIWES, I recommend learning the domain vocabulary before or during the placement. A
+        developer who understands why a rule exists will implement it more carefully than one who only copies a pattern.
+        It also helps to keep a small project of your own, because explaining a system you built exposes gaps in your
+        understanding that reading alone does not.</p>
+
+      <h2 id="four-five">4.5 Conclusion</h2>
+      <p>The placement connected my academic work with professional software development and introduced me to accounting
+        as a set of rules that software must respect. DAMS Micro is the result of applying those rules in a separate
+        project: a general ledger that validates balanced journals, a loan module that posts its events to that ledger,
+        reports that read from posted records, and a business date that cannot move while work is unposted.</p>
+      <p>The experience showed me that financial software is not only about displaying figures. It is about preserving
+        the relationships between figures, making corrections visible, and refusing to accept data that would break the
+        books. Those lessons will shape how I approach backend development in the future.</p>
+    </section>
+
+    <!-- References -->
+    <section id="references" class="chapter page-break">
+      <h1>References</h1>
+      <ol class="references">
+        <li>Laravel. <em>Laravel Documentation.</em> Available at: <a
+            href="https://laravel.com/docs">https://laravel.com/docs</a> (accessed during project development).</li>
+        <li>React. <em>React Documentation.</em> Available at: <a
+            href="https://react.dev/learn">https://react.dev/learn</a> (accessed during project development).</li>
+        <li>Inertia.js. <em>Inertia.js Documentation.</em> Available at: <a
+            href="https://inertiajs.com/docs">https://inertiajs.com/docs</a> (accessed during project development).</li>
+        <li>PostgreSQL Global Development Group. <em>PostgreSQL Documentation.</em> Available at: <a
+            href="https://www.postgresql.org/docs/">https://www.postgresql.org/docs/</a> (accessed during project
+          development).</li>
+        <li>The PHP Group. <em>PHP Manual: BC Math Functions.</em> Available at: <a
+            href="https://www.php.net/manual/en/book.bc.php">https://www.php.net/manual/en/book.bc.php</a> (accessed
+          during project development).</li>
+        <li>Aje, D. <em>DAMS Micro User Guide and Project Source Code.</em> Unpublished project materials, 2026.</li>
+      </ol>
+    </section>
+
+    <!-- Appendix -->
+    <section id="appendix" class="chapter page-break">
+      <h1>Appendix A <span>Selected source files</span></h1>
+      <p>The following files contain the implementation discussed in Chapter Three. Paths are relative to the project
+        root.</p>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:42%">File</th>
+            <th>Responsibility</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>app/Http/Controllers/GeneralLedger/TransactionController.php</code></td>
+            <td>Manual journal creation, status changes and the submission balance check.</td>
+          </tr>
+          <tr>
+            <td><code>app/Models/GeneralLedger/JournalTransaction.php</code></td>
+            <td>Journal model, status transitions and posting behaviour.</td>
+          </tr>
+          <tr>
+            <td><code>app/Services/Loan/LoanPosting.php</code></td>
+            <td>Creation of balanced journals for loan disbursement, accrual, penalty and repayment.</td>
+          </tr>
+          <tr>
+            <td><code>app/Services/Loan/LoanLifecycle.php</code></td>
+            <td>Loan approval, disbursement, repayment and status updates.</td>
+          </tr>
+          <tr>
+            <td><code>app/Services/Loan/ScheduleGenerator.php</code></td>
+            <td>Generation of the repayment schedule at booking.</td>
+          </tr>
+          <tr>
+            <td><code>app/Http/Controllers/GeneralLedger/BusinessDateController.php</code></td>
+            <td>Controlled advancement of the business date.</td>
+          </tr>
+          <tr>
+            <td><code>app/Support/BusinessDate.php</code></td>
+            <td>Business-date access and unposted-journal checks.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The code excerpts in this report are reproduced for explanation. They are not a complete listing of the files
+        and should be read together with the surrounding validation, authorisation and model logic.</p>
+    </section>
+
+  </main>
+</body>
+
+</html>

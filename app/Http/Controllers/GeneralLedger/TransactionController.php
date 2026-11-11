@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\GeneralLedger\JournalTransaction;
 use App\Support\BusinessDate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
@@ -67,14 +69,24 @@ class TransactionController extends Controller
             'effective_date' => ['required', 'date', 'before_or_equal:'.BusinessDate::today()],
         ]);
 
-        $transaction = JournalTransaction::create([
-            'description' => trim($data['description']),
-            'ref' => self::nextRef(),
-            'status' => TransactionStatus::DRAFT->value,
-            'effective_date' => $data['effective_date'],
-        ]);
+        $id = (string) Str::uuid();
+        $now = now();
 
-        return redirect()->route('general-ledger.transactions.show', ['transaction' => $transaction->id]);
+        DB::insert(
+            'insert into journal_transactions (id, description, ref, status, effective_date, created_at, updated_at)
+            values (?, ?, ?, ?, ?, ?, ?)',
+            [
+                $id,
+                trim($data['description']),
+                self::nextRef(),
+                TransactionStatus::DRAFT->value,
+                $data['effective_date'],
+                $now,
+                $now,
+            ]
+        );
+
+        return redirect()->route('general-ledger.transactions.show', ['transaction' => $id]);
     }
 
     public function show(JournalTransaction $transaction)
@@ -114,6 +126,8 @@ class TransactionController extends Controller
             'status' => ['sometimes', 'required', Rule::in([TransactionStatus::SUBMITTED->value, TransactionStatus::CANCELLED->value])],
         ]);
 
+        $updates = [];
+
         // Only drafts can be edited. Status moves go through the same endpoint.
         if (isset($data['description']) || isset($data['effective_date'])) {
             if ($transaction->status !== TransactionStatus::DRAFT->value) {
@@ -121,10 +135,8 @@ class TransactionController extends Controller
                     'description' => 'Only draft transactions can be edited.',
                 ]);
             }
-            $transaction->fill([
-                'description' => isset($data['description']) ? trim($data['description']) : $transaction->description,
-                'effective_date' => $data['effective_date'] ?? $transaction->effective_date,
-            ]);
+            $updates['description'] = isset($data['description']) ? trim($data['description']) : $transaction->description;
+            $updates['effective_date'] = $data['effective_date'] ?? $transaction->effective_date->toDateTimeString();
         }
 
         if (isset($data['status'])) {
@@ -137,10 +149,22 @@ class TransactionController extends Controller
             if ($next === TransactionStatus::SUBMITTED) {
                 self::assertSubmittable($transaction);
             }
-            $transaction->status = $next->value;
+            $updates['status'] = $next->value;
         }
 
-        $transaction->save();
+        if ($updates === []) {
+            return back();
+        }
+
+        $assignments = implode(', ', array_map(fn (string $column) => "{$column} = ?", array_keys($updates)));
+        $bindings = array_values($updates);
+        $bindings[] = now();
+        $bindings[] = $transaction->id;
+
+        DB::update(
+            "update journal_transactions set {$assignments}, updated_at = ? where id = ?",
+            $bindings
+        );
 
         return back();
     }
@@ -151,8 +175,13 @@ class TransactionController extends Controller
             return back()->withErrors(['transaction' => 'Only draft transactions can be deleted.']);
         }
 
-        $transaction->entries()->delete();
-        $transaction->delete();
+        DB::transaction(function () use ($transaction) {
+            DB::delete('delete from journal_entries where journal_transaction_id = ?', [$transaction->id]);
+            DB::delete(
+                'delete from journal_transactions where id = ? and status = ?',
+                [$transaction->id, TransactionStatus::DRAFT->value]
+            );
+        });
 
         return redirect()->route('general-ledger.transactions.index');
     }
@@ -199,10 +228,10 @@ class TransactionController extends Controller
     /** Next ref in the TXN-0001 sequence. */
     private static function nextRef(): string
     {
-        $max = JournalTransaction::where('ref', 'like', 'TXN-%')
-            ->pluck('ref')
-            ->map(fn (string $ref) => (int) preg_replace('/\D+/', '', substr($ref, 4)) ?: 0)
-            ->max() ?? 0;
+        $max = (int) DB::selectOne(
+            "select coalesce(max(cast(substr(ref, 5) as integer)), 0) as max_ref
+            from journal_transactions where ref like 'TXN-%'"
+        )->max_ref;
 
         return sprintf('TXN-%04d', $max + 1);
     }
@@ -228,10 +257,8 @@ class TransactionController extends Controller
     /** Global counts for the header cards, unaffected by paging. */
     private static function stats(): array
     {
-        $counts = JournalTransaction::selectRaw('status, count(*) as aggregate')
-            ->groupBy('status')
-            ->pluck('aggregate', 'status')
-            ->map(fn ($count) => (int) $count);
+        $counts = collect(DB::select('select status, count(*) as aggregate from journal_transactions group by status'))
+            ->mapWithKeys(fn (object $row) => [$row->status => (int) $row->aggregate]);
 
         return [
             'total' => $counts->sum(),

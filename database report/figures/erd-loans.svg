@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 790" role="img" aria-labelledby="title desc">
+  <title id="title">Entity-relationship diagram for the loan domain</title>
+  <desc id="desc">Companies own customers, products and loans. Customers and products own loans. Loans own schedules, repayments and accruals. Customer documents and product-account mappings sit at the edges. Several tables reference accounts and journal transactions.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="790" fill="#ffffff"/>
+  <g font-family="'IBM Plex Sans', Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a">
+
+    <!-- companies -->
+    <g>
+      <rect x="30" y="40" width="200" height="88" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="30" y="40" width="200" height="28" fill="#1a1a1a"/>
+      <text x="42" y="59" fill="#ffffff" font-size="13" font-weight="600">companies</text>
+      <text x="42" y="87">id</text><text x="218" y="87" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="42" y="107">code</text>
+      <text x="42" y="127">name</text>
+    </g>
+
+    <!-- loan_customers -->
+    <g>
+      <rect x="280" y="30" width="260" height="208" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="280" y="30" width="260" height="28" fill="#1a1a1a"/>
+      <text x="292" y="49" fill="#ffffff" font-size="13" font-weight="600">loan_customers</text>
+      <text x="292" y="77">id</text><text x="528" y="77" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="292" y="97">company_id</text><text x="528" y="97" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="292" y="117">account_id</text><text x="528" y="117" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="292" y="137">customer_no</text>
+      <text x="292" y="157">first_name</text>
+      <text x="292" y="177">last_name</text>
+      <text x="292" y="197">kyc_tier</text>
+      <text x="292" y="217">kyc_status</text>
+      <text x="292" y="237">status</text>
+    </g>
+
+    <!-- loan_products -->
+    <g>
+      <rect x="30" y="300" width="250" height="208" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="30" y="300" width="250" height="28" fill="#1a1a1a"/>
+      <text x="42" y="319" fill="#ffffff" font-size="13" font-weight="600">loan_products</text>
+      <text x="42" y="347">id</text><text x="268" y="347" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="42" y="367">company_id</text><text x="268" y="367" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="42" y="387">code</text>
+      <text x="42" y="407">name</text>
+      <text x="42" y="427">interest_method</text>
+      <text x="42" y="447">annual_interest_rate</text>
+      <text x="42" y="467">repayment_frequency</text>
+      <text x="42" y="487">processing_fee_rate</text>
+      <text x="42" y="507">status</text>
+    </g>
+
+    <!-- loans -->
+    <g>
+      <rect x="330" y="300" width="280" height="228" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="330" y="300" width="280" height="28" fill="#1a1a1a"/>
+      <text x="342" y="319" fill="#ffffff" font-size="13" font-weight="600">loans</text>
+      <text x="342" y="347">id</text><text x="598" y="347" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="342" y="367">company_id</text><text x="598" y="367" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="342" y="387">loan_product_id</text><text x="598" y="387" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="342" y="407">loan_customer_id</text><text x="598" y="407" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="342" y="427">loan_no</text>
+      <text x="342" y="447">principal</text>
+      <text x="342" y="467">total_repayable</text>
+      <text x="342" y="487">status</text>
+      <text x="342" y="507">disbursement_account_id</text><text x="598" y="507" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="342" y="527">disbursement_journal_id</text><text x="598" y="527" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+    </g>
+
+    <!-- loan_schedules -->
+    <g>
+      <rect x="670" y="40" width="260" height="188" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="670" y="40" width="260" height="28" fill="#1a1a1a"/>
+      <text x="682" y="59" fill="#ffffff" font-size="13" font-weight="600">loan_schedules</text>
+      <text x="682" y="87">id</text><text x="918" y="87" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="682" y="107">loan_id</text><text x="918" y="107" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="682" y="127">installment_no</text>
+      <text x="682" y="147">due_date</text>
+      <text x="682" y="167">total_due</text>
+      <text x="682" y="187">principal_paid</text>
+      <text x="682" y="207">status</text>
+    </g>
+
+    <!-- loan_repayments -->
+    <g>
+      <rect x="670" y="250" width="260" height="188" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="670" y="250" width="260" height="28" fill="#1a1a1a"/>
+      <text x="682" y="269" fill="#ffffff" font-size="13" font-weight="600">loan_repayments</text>
+      <text x="682" y="297">id</text><text x="918" y="297" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="682" y="317">loan_id</text><text x="918" y="317" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="682" y="337">payment_account_id</text><text x="918" y="337" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="682" y="357">journal_transaction_id</text><text x="918" y="357" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="682" y="377">amount</text>
+      <text x="682" y="397">payment_date</text>
+      <text x="682" y="417">principal_component</text>
+    </g>
+
+    <!-- loan_accruals -->
+    <g>
+      <rect x="670" y="460" width="260" height="168" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="670" y="460" width="260" height="28" fill="#1a1a1a"/>
+      <text x="682" y="479" fill="#ffffff" font-size="13" font-weight="600">loan_accruals</text>
+      <text x="682" y="507">id</text><text x="918" y="507" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="682" y="527">loan_id</text><text x="918" y="527" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="682" y="547">loan_schedule_id</text><text x="918" y="547" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="682" y="567">journal_transaction_id</text><text x="918" y="567" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="682" y="587">accrual_date</text>
+      <text x="682" y="607">interest_amount</text>
+    </g>
+
+    <!-- documents -->
+    <g>
+      <rect x="30" y="610" width="250" height="128" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="30" y="610" width="250" height="28" fill="#1a1a1a"/>
+      <text x="42" y="629" fill="#ffffff" font-size="13" font-weight="600">loan_customer_documents</text>
+      <text x="42" y="657">id</text><text x="268" y="657" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="42" y="677">loan_customer_id</text><text x="268" y="677" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="42" y="697">doc_type</text>
+      <text x="42" y="717">file_path</text>
+      <text x="42" y="737">verified_at</text>
+    </g>
+
+    <!-- product accounts -->
+    <g>
+      <rect x="330" y="610" width="280" height="108" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+      <rect x="330" y="610" width="280" height="28" fill="#1a1a1a"/>
+      <text x="342" y="629" fill="#ffffff" font-size="13" font-weight="600">loan_product_accounts</text>
+      <text x="342" y="657">id</text><text x="598" y="657" font-size="9" fill="#6a6a6a" text-anchor="end">PK</text>
+      <text x="342" y="677">loan_product_id</text><text x="598" y="677" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="342" y="697">account_id</text><text x="598" y="697" font-size="9" fill="#6a6a6a" text-anchor="end">FK</text>
+      <text x="342" y="717">operation_type</text>
+    </g>
+
+    <!-- external references -->
+    <g>
+      <rect x="670" y="650" width="400" height="104" fill="#ffffff" stroke="#6a6a6a" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="682" y="671" font-size="12" font-weight="600">Also references accounts and journal_transactions</text>
+      <text x="682" y="691" font-size="10" fill="#5a5a5a">loan_customers.account_id</text>
+      <text x="682" y="707" font-size="10" fill="#5a5a5a">loans.disbursement_account_id / disbursement_journal_id</text>
+      <text x="682" y="723" font-size="10" fill="#5a5a5a">loan_repayments.payment_account_id / journal_transaction_id</text>
+      <text x="682" y="739" font-size="10" fill="#5a5a5a">loan_accruals.journal_transaction_id</text>
+    </g>
+
+    <!-- relationships -->
+    <line x1="230" y1="84" x2="272" y2="84" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="251" y="76" font-size="10" fill="#5a5a5a" text-anchor="middle">1:N</text>
+
+    <path d="M130 128 V292" fill="none" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="140" y="210" font-size="10" fill="#5a5a5a">1:N</text>
+
+    <line x1="410" y1="238" x2="410" y2="292" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="420" y="270" font-size="10" fill="#5a5a5a">1:N</text>
+
+    <line x1="280" y1="400" x2="322" y2="400" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="301" y="392" font-size="10" fill="#5a5a5a" text-anchor="middle">1:N</text>
+
+    <line x1="610" y1="350" x2="662" y2="125" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <line x1="610" y1="390" x2="662" y2="330" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <line x1="610" y1="430" x2="662" y2="515" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+    <path d="M300 238 V580 H155 V602" fill="none" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="310" y="500" font-size="10" fill="#5a5a5a">documents</text>
+
+    <path d="M155 508 V570 H470 V602" fill="none" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arrow)"/>
+    <text x="330" y="562" font-size="10" fill="#5a5a5a">account mappings</text>
+  </g>
+</svg>

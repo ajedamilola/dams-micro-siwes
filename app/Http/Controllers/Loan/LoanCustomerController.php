@@ -20,6 +20,7 @@ use App\Models\GeneralLedger\Ledger;
 use App\Models\Loan\LoanCustomer;
 use App\Support\BusinessDate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -33,10 +34,24 @@ class LoanCustomerController extends Controller
      */
     public function index()
     {
-        $customers = LoanCustomer::with(['account', 'company'])->orderBy('customer_no')->get();
+        $rows = DB::select(
+            'select lc.*, c.name as company_name, a.code as account_code, a.status as account_status,
+                (select je.balance_after from journal_entries je
+                    inner join journal_transactions jt on jt.id = je.journal_transaction_id
+                    where je.account_id = a.id and jt.status = ?
+                    order by je.id desc limit 1) as account_balance
+            from loan_customers lc
+            left join companies c on c.id = lc.company_id
+            left join accounts a on a.id = lc.account_id
+            where lc.deleted_at is null
+            order by lc.customer_no asc',
+            ['POSTED']
+        );
+
+        $customers = array_map(fn (object $row) => self::presentRow((array) $row), $rows);
 
         return Inertia::render('Loan/Customers/Index', [
-            'customers' => self::presentMany($customers),
+            'customers' => $customers,
             'companies' => Company::orderBy('name')->get(['id', 'name', 'code']),
             'kycTiers' => collect(KycTier::cases())->map(fn (KycTier $tier) => [
                 'value' => $tier->value,
@@ -162,12 +177,29 @@ class LoanCustomerController extends Controller
         $this->assertKycIdentifiers($data);
 
         DB::transaction(function () use ($data, $customer) {
-            $customer->update(collect($data)->except(['gl_mode', 'link_account_id', 'company_id'])->all());
+            $updates = collect($data)->except(['gl_mode', 'link_account_id', 'company_id'])->all();
+
+            if ($updates !== []) {
+                $assignments = implode(', ', array_map(fn (string $column) => "{$column} = ?", array_keys($updates)));
+                $bindings = array_values($updates);
+                $bindings[] = now();
+                $bindings[] = $customer->id;
+
+                DB::update(
+                    "update loan_customers set {$assignments}, updated_at = ? where id = ? and deleted_at is null",
+                    $bindings
+                );
+
+                $customer->refresh();
+            }
 
             // Keep the auto-created GL account name in step with the customer.
             $account = $customer->account;
             if ($account && $account->code === $customer->customer_no) {
-                $account->update(['name' => $customer->fresh()->display_name]);
+                DB::update(
+                    'update accounts set name = ?, updated_at = ? where id = ?',
+                    [$customer->display_name, now(), $account->id]
+                );
             }
 
             // Allow linking a GL account after the fact when none is set.
@@ -181,7 +213,10 @@ class LoanCustomerController extends Controller
                     ]);
                 }
 
-                $customer->update(['account_id' => $account->id]);
+                DB::update(
+                    'update loan_customers set account_id = ?, updated_at = ? where id = ?',
+                    [$account->id, now(), $customer->id]
+                );
             }
         });
 
@@ -201,12 +236,16 @@ class LoanCustomerController extends Controller
 
         DB::transaction(function () use ($customer) {
             $account = $customer->account;
+            $now = now();
 
-            $customer->delete();
+            DB::update(
+                'update loan_customers set deleted_at = ?, updated_at = ? where id = ? and deleted_at is null',
+                [$now, $now, $customer->id]
+            );
 
             // Remove the auto-created GL account when it has no postings.
             if ($account && $account->code === $customer->customer_no) {
-                $account->delete();
+                DB::delete('delete from accounts where id = ?', [$account->id]);
             }
         });
 
@@ -259,31 +298,30 @@ class LoanCustomerController extends Controller
 
         $tokens = preg_split('/\s+/', strtolower(trim((string) ($data['q'] ?? ''))), -1, PREG_SPLIT_NO_EMPTY);
 
-        $customers = LoanCustomer::with('account')
-            ->when($tokens !== [], function ($query) use ($tokens) {
-                $query->where(function ($query) use ($tokens) {
-                    foreach ($tokens as $token) {
-                        $query->where(function ($query) use ($token) {
-                            $query->whereRaw('lower(customer_no) like ?', ["%{$token}%"])
-                                ->orWhereRaw('lower(first_name) like ?', ["%{$token}%"])
-                                ->orWhereRaw('lower(last_name) like ?', ["%{$token}%"])
-                                ->orWhereRaw('lower(phone) like ?', ["%{$token}%"])
-                                ->orWhereRaw('lower(COALESCE(business_name, \'\')) like ?', ["%{$token}%"]);
-                        });
-                    }
-                });
-            })
-            ->orderBy('customer_no')
-            ->limit(10)
-            ->get()
-            ->map(fn (LoanCustomer $row) => [
-                'id' => $row->id,
-                'customer_no' => $row->customer_no,
-                'display_name' => $row->display_name,
-                'phone' => $row->phone,
-                'kyc_status' => $row->kyc_status,
-                'account_id' => $row->account_id,
-            ]);
+        $sql = 'select lc.id, lc.customer_no, lc.customer_type, lc.first_name, lc.middle_name,
+                lc.last_name, lc.business_name, lc.phone, lc.kyc_status, lc.account_id
+            from loan_customers lc
+            where lc.deleted_at is null';
+        $bindings = [];
+
+        foreach ($tokens as $token) {
+            $sql .= ' and (lower(lc.customer_no) like ? or lower(lc.first_name) like ?
+                or lower(lc.last_name) like ? or lower(lc.phone) like ?
+                or lower(coalesce(lc.business_name, \'\')) like ?)';
+            $like = "%{$token}%";
+            array_push($bindings, $like, $like, $like, $like, $like);
+        }
+
+        $sql .= ' order by lc.customer_no asc limit 10';
+
+        $customers = array_map(fn (object $row) => [
+            'id' => $row->id,
+            'customer_no' => $row->customer_no,
+            'display_name' => self::displayNameFromRow((array) $row),
+            'phone' => $row->phone,
+            'kyc_status' => $row->kyc_status,
+            'account_id' => $row->account_id,
+        ], DB::select($sql, $bindings));
 
         return response()->json(['data' => $customers]);
     }
@@ -472,6 +510,87 @@ class LoanCustomerController extends Controller
                 'code' => $account->code,
                 'name' => $account->name,
             ])->values()->all();
+    }
+
+    /**
+     * @param  array<string, mixed>  $row
+     * @return array<string, mixed>
+     */
+    private static function presentRow(array $row): array
+    {
+        $bvn = $row['bvn'] ?? null;
+        $nin = $row['nin'] ?? null;
+
+        return [
+            'id' => $row['id'],
+            'customer_no' => $row['customer_no'],
+            'company_id' => $row['company_id'],
+            'company_name' => $row['company_name'] ?? null,
+            'account_id' => $row['account_id'] ?? null,
+            'account_code' => $row['account_code'] ?? null,
+            'account_balance' => (string) ($row['account_balance'] ?? '0'),
+            'account_status' => $row['account_status'] ?? null,
+            'customer_type' => $row['customer_type'],
+            'first_name' => $row['first_name'],
+            'middle_name' => $row['middle_name'] ?? null,
+            'last_name' => $row['last_name'],
+            'display_name' => self::displayNameFromRow($row),
+            'business_name' => $row['business_name'] ?? null,
+            'rc_number' => $row['rc_number'] ?? null,
+            'gender' => $row['gender'] ?? null,
+            'date_of_birth' => self::dateOnly($row['date_of_birth'] ?? null),
+            'marital_status' => $row['marital_status'] ?? null,
+            'phone' => $row['phone'],
+            'phone_alt' => $row['phone_alt'] ?? null,
+            'email' => $row['email'] ?? null,
+            'address' => $row['address'],
+            'city' => $row['city'] ?? null,
+            'state' => $row['state'] ?? null,
+            'lga' => $row['lga'] ?? null,
+            'nationality' => $row['nationality'] ?? null,
+            'bvn_masked' => $bvn ? '******'.substr((string) $bvn, -4) : null,
+            'nin_masked' => $nin ? '******'.substr((string) $nin, -4) : null,
+            'bvn' => $bvn,
+            'nin' => $nin,
+            'means_of_id_type' => $row['means_of_id_type'] ?? null,
+            'means_of_id_number' => $row['means_of_id_number'] ?? null,
+            'id_expiry_date' => self::dateOnly($row['id_expiry_date'] ?? null),
+            'proof_of_address_type' => $row['proof_of_address_type'] ?? null,
+            'kyc_tier' => $row['kyc_tier'],
+            'kyc_status' => $row['kyc_status'],
+            'risk_rating' => $row['risk_rating'] ?? null,
+            'is_pep' => (bool) ($row['is_pep'] ?? false),
+            'employment_status' => $row['employment_status'] ?? null,
+            'employer_name' => $row['employer_name'] ?? null,
+            'monthly_income' => isset($row['monthly_income']) ? (string) $row['monthly_income'] : null,
+            'next_of_kin_name' => $row['next_of_kin_name'] ?? null,
+            'next_of_kin_relationship' => $row['next_of_kin_relationship'] ?? null,
+            'next_of_kin_phone' => $row['next_of_kin_phone'] ?? null,
+            'status' => $row['status'],
+            'notes' => $row['notes'] ?? null,
+            'created_at' => self::isoDateTime($row['created_at'] ?? null),
+            'updated_at' => self::isoDateTime($row['updated_at'] ?? null),
+        ];
+    }
+
+    /** @param array<string, mixed> $row */
+    private static function displayNameFromRow(array $row): string
+    {
+        if (($row['customer_type'] ?? 'individual') === 'corporate') {
+            return (string) ($row['business_name'] ?: trim("{$row['first_name']} {$row['last_name']}"));
+        }
+
+        return trim("{$row['first_name']} {$row['middle_name']} {$row['last_name']}");
+    }
+
+    private static function dateOnly(mixed $value): ?string
+    {
+        return $value ? Carbon::parse($value)->toDateString() : null;
+    }
+
+    private static function isoDateTime(mixed $value): ?string
+    {
+        return $value ? Carbon::parse($value)->toIso8601String() : null;
     }
 
     /**
