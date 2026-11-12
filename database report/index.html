@@ -1,12 +1,15 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CSC 394 Database Report | Aje Damilola</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --ink: #111111;
@@ -20,8 +23,15 @@
       --mono: "IBM Plex Mono", "Courier New", monospace;
     }
 
-    * { box-sizing: border-box; }
-    html { color: var(--body); background: #dedede; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      color: var(--body);
+      background: #dedede;
+    }
+
     body {
       max-width: 210mm;
       margin: 24px auto;
@@ -33,28 +43,82 @@
       print-color-adjust: exact;
       -webkit-print-color-adjust: exact;
     }
-    main { padding: 20mm 20mm 20mm 25mm; }
 
-    p { margin: 0 0 0.9em; text-align: justify; hyphens: auto; }
-    p code, li code { white-space: nowrap; }
-    td code { white-space: normal; overflow-wrap: anywhere; }
-    strong { font-weight: 600; }
-    a { color: inherit; text-decoration-thickness: 0.5pt; text-underline-offset: 2px; }
+    main {
+      padding: 20mm 20mm 20mm 25mm;
+    }
 
-    h1, h2, h3 {
+    p {
+      margin: 0 0 0.9em;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    p code,
+    li code {
+      white-space: nowrap;
+    }
+
+    td code {
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 0.5pt;
+      text-underline-offset: 2px;
+    }
+
+    h1,
+    h2,
+    h3 {
       font-family: var(--sans);
       color: var(--ink);
       line-height: 1.25;
       break-after: avoid;
     }
-    h1 { font-size: 15pt; font-weight: 600; letter-spacing: 0.06em; text-align: center; text-transform: uppercase; margin: 0 0 8mm; }
-    h2 { font-size: 12pt; font-weight: 600; letter-spacing: 0.01em; margin: 7mm 0 2.5mm; }
-    h3 { font-size: 10.5pt; font-weight: 600; margin: 5mm 0 2mm; }
 
-    ul, ol { margin: 0 0 1em 1.2em; padding-left: 1em; }
-    li { margin-bottom: 0.35em; text-align: justify; }
+    h1 {
+      font-size: 15pt;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0 0 8mm;
+    }
 
-    .page-break { break-before: page; }
+    h2 {
+      font-size: 12pt;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin: 7mm 0 2.5mm;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 600;
+      margin: 5mm 0 2mm;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 1em 1.2em;
+      padding-left: 1em;
+    }
+
+    li {
+      margin-bottom: 0.35em;
+      text-align: justify;
+    }
+
+    .page-break {
+      break-before: page;
+    }
 
     /* Cover */
     .cover {
@@ -65,8 +129,18 @@
       text-align: center;
       padding: 4mm 0;
     }
-    .cover p { text-align: center; }
-    .cover .logo { width: 29mm; height: auto; display: block; margin: 0 auto 6mm; }
+
+    .cover p {
+      text-align: center;
+    }
+
+    .cover .logo {
+      width: 29mm;
+      height: auto;
+      display: block;
+      margin: 0 auto 6mm;
+    }
+
     .cover .kicker {
       font-family: var(--mono);
       font-size: 8.5pt;
@@ -75,6 +149,7 @@
       color: var(--muted);
       margin: 0;
     }
+
     .cover h1 {
       font-size: 27pt;
       line-height: 1.18;
@@ -83,13 +158,20 @@
       max-width: 158mm;
       margin: 7mm auto 4mm;
     }
+
     .cover .subtitle {
       font-family: var(--sans);
       font-size: 13pt;
       color: var(--muted);
       margin: 0 0 8mm;
     }
-    .cover .rule { width: 58mm; border-top: 1.25pt solid var(--ink); margin: 6mm auto; }
+
+    .cover .rule {
+      width: 58mm;
+      border-top: 1.25pt solid var(--ink);
+      margin: 6mm auto;
+    }
+
     .cover .course {
       font-family: var(--sans);
       font-size: 11pt;
@@ -97,6 +179,7 @@
       letter-spacing: 0.04em;
       margin: 0 0 2mm;
     }
+
     .cover .tech {
       font-family: var(--mono);
       font-size: 8.5pt;
@@ -104,6 +187,7 @@
       color: var(--muted);
       margin: 0;
     }
+
     .cover .identity {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -114,6 +198,7 @@
       font-family: var(--sans);
       font-size: 9.5pt;
     }
+
     .cover .identity span {
       display: block;
       font-family: var(--mono);
@@ -123,7 +208,12 @@
       color: var(--muted);
       margin-bottom: 1mm;
     }
-    .cover .identity strong { font-size: 10.5pt; font-weight: 600; }
+
+    .cover .identity strong {
+      font-size: 10.5pt;
+      font-weight: 600;
+    }
+
     .cover .institution {
       font-family: var(--sans);
       font-size: 10pt;
@@ -132,6 +222,7 @@
       text-align: center;
       margin: 0;
     }
+
     .cover .session {
       font-family: var(--mono);
       font-size: 8.5pt;
@@ -142,22 +233,77 @@
     }
 
     /* Preliminary pages */
-    .preliminary h1 { margin-bottom: 10mm; }
-    .preliminary p { margin-bottom: 1em; }
-    .signature { display: flex; flex-wrap: wrap; gap: 20mm; margin-top: 30mm; font-family: var(--sans); font-size: 9.5pt; }
-    .signature div { border-top: 0.75pt solid var(--ink); min-width: 62mm; padding-top: 2.5mm; color: var(--muted); }
-    .placeholder { font-style: italic; color: var(--muted); }
+    .preliminary h1 {
+      margin-bottom: 10mm;
+    }
+
+    .preliminary p {
+      margin-bottom: 1em;
+    }
+
+    .signature {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20mm;
+      margin-top: 30mm;
+      font-family: var(--sans);
+      font-size: 9.5pt;
+    }
+
+    .signature div {
+      border-top: 0.75pt solid var(--ink);
+      min-width: 62mm;
+      padding-top: 2.5mm;
+      color: var(--muted);
+    }
+
+    .placeholder {
+      font-style: italic;
+      color: var(--muted);
+    }
 
     /* Contents */
-    .contents { list-style: none; margin: 0; padding: 0; font-family: var(--sans); font-size: 9pt; line-height: 1.3; }
-    .contents li { border-bottom: 0.5pt dotted var(--rule); padding: 0.9mm 0; margin: 0; text-align: left; }
-    .contents a { text-decoration: none; }
-    .contents .sub { padding-left: 8mm; font-size: 8.6pt; color: var(--muted); }
-    .contents .part { font-weight: 600; padding-top: 2mm; }
-    .toc-note { font-family: var(--sans); font-size: 8.5pt; color: var(--muted); margin-top: 6mm; text-align: left; }
+    .contents {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-family: var(--sans);
+      font-size: 9pt;
+      line-height: 1.3;
+    }
+
+    .contents li {
+      border-bottom: 0.5pt dotted var(--rule);
+      padding: 0.9mm 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    .contents a {
+      text-decoration: none;
+    }
+
+    .contents .sub {
+      padding-left: 8mm;
+      font-size: 8.6pt;
+      color: var(--muted);
+    }
+
+    .contents .part {
+      font-weight: 600;
+      padding-top: 2mm;
+    }
+
+    .toc-note {
+      font-family: var(--sans);
+      font-size: 8.5pt;
+      color: var(--muted);
+      margin-top: 6mm;
+      text-align: left;
+    }
 
     /* Chapters */
-    .chapter > h1 {
+    .chapter>h1 {
       border-bottom: 1.25pt solid var(--ink);
       padding-bottom: 5mm;
       margin-bottom: 8mm;
@@ -165,7 +311,8 @@
       font-size: 10.5pt;
       letter-spacing: 0.16em;
     }
-    .chapter > h1 span {
+
+    .chapter>h1 span {
       display: block;
       margin-top: 2.5mm;
       font-size: 20pt;
@@ -175,7 +322,11 @@
     }
 
     /* Figures */
-    figure { margin: 7mm 0; break-inside: avoid; }
+    figure {
+      margin: 7mm 0;
+      break-inside: avoid;
+    }
+
     figure img {
       display: block;
       max-width: 100%;
@@ -185,10 +336,27 @@
       background: #ffffff;
       padding: 2mm;
     }
-    figure.diagram img { border: none; padding: 0; max-height: 115mm; }
-    figure.erd img { max-height: 190mm; }
-    figure.chart img { border: none; padding: 0; max-height: 120mm; }
-    figure.dbeaver img { max-height: 135mm; }
+
+    figure.diagram img {
+      border: none;
+      padding: 0;
+      max-height: 115mm;
+    }
+
+    figure.erd img {
+      max-height: 190mm;
+    }
+
+    figure.chart img {
+      border: none;
+      padding: 0;
+      max-height: 120mm;
+    }
+
+    figure.dbeaver img {
+      max-height: 135mm;
+    }
+
     figcaption {
       font-family: var(--sans);
       font-size: 8.5pt;
@@ -197,7 +365,13 @@
       text-align: center;
       margin-top: 2.5mm;
     }
-    figcaption .fig-label { font-family: var(--mono); font-size: 7.5pt; letter-spacing: 0.04em; color: var(--ink); }
+
+    figcaption .fig-label {
+      font-family: var(--mono);
+      font-size: 7.5pt;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+    }
 
     .figure-slot {
       border: 1pt dashed #777;
@@ -208,16 +382,27 @@
       color: var(--muted);
       break-inside: avoid;
     }
+
     .figure-slot .slot-title {
       font-size: 10pt;
       font-weight: 600;
       color: var(--ink);
       margin-bottom: 2mm;
     }
-    .figure-slot p { text-align: center; margin: 0.3em 0; }
+
+    .figure-slot p {
+      text-align: center;
+      margin: 0.3em 0;
+    }
 
     /* Code listings */
-    .listing { margin: 6mm 0; border: 0.75pt solid var(--rule); background: #fbfbfa; break-inside: avoid; }
+    .listing {
+      margin: 6mm 0;
+      border: 0.75pt solid var(--rule);
+      background: #fbfbfa;
+      break-inside: avoid;
+    }
+
     .listing-head {
       display: flex;
       justify-content: space-between;
@@ -228,7 +413,12 @@
       font-size: 8.5pt;
       color: var(--muted);
     }
-    .listing-head strong { color: var(--ink); font-weight: 600; }
+
+    .listing-head strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
     .listing pre {
       margin: 0;
       padding: 3.5mm 4mm;
@@ -239,6 +429,7 @@
       overflow-wrap: anywhere;
       color: #1a1a1a;
     }
+
     .listing-source {
       padding: 1.8mm 3mm;
       border-top: 0.5pt solid var(--rule);
@@ -246,18 +437,65 @@
       font-size: 8pt;
       color: var(--muted);
     }
-    .listing-source code { font-family: var(--mono); font-size: 7.8pt; color: var(--ink); }
+
+    .listing-source code {
+      font-family: var(--mono);
+      font-size: 7.8pt;
+      color: var(--ink);
+    }
 
     /* Tables */
-    table { width: 100%; border-collapse: collapse; margin: 4mm 0 6mm; font-family: var(--sans); font-size: 8.6pt; break-inside: avoid; }
-    th, td { border: 0.5pt solid var(--rule); padding: 1.8mm 2.2mm; vertical-align: top; text-align: left; }
-    th { background: #efefec; font-weight: 600; }
-    tbody tr:nth-child(even) { background: #fafaf8; }
-    td p { text-align: left; margin: 0; }
-    td.num, th.num { text-align: right; font-family: var(--mono); font-size: 8pt; }
-    table.compact { font-size: 8.2pt; }
-    table.compact th, table.compact td { padding: 1.4mm 1.8mm; }
-    table.plan-summary { table-layout: fixed; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 4mm 0 6mm;
+      font-family: var(--sans);
+      font-size: 8.6pt;
+      break-inside: avoid;
+    }
+
+    th,
+    td {
+      border: 0.5pt solid var(--rule);
+      padding: 1.8mm 2.2mm;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: #efefec;
+      font-weight: 600;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #fafaf8;
+    }
+
+    td p {
+      text-align: left;
+      margin: 0;
+    }
+
+    td.num,
+    th.num {
+      text-align: right;
+      font-family: var(--mono);
+      font-size: 8pt;
+    }
+
+    table.compact {
+      font-size: 8.2pt;
+    }
+
+    table.compact th,
+    table.compact td {
+      padding: 1.4mm 1.8mm;
+    }
+
+    table.plan-summary {
+      table-layout: fixed;
+    }
+
     caption {
       caption-side: top;
       text-align: left;
@@ -266,7 +504,12 @@
       color: var(--muted);
       padding: 0 0 1.6mm;
     }
-    caption strong { color: var(--ink); font-weight: 600; }
+
+    caption strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
     pre.standalone-sql {
       margin: 3mm 0 6mm;
       padding: 3.5mm 4mm;
@@ -279,8 +522,18 @@
       break-inside: avoid;
     }
 
-    .note { border-left: 2.25pt solid var(--ink); padding: 2mm 0 2mm 4mm; margin: 5mm 0; font-size: 9.8pt; color: var(--muted); }
-    .note p:last-child { margin-bottom: 0; }
+    .note {
+      border-left: 2.25pt solid var(--ink);
+      padding: 2mm 0 2mm 4mm;
+      margin: 5mm 0;
+      font-size: 9.8pt;
+      color: var(--muted);
+    }
+
+    .note p:last-child {
+      margin-bottom: 0;
+    }
+
     .callout {
       border: 0.75pt solid var(--rule);
       background: var(--panel);
@@ -288,338 +541,901 @@
       margin: 5mm 0;
       font-size: 9.6pt;
     }
-    .callout p:last-child { margin-bottom: 0; }
 
-    .references { font-size: 10pt; }
-    .references li { margin-bottom: 0.7em; text-align: left; }
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
 
-    @page { size: A4; margin: 20mm 20mm 20mm 25mm; }
+    .references {
+      font-size: 10pt;
+    }
+
+    .references li {
+      margin-bottom: 0.7em;
+      text-align: left;
+    }
+
+    @page {
+      size: A4;
+      margin: 20mm 20mm 20mm 25mm;
+    }
 
     @media print {
-      html, body { background: #ffffff; margin: 0; max-width: none; }
-      main { padding: 0; }
-      .cover { min-height: 252mm; }
-      a { text-decoration: none; }
-      p { orphans: 3; widows: 3; }
-      .listing, figure, table { break-inside: avoid; }
-      .note, .callout { break-inside: avoid; }
+
+      html,
+      body {
+        background: #ffffff;
+        margin: 0;
+        max-width: none;
+      }
+
+      main {
+        padding: 0;
+      }
+
+      .cover {
+        min-height: 252mm;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      p {
+        orphans: 3;
+        widows: 3;
+      }
+
+      .listing,
+      figure,
+      table {
+        break-inside: avoid;
+      }
+
+      .note,
+      .callout {
+        break-inside: avoid;
+      }
     }
 
     @media screen and (max-width: 700px) {
-      body { margin: 0; }
-      main { padding: 22px 18px; }
-      .cover { min-height: 80vh; }
-      .cover .identity { grid-template-columns: 1fr; width: 100%; }
-      .signature { gap: 10mm; }
+      body {
+        margin: 0;
+      }
+
+      main {
+        padding: 22px 18px;
+      }
+
+      .cover {
+        min-height: 80vh;
+      }
+
+      .cover .identity {
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+
+      .signature {
+        gap: 10mm;
+      }
     }
   </style>
 </head>
+
 <body>
-<main>
+  <main>
 
-  <!-- Cover -->
-  <section class="cover">
-    <div>
-      <img class="logo" src="../presentation/images/lasu-logo.png" alt="Lagos State University logo">
-      <p class="kicker">Lagos State University / Faculty of Computing</p>
-      <h1>Database Design and Implementation of DAMS Micro</h1>
-      <p class="subtitle">A microfinance accounting and lending system</p>
-      <div class="rule"></div>
-      <p class="course">CSC 394: Practical Application of Database Management in Industries</p>
-      <p class="tech">PostgreSQL 18.1 / Laravel 13.35.0 / PHP 8.4</p>
-    </div>
+    <!-- Cover -->
+    <section class="cover">
+      <div>
+        <img class="logo" src="../presentation/images/lasu-logo.png" alt="Lagos State University logo">
+        <p class="kicker">Lagos State University / Faculty of Computing</p>
+        <h1>Database Design and Implementation of DAMS Micro</h1>
+        <p class="subtitle">A microfinance accounting and lending system</p>
+        <div class="rule"></div>
+        <p class="course">CSC 394: Practical Application of Database Management in Industries</p>
+        <p class="tech">PostgreSQL 18.1 / Laravel 13.35.0 / PHP 8.4</p>
+      </div>
 
-    <div class="identity">
-      <div><span>Student</span><strong>Aje Damilola</strong></div>
-      <div><span>Matric number</span><strong>230591336</strong></div>
-      <div><span>Department</span><strong>Computer Science</strong></div>
-      <div><span>Faculty</span><strong>Computing</strong></div>
-    </div>
+      <div class="identity">
+        <div><span>Student</span><strong>Aje Damilola</strong></div>
+        <div><span>Matric number</span><strong>230591336</strong></div>
+        <div><span>Department</span><strong>Computer Science</strong></div>
+        <div><span>Faculty</span><strong>Computing</strong></div>
+      </div>
 
-    <div>
-      <p class="institution">Lagos State University</p>
-      <p class="session">2026 / academic session and submission month to be completed</p>
-    </div>
-  </section>
+      <div>
+        <p class="institution">Lagos State University</p>
+      </div>
+    </section>
 
-  <!-- Declaration -->
-  <section id="declaration" class="preliminary page-break">
-    <h1>Declaration</h1>
-    <p>I, <strong>Aje Damilola</strong>, with matriculation number <strong>230591336</strong>, declare that this report on the database design and implementation of DAMS Micro was prepared by me for CSC 394. The schema, migrations, seeders, raw SQL statements and test results described in this report were produced as part of the DAMS Micro project.</p>
-    <p>Where the work of others is used, it is acknowledged in the references. The report has not been submitted for another course or programme.</p>
-    <div class="signature">
-      <div>Student's signature and date</div>
-      <div>Course lecturer's signature and date</div>
-    </div>
-  </section>
+    <!-- Declaration -->
+    <section id="declaration" class="preliminary page-break">
+      <h1>Declaration</h1>
+      <p>I, <strong>Aje Damilola</strong>, with matriculation number <strong>230591336</strong>, declare that this
+        report on the database design and implementation of DAMS Micro was prepared by me for CSC 394. The schema,
+        migrations, seeders, raw SQL statements and test results described in this report were produced as part of the
+        DAMS Micro project.</p>
+      <p>Where the work of others is used, it is acknowledged in the references. The report has not been submitted for
+        another course or programme.</p>
+      <div class="signature">
+        <div>Student's signature and date</div>
+        <div>Course lecturer's signature and date</div>
+      </div>
+    </section>
 
-  <!-- Abstract -->
-  <section id="abstract" class="preliminary page-break">
-    <h1>Abstract</h1>
-    <p>This report documents the relational database behind DAMS Micro, a microfinance accounting and lending system built with Laravel and PostgreSQL. The database contains sixteen domain tables and two hundred and one columns. It supports a general ledger, customer records, loan products, loan schedules, repayments, accruals, opening balances and operational settings. The design uses UUID primary keys for most entities, numeric columns for money, foreign keys for the main relationships and indexed lookup columns for the loan domain.</p>
-    <p>The report explains the entity-relationship model, the relational schema, key and constraint choices, and the index coverage of the live PostgreSQL database. It then shows how Laravel migrations and seeders build and populate the schema, and how selected customer, journal and loan CRUD operations were converted from Eloquent writes to bound raw SQL using the DB facade. The SQL queries used for reporting are presented with their results. Query plans are examined with <code>EXPLAIN (ANALYZE, BUFFERS)</code>. The report closes with the Laravel database tools used in the project, the DBeaver workflow, the test results and the conclusion.</p>
-  </section>
+    <!-- Abstract -->
+    <section id="abstract" class="preliminary page-break">
+      <h1>Abstract</h1>
+      <p>This report documents the relational database behind DAMS Micro, a microfinance accounting and lending system
+        built with Laravel and PostgreSQL. The database contains sixteen domain tables and two hundred and one columns.
+        It supports a general ledger, customer records, loan products, loan schedules, repayments, accruals, opening
+        balances and operational settings. The design uses UUID primary keys for most entities, numeric columns for
+        money, foreign keys for the main relationships and indexed lookup columns for the loan domain.</p>
+      <p>The report explains the entity-relationship model, the relational schema, key and constraint choices, and the
+        index coverage of the live PostgreSQL database. It then shows how Laravel migrations and seeders build and
+        populate the schema, and how selected customer, journal and loan CRUD operations were converted from Eloquent
+        writes to bound raw SQL using the DB facade. The SQL queries used for reporting are presented with their
+        results. Query plans are examined with <code>EXPLAIN (ANALYZE, BUFFERS)</code>. The report closes with the
+        Laravel database tools used in the project, the DBeaver workflow, the test results and the conclusion.</p>
+    </section>
 
-  <!-- Table of contents -->
-  <nav class="preliminary page-break" aria-label="Table of contents">
-    <h1>Table of contents</h1>
-    <ul class="contents">
-      <li><a href="#declaration">Declaration</a></li>
-      <li><a href="#abstract">Abstract</a></li>
-      <li><a href="#figures">List of figures, tables and listings</a></li>
-      <li class="part"><a href="#chapter-one">Chapter One: Introduction</a></li>
-      <li class="sub"><a href="#one-one">1.1 Background</a></li>
-      <li class="sub"><a href="#one-two">1.2 Aim and objectives</a></li>
-      <li class="sub"><a href="#one-three">1.3 Scope and boundaries</a></li>
-      <li class="sub"><a href="#one-four">1.4 Methodology and tools</a></li>
-      <li class="part"><a href="#chapter-two">Chapter Two: Database Design</a></li>
-      <li class="sub"><a href="#two-one">2.1 Data requirements</a></li>
-      <li class="sub"><a href="#two-two">2.2 General ledger model</a></li>
-      <li class="sub"><a href="#two-three">2.3 Loan domain model</a></li>
-      <li class="sub"><a href="#two-four">2.4 Relational schema and data types</a></li>
-      <li class="sub"><a href="#two-five">2.5 Keys, constraints and normalization</a></li>
-      <li class="sub"><a href="#two-six">2.6 Index design</a></li>
-      <li class="part"><a href="#chapter-three">Chapter Three: Implementation</a></li>
-      <li class="sub"><a href="#three-one">3.1 Laravel database layer</a></li>
-      <li class="sub"><a href="#three-two">3.2 Migrations</a></li>
-      <li class="sub"><a href="#three-three">3.3 Seeding and demo data</a></li>
-      <li class="sub"><a href="#three-four">3.4 Eloquent and raw SQL</a></li>
-      <li class="sub"><a href="#three-five">3.5 Customer CRUD in raw SQL</a></li>
-      <li class="sub"><a href="#three-six">3.6 Journal CRUD in raw SQL</a></li>
-      <li class="sub"><a href="#three-seven">3.7 Loan read and status updates</a></li>
-      <li class="sub"><a href="#three-eight">3.8 Transactions and concurrency</a></li>
-      <li class="part"><a href="#chapter-four">Chapter Four: SQL, Performance and Tools</a></li>
-      <li class="sub"><a href="#four-one">4.1 SQL query catalogue</a></li>
-      <li class="sub"><a href="#four-two">4.2 Join and aggregate queries</a></li>
-      <li class="sub"><a href="#four-three">4.3 Query plans and performance</a></li>
-      <li class="sub"><a href="#four-four">4.4 Laravel database tools</a></li>
-      <li class="sub"><a href="#four-five">4.5 DBeaver</a></li>
-      <li class="sub"><a href="#four-six">4.6 Testing and results</a></li>
-      <li class="sub"><a href="#four-seven">4.7 Conclusion</a></li>
-      <li class="part"><a href="#references">References</a></li>
-      <li class="part"><a href="#appendix-a">Appendix A: Schema summary</a></li>
-      <li class="part"><a href="#appendix-b">Appendix B: Inspection and verification queries</a></li>
-    </ul>
-    <p class="toc-note">Page numbers will be inserted after the final PDF export, when pagination is fixed.</p>
-  </nav>
+    <!-- Table of contents -->
+    <nav class="preliminary page-break" aria-label="Table of contents">
+      <h1>Table of contents</h1>
+      <ul class="contents">
+        <li><a href="#declaration">Declaration</a></li>
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#figures">List of figures, tables and listings</a></li>
+        <li class="part"><a href="#chapter-one">Chapter One: Introduction</a></li>
+        <li class="sub"><a href="#one-one">1.1 Background</a></li>
+        <li class="sub"><a href="#one-two">1.2 Aim and objectives</a></li>
+        <li class="sub"><a href="#one-three">1.3 Scope and boundaries</a></li>
+        <li class="sub"><a href="#one-four">1.4 Methodology and tools</a></li>
+        <li class="part"><a href="#chapter-two">Chapter Two: Database Design</a></li>
+        <li class="sub"><a href="#two-one">2.1 Data requirements</a></li>
+        <li class="sub"><a href="#two-two">2.2 General ledger model</a></li>
+        <li class="sub"><a href="#two-three">2.3 Loan domain model</a></li>
+        <li class="sub"><a href="#two-four">2.4 Relational schema and data types</a></li>
+        <li class="sub"><a href="#two-five">2.5 Keys, constraints and normalization</a></li>
+        <li class="sub"><a href="#two-six">2.6 Index design</a></li>
+        <li class="part"><a href="#chapter-three">Chapter Three: Implementation</a></li>
+        <li class="sub"><a href="#three-one">3.1 Laravel database layer</a></li>
+        <li class="sub"><a href="#three-two">3.2 Migrations</a></li>
+        <li class="sub"><a href="#three-three">3.3 Seeding and demo data</a></li>
+        <li class="sub"><a href="#three-four">3.4 Eloquent and raw SQL</a></li>
+        <li class="sub"><a href="#three-five">3.5 Customer CRUD in raw SQL</a></li>
+        <li class="sub"><a href="#three-six">3.6 Journal CRUD in raw SQL</a></li>
+        <li class="sub"><a href="#three-seven">3.7 Loan read and status updates</a></li>
+        <li class="sub"><a href="#three-eight">3.8 Transactions and concurrency</a></li>
+        <li class="part"><a href="#chapter-four">Chapter Four: SQL, Performance and Tools</a></li>
+        <li class="sub"><a href="#four-one">4.1 SQL query catalogue</a></li>
+        <li class="sub"><a href="#four-two">4.2 Join and aggregate queries</a></li>
+        <li class="sub"><a href="#four-three">4.3 Query plans and performance</a></li>
+        <li class="sub"><a href="#four-four">4.4 Laravel database tools</a></li>
+        <li class="sub"><a href="#four-five">4.5 DBeaver</a></li>
+        <li class="sub"><a href="#four-six">4.6 Testing and results</a></li>
+        <li class="sub"><a href="#four-seven">4.7 Conclusion</a></li>
+        <li class="part"><a href="#references">References</a></li>
+        <li class="part"><a href="#appendix-a">Appendix A: Schema summary</a></li>
+        <li class="part"><a href="#appendix-b">Appendix B: Inspection and verification queries</a></li>
+      </ul>
+      <p class="toc-note">Page numbers will be inserted after the final PDF export, when pagination is fixed.</p>
+    </nav>
 
-  <!-- Lists -->
-  <section id="figures" class="preliminary page-break">
-    <h1>List of figures, tables and listings</h1>
-    <h2 style="margin-top:0">Figures</h2>
-    <table class="compact">
-      <thead><tr><th style="width:22%">Figure</th><th>Title</th></tr></thead>
-      <tbody>
-        <tr><td>2.1</td><td>Entity-relationship diagram for the general ledger</td></tr>
-        <tr><td>2.2</td><td>Entity-relationship diagram for the loan domain</td></tr>
-        <tr><td>3.1</td><td>Migration and seeding flow</td></tr>
-        <tr><td>3.2</td><td>CRUD request flow through Laravel and PostgreSQL</td></tr>
-        <tr><td>4.1</td><td>Row counts for the main database tables</td></tr>
-        <tr><td>4.2</td><td>Loan status distribution</td></tr>
-        <tr><td>4.3</td><td>Top account categories by number of accounts</td></tr>
-        <tr><td>4.4</td><td>Planning and execution times for three queries</td></tr>
-        <tr><td>4.5</td><td>DBeaver Database Navigator and loan_customers table</td></tr>
-        <tr><td>4.6</td><td>DBeaver loans table</td></tr>
-        <tr><td>4.7</td><td>DBeaver journal_entries table</td></tr>
-        <tr><td>4.8</td><td>DBeaver SQL editor and result grid</td></tr>
-        <tr><td>4.9</td><td>DBeaver execution plan</td></tr>
-      </tbody>
-    </table>
-    <h2>Tables</h2>
-    <table class="compact">
-      <thead><tr><th style="width:22%">Table</th><th>Title</th></tr></thead>
-      <tbody>
-        <tr><td>2.1</td><td>Domain tables and their purposes</td></tr>
-        <tr><td>2.2</td><td>Data type patterns</td></tr>
-        <tr><td>2.3</td><td>Constraint inventory</td></tr>
-        <tr><td>2.4</td><td>Index coverage of selected tables</td></tr>
-        <tr><td>3.1</td><td>Eloquent compared with raw SQL</td></tr>
-        <tr><td>3.2</td><td>Operations converted to raw SQL</td></tr>
-        <tr><td>4.1</td><td>SQL query catalogue</td></tr>
-        <tr><td>4.2</td><td>Customer ledger results</td></tr>
-        <tr><td>4.3</td><td>Loan portfolio results</td></tr>
-        <tr><td>4.4</td><td>Query plan summary</td></tr>
-        <tr><td>4.5</td><td>Laravel database tools used in the project</td></tr>
-        <tr><td>4.6</td><td>Test summary</td></tr>
-      </tbody>
-    </table>
-    <h2>Listings</h2>
-    <table class="compact">
-      <thead><tr><th style="width:22%">Listing</th><th>Title</th></tr></thead>
-      <tbody>
-        <tr><td>3.1</td><td>Loan customer migration excerpt</td></tr>
-        <tr><td>3.2</td><td>Customer listing with a correlated balance subquery</td></tr>
-        <tr><td>3.3</td><td>Customer update with bound values</td></tr>
-        <tr><td>3.4</td><td>Journal transaction insert</td></tr>
-        <tr><td>3.5</td><td>Journal update with a controlled column list</td></tr>
-        <tr><td>3.6</td><td>Journal delete for drafts</td></tr>
-        <tr><td>3.7</td><td>Journal status aggregate</td></tr>
-        <tr><td>3.8</td><td>Loan listing with joins and optional filters</td></tr>
-        <tr><td>3.9</td><td>Loan status update</td></tr>
-        <tr><td>4.1</td><td>Customer ledger query</td></tr>
-        <tr><td>4.2</td><td>Loan portfolio aggregate query</td></tr>
-        <tr><td>4.3</td><td>Journal status summary</td></tr>
-        <tr><td>4.4</td><td>Account category totals</td></tr>
-      </tbody>
-    </table>
-  </section>
+    <!-- Lists -->
+    <section id="figures" class="preliminary page-break">
+      <h1>List of figures, tables and listings</h1>
+      <h2 style="margin-top:0">Figures</h2>
+      <table class="compact">
+        <thead>
+          <tr>
+            <th style="width:22%">Figure</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2.1</td>
+            <td>Entity-relationship diagram for the general ledger</td>
+          </tr>
+          <tr>
+            <td>2.2</td>
+            <td>Entity-relationship diagram for the loan domain</td>
+          </tr>
+          <tr>
+            <td>3.1</td>
+            <td>Migration and seeding flow</td>
+          </tr>
+          <tr>
+            <td>3.2</td>
+            <td>CRUD request flow through Laravel and PostgreSQL</td>
+          </tr>
+          <tr>
+            <td>4.1</td>
+            <td>Row counts for the main database tables</td>
+          </tr>
+          <tr>
+            <td>4.2</td>
+            <td>Loan status distribution</td>
+          </tr>
+          <tr>
+            <td>4.3</td>
+            <td>Top account categories by number of accounts</td>
+          </tr>
+          <tr>
+            <td>4.4</td>
+            <td>Planning and execution times for three queries</td>
+          </tr>
+          <tr>
+            <td>4.5</td>
+            <td>DBeaver Database Navigator and loan_customers table</td>
+          </tr>
+          <tr>
+            <td>4.6</td>
+            <td>DBeaver loans table</td>
+          </tr>
+          <tr>
+            <td>4.7</td>
+            <td>DBeaver journal_entries table</td>
+          </tr>
+          <tr>
+            <td>4.8</td>
+            <td>DBeaver SQL editor and result grid</td>
+          </tr>
+          <tr>
+            <td>4.9</td>
+            <td>DBeaver execution plan</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Tables</h2>
+      <table class="compact">
+        <thead>
+          <tr>
+            <th style="width:22%">Table</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2.1</td>
+            <td>Domain tables and their purposes</td>
+          </tr>
+          <tr>
+            <td>2.2</td>
+            <td>Data type patterns</td>
+          </tr>
+          <tr>
+            <td>2.3</td>
+            <td>Constraint inventory</td>
+          </tr>
+          <tr>
+            <td>2.4</td>
+            <td>Index coverage of selected tables</td>
+          </tr>
+          <tr>
+            <td>3.1</td>
+            <td>Eloquent compared with raw SQL</td>
+          </tr>
+          <tr>
+            <td>3.2</td>
+            <td>Operations converted to raw SQL</td>
+          </tr>
+          <tr>
+            <td>4.1</td>
+            <td>SQL query catalogue</td>
+          </tr>
+          <tr>
+            <td>4.2</td>
+            <td>Customer ledger results</td>
+          </tr>
+          <tr>
+            <td>4.3</td>
+            <td>Loan portfolio results</td>
+          </tr>
+          <tr>
+            <td>4.4</td>
+            <td>Query plan summary</td>
+          </tr>
+          <tr>
+            <td>4.5</td>
+            <td>Laravel database tools used in the project</td>
+          </tr>
+          <tr>
+            <td>4.6</td>
+            <td>Test summary</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Listings</h2>
+      <table class="compact">
+        <thead>
+          <tr>
+            <th style="width:22%">Listing</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3.1</td>
+            <td>Loan customer migration excerpt</td>
+          </tr>
+          <tr>
+            <td>3.2</td>
+            <td>Customer listing with a correlated balance subquery</td>
+          </tr>
+          <tr>
+            <td>3.3</td>
+            <td>Customer update with bound values</td>
+          </tr>
+          <tr>
+            <td>3.4</td>
+            <td>Journal transaction insert</td>
+          </tr>
+          <tr>
+            <td>3.5</td>
+            <td>Journal update with a controlled column list</td>
+          </tr>
+          <tr>
+            <td>3.6</td>
+            <td>Journal delete for drafts</td>
+          </tr>
+          <tr>
+            <td>3.7</td>
+            <td>Journal status aggregate</td>
+          </tr>
+          <tr>
+            <td>3.8</td>
+            <td>Loan listing with joins and optional filters</td>
+          </tr>
+          <tr>
+            <td>3.9</td>
+            <td>Loan status update</td>
+          </tr>
+          <tr>
+            <td>4.1</td>
+            <td>Customer ledger query</td>
+          </tr>
+          <tr>
+            <td>4.2</td>
+            <td>Loan portfolio aggregate query</td>
+          </tr>
+          <tr>
+            <td>4.3</td>
+            <td>Journal status summary</td>
+          </tr>
+          <tr>
+            <td>4.4</td>
+            <td>Account category totals</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-  <!-- CHAPTER ONE -->
-  <section id="chapter-one" class="chapter page-break">
-    <h1>Chapter One <span>Introduction</span></h1>
+    <!-- CHAPTER ONE -->
+    <section id="chapter-one" class="chapter page-break">
+      <h1>Chapter One <span>Introduction</span></h1>
 
-    <h2 id="one-one">1.1 Background</h2>
-    <p>CSC 394 applies database management concepts to a working software system. This report uses DAMS Micro, a microfinance accounting and lending application, as the subject. The application records double-entry journals, organises a chart of accounts, registers customers, books loans, generates repayment schedules, posts repayments and produces financial reports. Those activities depend on a database that preserves relationships, enforces the right level of integrity and answers reporting queries efficiently.</p>
-    <p>DAMS Micro was inspired by the accounting software project I encountered during my industrial training at Golden Edge Softech. This report does not describe the client's database. It documents the independent prototype and uses only its own schema, seed data and code.</p>
-    <p>The database is PostgreSQL 18.1, and the application is built with Laravel 13.35.0 on PHP 8.4. At the time of the data snapshot, the schema contained sixteen domain tables, two hundred and one columns, twenty-one foreign keys and eighty-four accounts. The seeded data included twenty-one journal transactions, forty-nine journal entries, eight customers, nine loans and sixty-one repayment schedules. These numbers are used throughout the report to make the discussion concrete.</p>
+      <h2 id="one-one">1.1 Background</h2>
+      <p>CSC 394 applies database management concepts to a working software system. This report uses DAMS Micro, a
+        microfinance accounting and lending application, as the subject. The application records double-entry journals,
+        organises a chart of accounts, registers customers, books loans, generates repayment schedules, posts repayments
+        and produces financial reports. Those activities depend on a database that preserves relationships, enforces the
+        right level of integrity and answers reporting queries efficiently.</p>
+      <p>DAMS Micro was inspired by the accounting software project I encountered during my industrial training at
+        Golden Edge Softech. This report does not describe the client's database. It documents the independent prototype
+        and uses only its own schema, seed data and code.</p>
+      <p>The database is PostgreSQL 18.1, and the application is built with Laravel 13.35.0 on PHP 8.4. At the time of
+        the data snapshot, the schema contained sixteen domain tables, two hundred and one columns, twenty-one foreign
+        keys and eighty-four accounts. The seeded data included twenty-one journal transactions, forty-nine journal
+        entries, eight customers, nine loans and sixty-one repayment schedules. These numbers are used throughout the
+        report to make the discussion concrete.</p>
 
-    <h2 id="one-two">1.2 Aim and objectives</h2>
-    <p>The aim of the report is to document the database design and data access layer of DAMS Micro. The objectives are to:</p>
-    <ul>
-      <li>describe the entities, relationships and data types in the database;</li>
-      <li>explain the key, constraint and index choices that support the ledger and loan workflows;</li>
-      <li>show how Laravel migrations and seeders create and populate the schema;</li>
-      <li>convert selected CRUD operations from Eloquent writes to bound raw SQL and verify that they still work;</li>
-      <li>present reporting queries with their results and inspect their query plans;</li>
-      <li>describe the integrity rules and query performance characteristics of the implemented schema; and</li>
-      <li>document the Laravel database tools and DBeaver workflow used in the project.</li>
-    </ul>
+      <h2 id="one-two">1.2 Aim and objectives</h2>
+      <p>The aim of the report is to document the database design and data access layer of DAMS Micro. The objectives
+        are to:</p>
+      <ul>
+        <li>describe the entities, relationships and data types in the database;</li>
+        <li>explain the key, constraint and index choices that support the ledger and loan workflows;</li>
+        <li>show how Laravel migrations and seeders create and populate the schema;</li>
+        <li>convert selected CRUD operations from Eloquent writes to bound raw SQL and verify that they still work;</li>
+        <li>present reporting queries with their results and inspect their query plans;</li>
+        <li>describe the integrity rules and query performance characteristics of the implemented schema; and</li>
+        <li>document the Laravel database tools and DBeaver workflow used in the project.</li>
+      </ul>
 
-    <h2 id="one-three">1.3 Scope and boundaries</h2>
-    <p>The report covers the domain tables used by the general ledger and the loan modules. Laravel's infrastructure tables for users, sessions, cache and queues are outside the scope of this report. The converted CRUD operations cover customer listing and maintenance, draft journal creation and maintenance, and loan listing and status changes. Loan booking, schedule generation, disbursement and repayment remain in the existing service layer because they involve several related writes and accounting postings.</p>
-    <p>The data used in the report is demonstration data generated by the project's seeders. It is not production or client data. The DBeaver section documents the desktop client used to inspect the schema and run queries; the figures show the local connection.</p>
+      <h2 id="one-three">1.3 Scope and boundaries</h2>
+      <p>The report covers the domain tables used by the general ledger and the loan modules. Laravel's infrastructure
+        tables for users, sessions, cache and queues are outside the scope of this report. The converted CRUD operations
+        cover customer listing and maintenance, draft journal creation and maintenance, and loan listing and status
+        changes. Loan booking, schedule generation, disbursement and repayment remain in the existing service layer
+        because they involve several related writes and accounting postings.</p>
+      <p>The data used in the report is demonstration data generated by the project's seeders. It is not production or
+        client data. The DBeaver section documents the desktop client used to inspect the schema and run queries; the
+        figures show the local connection.</p>
 
-    <h2 id="one-four">1.4 Methodology and tools</h2>
-    <p>The project work followed five steps. First, I inspected the migration files and compared them with the live PostgreSQL schema. Second, I loaded the project's seeders into the development database so that the queries and plans would operate on representative data. Third, I converted selected CRUD paths to raw SQL using the Laravel DB facade with bound parameters. Fourth, I ran the Pest test suite and a separate PostgreSQL write check inside a rolled-back transaction. Fifth, I used <code>EXPLAIN (ANALYZE, BUFFERS)</code> and catalog queries to inspect plans, indexes and constraints.</p>
-    <table>
-      <thead><tr><th style="width:30%">Component</th><th>Version or tool</th></tr></thead>
-      <tbody>
-        <tr><td>Database</td><td>PostgreSQL 18.1, database <code>dammy_micro</code></td></tr>
-        <tr><td>Application</td><td>Laravel 13.35.0, PHP 8.4</td></tr>
-        <tr><td>Database client</td><td>DBeaver, connected to the local PostgreSQL instance</td></tr>
-        <tr><td>Testing</td><td>Pest on SQLite in memory; separate raw SQL verification on PostgreSQL</td></tr>
-        <tr><td>Schema inspection</td><td>Laravel Boost schema and query tools, <code>information_schema</code>, <code>pg_indexes</code></td></tr>
-        <tr><td>Query analysis</td><td><code>EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)</code></td></tr>
-      </tbody>
-    </table>
-  </section>
+      <h2 id="one-four">1.4 Methodology and tools</h2>
+      <p>The project work followed five steps. First, I inspected the migration files and compared them with the live
+        PostgreSQL schema. Second, I loaded the project's seeders into the development database so that the queries and
+        plans would operate on representative data. Third, I converted selected CRUD paths to raw SQL using the Laravel
+        DB facade with bound parameters. Fourth, I ran the Pest test suite and a separate PostgreSQL write check inside
+        a rolled-back transaction. Fifth, I used <code>EXPLAIN (ANALYZE, BUFFERS)</code> and catalog queries to inspect
+        plans, indexes and constraints.</p>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30%">Component</th>
+            <th>Version or tool</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Database</td>
+            <td>PostgreSQL 18.1, database <code>dammy_micro</code></td>
+          </tr>
+          <tr>
+            <td>Application</td>
+            <td>Laravel 13.35.0, PHP 8.4</td>
+          </tr>
+          <tr>
+            <td>Database client</td>
+            <td>DBeaver, connected to the local PostgreSQL instance</td>
+          </tr>
+          <tr>
+            <td>Testing</td>
+            <td>Pest on SQLite in memory; separate raw SQL verification on PostgreSQL</td>
+          </tr>
+          <tr>
+            <td>Schema inspection</td>
+            <td>Laravel Boost schema and query tools, <code>information_schema</code>, <code>pg_indexes</code></td>
+          </tr>
+          <tr>
+            <td>Query analysis</td>
+            <td><code>EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-  <!-- CHAPTER TWO -->
-  <section id="chapter-two" class="chapter page-break">
-    <h1>Chapter Two <span>Database Design</span></h1>
+    <!-- CHAPTER TWO -->
+    <section id="chapter-two" class="chapter page-break">
+      <h1>Chapter Two <span>Database Design</span></h1>
 
-    <h2 id="two-one">2.1 Data requirements</h2>
-    <p>The data model serves three connected areas. The <strong>general ledger</strong> stores companies, ledgers, accounts, journal transactions and journal entries, with opening balances and end-of-day operations supporting period control. The <strong>lending area</strong> stores customers, identity documents, loan products, product-to-account mappings, loans, schedules, repayments and interest accruals. The <strong>operations area</strong> stores system settings such as the business date and the balance-sheet layout.</p>
-    <p>Table 2.1 lists the sixteen domain tables, their purposes and their live row counts at the time of the data snapshot. The counts come from the seeded development database, not from estimates.</p>
-    <table class="compact">
-      <caption><strong>Table 2.1:</strong> Domain tables and their purposes</caption>
-      <thead><tr><th style="width:23%">Table</th><th>Purpose</th><th class="num">Rows</th><th class="num">Cols</th><th class="num">FKs</th><th class="num">Idx</th></tr></thead>
-      <tbody>
-        <tr><td><code>companies</code></td><td>Tenant record for each organisation.</td><td class="num">1</td><td class="num">5</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>ledgers</code></td><td>Chart containers owned by a company.</td><td class="num">2</td><td class="num">6</td><td class="num">1</td><td class="num">1</td></tr>
-        <tr><td><code>accounts</code></td><td>Chart of accounts, hierarchy and cached display balance.</td><td class="num">84</td><td class="num">13</td><td class="num">1</td><td class="num">1</td></tr>
-        <tr><td><code>journal_transactions</code></td><td>Journal header with reference, status and effective date.</td><td class="num">21</td><td class="num">9</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>journal_entries</code></td><td>Debit and credit lines, amount and running balance.</td><td class="num">49</td><td class="num">8</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>account_opening_balances</code></td><td>Daily balance snapshots used by end-of-day close.</td><td class="num">8</td><td class="num">6</td><td class="num">1</td><td class="num">1</td></tr>
-        <tr><td><code>eod_operations</code></td><td>End-of-day run status and logs.</td><td class="num">0</td><td class="num">7</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>system_settings</code></td><td>Business date and balance-sheet layout as JSON.</td><td class="num">2</td><td class="num">5</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>loan_customers</code></td><td>Borrower identity, KYC status and linked GL account.</td><td class="num">8</td><td class="num">44</td><td class="num">2</td><td class="num">7</td></tr>
-        <tr><td><code>loan_customer_documents</code></td><td>Supporting KYC documents for a customer.</td><td class="num">0</td><td class="num">9</td><td class="num">1</td><td class="num">2</td></tr>
-        <tr><td><code>loan_products</code></td><td>Interest, tenor, fee and penalty rules for a product.</td><td class="num">5</td><td class="num">19</td><td class="num">1</td><td class="num">3</td></tr>
-        <tr><td><code>loan_product_accounts</code></td><td>Six accounting mappings per loan product.</td><td class="num">24</td><td class="num">6</td><td class="num">2</td><td class="num">3</td></tr>
-        <tr><td><code>loans</code></td><td>Loan header, principal, status and journal links.</td><td class="num">9</td><td class="num">26</td><td class="num">5</td><td class="num">6</td></tr>
-        <tr><td><code>loan_schedules</code></td><td>Instalment amounts, due dates and repayment progress.</td><td class="num">61</td><td class="num">17</td><td class="num">1</td><td class="num">3</td></tr>
-        <tr><td><code>loan_repayments</code></td><td>Payments and their principal, interest, fee and penalty split.</td><td class="num">2</td><td class="num">13</td><td class="num">3</td><td class="num">2</td></tr>
-        <tr><td><code>loan_accruals</code></td><td>Interest accrual records and their journals.</td><td class="num">5</td><td class="num">8</td><td class="num">3</td><td class="num">3</td></tr>
-      </tbody>
-    </table>
+      <h2 id="two-one">2.1 Data requirements</h2>
+      <p>The data model serves three connected areas. The <strong>general ledger</strong> stores companies, ledgers,
+        accounts, journal transactions and journal entries, with opening balances and end-of-day operations supporting
+        period control. The <strong>lending area</strong> stores customers, identity documents, loan products,
+        product-to-account mappings, loans, schedules, repayments and interest accruals. The <strong>operations
+          area</strong> stores system settings such as the business date and the balance-sheet layout.</p>
+      <p>Table 2.1 lists the sixteen domain tables, their purposes and their live row counts at the time of the data
+        snapshot. The counts come from the seeded development database, not from estimates.</p>
+      <table class="compact">
+        <caption><strong>Table 2.1:</strong> Domain tables and their purposes</caption>
+        <thead>
+          <tr>
+            <th style="width:23%">Table</th>
+            <th>Purpose</th>
+            <th class="num">Rows</th>
+            <th class="num">Cols</th>
+            <th class="num">FKs</th>
+            <th class="num">Idx</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>companies</code></td>
+            <td>Tenant record for each organisation.</td>
+            <td class="num">1</td>
+            <td class="num">5</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>ledgers</code></td>
+            <td>Chart containers owned by a company.</td>
+            <td class="num">2</td>
+            <td class="num">6</td>
+            <td class="num">1</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>accounts</code></td>
+            <td>Chart of accounts, hierarchy and cached display balance.</td>
+            <td class="num">84</td>
+            <td class="num">13</td>
+            <td class="num">1</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>journal_transactions</code></td>
+            <td>Journal header with reference, status and effective date.</td>
+            <td class="num">21</td>
+            <td class="num">9</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>journal_entries</code></td>
+            <td>Debit and credit lines, amount and running balance.</td>
+            <td class="num">49</td>
+            <td class="num">8</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>account_opening_balances</code></td>
+            <td>Daily balance snapshots used by end-of-day close.</td>
+            <td class="num">8</td>
+            <td class="num">6</td>
+            <td class="num">1</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>eod_operations</code></td>
+            <td>End-of-day run status and logs.</td>
+            <td class="num">0</td>
+            <td class="num">7</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>system_settings</code></td>
+            <td>Business date and balance-sheet layout as JSON.</td>
+            <td class="num">2</td>
+            <td class="num">5</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>loan_customers</code></td>
+            <td>Borrower identity, KYC status and linked GL account.</td>
+            <td class="num">8</td>
+            <td class="num">44</td>
+            <td class="num">2</td>
+            <td class="num">7</td>
+          </tr>
+          <tr>
+            <td><code>loan_customer_documents</code></td>
+            <td>Supporting KYC documents for a customer.</td>
+            <td class="num">0</td>
+            <td class="num">9</td>
+            <td class="num">1</td>
+            <td class="num">2</td>
+          </tr>
+          <tr>
+            <td><code>loan_products</code></td>
+            <td>Interest, tenor, fee and penalty rules for a product.</td>
+            <td class="num">5</td>
+            <td class="num">19</td>
+            <td class="num">1</td>
+            <td class="num">3</td>
+          </tr>
+          <tr>
+            <td><code>loan_product_accounts</code></td>
+            <td>Six accounting mappings per loan product.</td>
+            <td class="num">24</td>
+            <td class="num">6</td>
+            <td class="num">2</td>
+            <td class="num">3</td>
+          </tr>
+          <tr>
+            <td><code>loans</code></td>
+            <td>Loan header, principal, status and journal links.</td>
+            <td class="num">9</td>
+            <td class="num">26</td>
+            <td class="num">5</td>
+            <td class="num">6</td>
+          </tr>
+          <tr>
+            <td><code>loan_schedules</code></td>
+            <td>Instalment amounts, due dates and repayment progress.</td>
+            <td class="num">61</td>
+            <td class="num">17</td>
+            <td class="num">1</td>
+            <td class="num">3</td>
+          </tr>
+          <tr>
+            <td><code>loan_repayments</code></td>
+            <td>Payments and their principal, interest, fee and penalty split.</td>
+            <td class="num">2</td>
+            <td class="num">13</td>
+            <td class="num">3</td>
+            <td class="num">2</td>
+          </tr>
+          <tr>
+            <td><code>loan_accruals</code></td>
+            <td>Interest accrual records and their journals.</td>
+            <td class="num">5</td>
+            <td class="num">8</td>
+            <td class="num">3</td>
+            <td class="num">3</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <h2 id="two-two">2.2 General ledger model</h2>
-    <p>Figure 2.1 shows the general ledger relationships. A company owns one or more ledgers, and a ledger owns accounts. Accounts can point to a parent account, forming a hierarchy, and a control account can point to a subledger. Journal transactions group journal entries, and each entry belongs to one account and one transaction. Opening balances snapshot account values for end-of-day processing.</p>
-    <figure class="erd">
-      <img src="figures/erd-general-ledger.svg" alt="Entity-relationship diagram for the general ledger tables">
-      <figcaption><span class="fig-label">Figure 2.1</span> General ledger entities. Solid arrows are enforced foreign keys; dashed lines and asterisks mark logical references, including columns stored as varchar and entry links without a foreign-key constraint.</figcaption>
-    </figure>
-    <p>The model separates the <em>header</em> of a journal from its <em>lines</em>. The header carries the reference, status and effective date; the lines carry the account, side, amount and running balance. This separation supports the double-entry rule because the lines can be summed and compared before the header moves to <em>submitted</em> or <em>posted</em>. It also lets the application reverse a posted transaction by creating a second header with mirrored lines instead of editing the original.</p>
-    <p>Several relationships in this model are logical rather than enforced. <code>accounts.parent_id</code> and <code>accounts.subledger_id</code> are stored as <code>varchar(255)</code> even though they hold UUID values, so PostgreSQL cannot enforce foreign keys on them. The same applies to <code>journal_transactions.old_reversed_transaction_id</code>. The two links from <code>journal_entries</code> are also logical in the live schema: the columns are UUIDs, and the migration does not add the foreign-key constraints. The prototype preserves these relationships in the application services.</p>
+      <h2 id="two-two">2.2 General ledger model</h2>
+      <p>Figure 2.1 shows the general ledger relationships. A company owns one or more ledgers, and a ledger owns
+        accounts. Accounts can point to a parent account, forming a hierarchy, and a control account can point to a
+        subledger. Journal transactions group journal entries, and each entry belongs to one account and one
+        transaction. Opening balances snapshot account values for end-of-day processing.</p>
+      <figure class="erd">
+        <img src="figures/erd-general-ledger.svg" alt="Entity-relationship diagram for the general ledger tables">
+        <figcaption><span class="fig-label">Figure 2.1</span> General ledger entities. Solid arrows are enforced foreign
+          keys; dashed lines and asterisks mark logical references, including columns stored as varchar and entry links
+          without a foreign-key constraint.</figcaption>
+      </figure>
+      <p>The model separates the <em>header</em> of a journal from its <em>lines</em>. The header carries the reference,
+        status and effective date; the lines carry the account, side, amount and running balance. This separation
+        supports the double-entry rule because the lines can be summed and compared before the header moves to
+        <em>submitted</em> or <em>posted</em>. It also lets the application reverse a posted transaction by creating a
+        second header with mirrored lines instead of editing the original.
+      </p>
+      <p>Several relationships in this model are logical rather than enforced. <code>accounts.parent_id</code> and
+        <code>accounts.subledger_id</code> are stored as <code>varchar(255)</code> even though they hold UUID values, so
+        PostgreSQL cannot enforce foreign keys on them. The same applies to
+        <code>journal_transactions.old_reversed_transaction_id</code>. The two links from <code>journal_entries</code>
+        are also logical in the live schema: the columns are UUIDs, and the migration does not add the foreign-key
+        constraints. The prototype preserves these relationships in the application services.
+      </p>
 
-    <h2 id="two-three">2.3 Loan domain model</h2>
-    <p>The loan domain extends the ledger with borrowers and lending events. A company owns customers, products and loans. A customer and a product each contribute to a loan, and a loan owns its schedule, repayments and accruals. The product's six accounting mappings connect product operations to ledger accounts. Customer documents hold KYC evidence.</p>
-    <figure class="erd">
-      <img src="figures/erd-loans.svg" alt="Entity-relationship diagram for the loan domain">
-      <figcaption><span class="fig-label">Figure 2.2</span> Loan domain entities. Arrows show the main enforced relationships; the note box lists references to accounts and journal transactions.</figcaption>
-    </figure>
-    <p>The lifecycle explains the direction of the relationships. A loan starts in <em>draft</em> or <em>pending approval</em>, becomes <em>approved</em>, then <em>active</em> after disbursement, and finally <em>closed</em>, <em>rejected</em> or <em>written off</em>. Schedules are created at booking. Repayments are recorded against the loan and allocate value to penalty, fee, interest and principal. Accruals record interest earned over time. Each of those events can create a journal transaction, which is why the loan tables carry journal identifiers.</p>
-    <p>The schema preserves the loan history instead of overwriting it. Repayments and accruals are separate rows, and the loan header holds summary totals. That design supports the loan statement and the ledger, but it also means the summary columns and the detail rows must be kept consistent by the application service. The seeded data shows the intended variety: three active loans, one each in draft, pending approval, approved, rejected, closed and written-off states.</p>
+      <h2 id="two-three">2.3 Loan domain model</h2>
+      <p>The loan domain extends the ledger with borrowers and lending events. A company owns customers, products and
+        loans. A customer and a product each contribute to a loan, and a loan owns its schedule, repayments and
+        accruals. The product's six accounting mappings connect product operations to ledger accounts. Customer
+        documents hold KYC evidence.</p>
+      <figure class="erd">
+        <img src="figures/erd-loans.svg" alt="Entity-relationship diagram for the loan domain">
+        <figcaption><span class="fig-label">Figure 2.2</span> Loan domain entities. Arrows show the main enforced
+          relationships; the note box lists references to accounts and journal transactions.</figcaption>
+      </figure>
+      <p>The lifecycle explains the direction of the relationships. A loan starts in <em>draft</em> or <em>pending
+          approval</em>, becomes <em>approved</em>, then <em>active</em> after disbursement, and finally
+        <em>closed</em>, <em>rejected</em> or <em>written off</em>. Schedules are created at booking. Repayments are
+        recorded against the loan and allocate value to penalty, fee, interest and principal. Accruals record interest
+        earned over time. Each of those events can create a journal transaction, which is why the loan tables carry
+        journal identifiers.
+      </p>
+      <p>The schema preserves the loan history instead of overwriting it. Repayments and accruals are separate rows, and
+        the loan header holds summary totals. That design supports the loan statement and the ledger, but it also means
+        the summary columns and the detail rows must be kept consistent by the application service. The seeded data
+        shows the intended variety: three active loans, one each in draft, pending approval, approved, rejected, closed
+        and written-off states.</p>
 
-    <h2 id="two-four">2.4 Relational schema and data types</h2>
-    <p>The schema mixes UUID and bigint keys. Most domain entities use UUID primary keys: companies, ledgers, accounts, journal transactions, customers, products, loans, schedules, repayments and accruals. Journal entries use a bigint identity key because they are high-volume child rows. This is a reasonable compromise: UUIDs make external identifiers hard to guess and allow identifiers to be generated before an insert, while a compact bigint key keeps the largest table's index smaller.</p>
-    <table>
-      <caption><strong>Table 2.2:</strong> Data type patterns in the schema</caption>
-      <thead><tr><th style="width:22%">Pattern</th><th>Examples</th><th>Purpose and caution</th></tr></thead>
-      <tbody>
-        <tr><td>UUID primary keys</td><td><code>accounts.id</code>, <code>loans.id</code>, <code>journal_transactions.id</code></td><td>Generated by the application; globally unique. Random UUIDs are less insertion-friendly than sequential keys, but the domain tables are modest in size.</td></tr>
-        <tr><td>Bigint identity</td><td><code>journal_entries.id</code>, <code>account_opening_balances.id</code></td><td>Compact and sequential. Appropriate for append-heavy child tables.</td></tr>
-        <tr><td><code>numeric(20,2)</code></td><td>Loan principal, repayments, schedule amounts</td><td>Exact decimal storage for money. Two decimal places fit the loan domain.</td></tr>
-        <tr><td><code>numeric(20,4)</code></td><td>Journal entry value, account balance, opening balance</td><td>Four decimal places support ledger arithmetic. The loan tables use two decimal places, so the conversion between the scales happens in the application.</td></tr>
-        <tr><td>Dates and timestamps</td><td><code>effective_date</code>, <code>due_date</code>, <code>posted_at</code></td><td>Business dates are separate from creation timestamps. PostgreSQL stores them as date or timestamp types.</td></tr>
-        <tr><td>JSON</td><td><code>system_settings.value</code>, <code>eod_operations.logs</code></td><td>Flexible configuration and operational logs. JSON values are not constrained by column-level types.</td></tr>
-        <tr><td>Soft deletes</td><td><code>loans.deleted_at</code>, <code>loan_customers.deleted_at</code></td><td>Preserves history while hiding removed records. Every raw query must add <code>deleted_at is null</code>.</td></tr>
-      </tbody>
-    </table>
-    <p>One type choice deserves emphasis. <code>journal_entries.value</code> and <code>accounts.display_balance</code> use four decimal places, while <code>loans.principal</code>, <code>loan_schedules.total_due</code> and <code>loan_repayments.amount</code> use two. The application converts between them with bcmath. The database does not enforce a single scale, so the conversion rule is part of the application layer and is applied whenever a loan amount reaches the ledger.</p>
+      <h2 id="two-four">2.4 Relational schema and data types</h2>
+      <p>The schema mixes UUID and bigint keys. Most domain entities use UUID primary keys: companies, ledgers,
+        accounts, journal transactions, customers, products, loans, schedules, repayments and accruals. Journal entries
+        use a bigint identity key because they are high-volume child rows. This is a reasonable compromise: UUIDs make
+        external identifiers hard to guess and allow identifiers to be generated before an insert, while a compact
+        bigint key keeps the largest table's index smaller.</p>
+      <table>
+        <caption><strong>Table 2.2:</strong> Data type patterns in the schema</caption>
+        <thead>
+          <tr>
+            <th style="width:22%">Pattern</th>
+            <th>Examples</th>
+            <th>Purpose and caution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UUID primary keys</td>
+            <td><code>accounts.id</code>, <code>loans.id</code>, <code>journal_transactions.id</code></td>
+            <td>Generated by the application; globally unique. Random UUIDs are less insertion-friendly than sequential
+              keys, but the domain tables are modest in size.</td>
+          </tr>
+          <tr>
+            <td>Bigint identity</td>
+            <td><code>journal_entries.id</code>, <code>account_opening_balances.id</code></td>
+            <td>Compact and sequential. Appropriate for append-heavy child tables.</td>
+          </tr>
+          <tr>
+            <td><code>numeric(20,2)</code></td>
+            <td>Loan principal, repayments, schedule amounts</td>
+            <td>Exact decimal storage for money. Two decimal places fit the loan domain.</td>
+          </tr>
+          <tr>
+            <td><code>numeric(20,4)</code></td>
+            <td>Journal entry value, account balance, opening balance</td>
+            <td>Four decimal places support ledger arithmetic. The loan tables use two decimal places, so the conversion
+              between the scales happens in the application.</td>
+          </tr>
+          <tr>
+            <td>Dates and timestamps</td>
+            <td><code>effective_date</code>, <code>due_date</code>, <code>posted_at</code></td>
+            <td>Business dates are separate from creation timestamps. PostgreSQL stores them as date or timestamp types.
+            </td>
+          </tr>
+          <tr>
+            <td>JSON</td>
+            <td><code>system_settings.value</code>, <code>eod_operations.logs</code></td>
+            <td>Flexible configuration and operational logs. JSON values are not constrained by column-level types.</td>
+          </tr>
+          <tr>
+            <td>Soft deletes</td>
+            <td><code>loans.deleted_at</code>, <code>loan_customers.deleted_at</code></td>
+            <td>Preserves history while hiding removed records. Every raw query must add
+              <code>deleted_at is null</code>.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>One type choice deserves emphasis. <code>journal_entries.value</code> and <code>accounts.display_balance</code>
+        use four decimal places, while <code>loans.principal</code>, <code>loan_schedules.total_due</code> and
+        <code>loan_repayments.amount</code> use two. The application converts between them with bcmath. The database
+        does not enforce a single scale, so the conversion rule is part of the application layer and is applied whenever
+        a loan amount reaches the ledger.
+      </p>
 
-    <h2 id="two-five">2.5 Keys, constraints and normalization</h2>
-    <p>The schema is largely in third normal form. Each table has a primary key, descriptive attributes depend on that key, and repeating groups are moved into child tables. Journal entries are a child of journal transactions; schedules, repayments and accruals are children of loans; product-account mappings are a child of loan products. The chart of accounts uses a parent reference instead of repeating the hierarchy on every row.</p>
-    <p>There are deliberate denormalizations. <code>accounts.display_balance</code> caches a balance that can be recomputed from posted journal entries, and the loan header stores totals that can be derived from schedules and repayments. These caches make list and report queries cheaper, but they create a consistency obligation. The application rebuilds ledger balances during end-of-day processing, and the loan service updates the header when a loan event changes the schedule.</p>
-    <table>
-      <caption><strong>Table 2.3:</strong> Constraint inventory</caption>
-      <thead><tr><th style="width:27%">Constraint</th><th>Where it appears</th><th>What it protects</th></tr></thead>
-      <tbody>
-        <tr><td>Primary keys</td><td>All sixteen domain tables</td><td>Unique row identity.</td></tr>
-        <tr><td>Foreign keys</td><td>21 relationships, mainly loan and ledger ownership</td><td>Referential integrity for enforced links.</td></tr>
-        <tr><td>Unique keys</td><td><code>customer_no</code>, <code>loan_no</code>, company-scoped phone, BVN and NIN</td><td>Prevents duplicate business identifiers.</td></tr>
-        <tr><td>Composite unique keys</td><td><code>loan_schedules (loan_id, installment_no)</code>, <code>loan_product_accounts (loan_product_id, operation_type)</code></td><td>Prevents duplicate instalments and duplicate operation mappings.</td></tr>
-        <tr><td>Check constraints</td><td><code>journal_entries.type</code>, <code>accounts.balance_type</code>, <code>eod_operations.status</code></td><td>Restricts a small set of enumerated values.</td></tr>
-        <tr><td>Soft-delete filters</td><td>Application queries on loans and customers</td><td>Hides deleted rows, but is not a database constraint.</td></tr>
-      </tbody>
-    </table>
-    <p>The schema divides its rules between the database and the application. <code>journal_entries</code> has a check on the entry type but no foreign keys to its transaction or account. <code>journal_transactions.ref</code> is not unique, and <code>accounts.code</code> is not unique within a ledger. The service layer performs these checks before writing, so the database constraints and the application rules are used together.</p>
+      <h2 id="two-five">2.5 Keys, constraints and normalization</h2>
+      <p>The schema is largely in third normal form. Each table has a primary key, descriptive attributes depend on that
+        key, and repeating groups are moved into child tables. Journal entries are a child of journal transactions;
+        schedules, repayments and accruals are children of loans; product-account mappings are a child of loan products.
+        The chart of accounts uses a parent reference instead of repeating the hierarchy on every row.</p>
+      <p>There are deliberate denormalizations. <code>accounts.display_balance</code> caches a balance that can be
+        recomputed from posted journal entries, and the loan header stores totals that can be derived from schedules and
+        repayments. These caches make list and report queries cheaper, but they create a consistency obligation. The
+        application rebuilds ledger balances during end-of-day processing, and the loan service updates the header when
+        a loan event changes the schedule.</p>
+      <table>
+        <caption><strong>Table 2.3:</strong> Constraint inventory</caption>
+        <thead>
+          <tr>
+            <th style="width:27%">Constraint</th>
+            <th>Where it appears</th>
+            <th>What it protects</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Primary keys</td>
+            <td>All sixteen domain tables</td>
+            <td>Unique row identity.</td>
+          </tr>
+          <tr>
+            <td>Foreign keys</td>
+            <td>21 relationships, mainly loan and ledger ownership</td>
+            <td>Referential integrity for enforced links.</td>
+          </tr>
+          <tr>
+            <td>Unique keys</td>
+            <td><code>customer_no</code>, <code>loan_no</code>, company-scoped phone, BVN and NIN</td>
+            <td>Prevents duplicate business identifiers.</td>
+          </tr>
+          <tr>
+            <td>Composite unique keys</td>
+            <td><code>loan_schedules (loan_id, installment_no)</code>,
+              <code>loan_product_accounts (loan_product_id, operation_type)</code>
+            </td>
+            <td>Prevents duplicate instalments and duplicate operation mappings.</td>
+          </tr>
+          <tr>
+            <td>Check constraints</td>
+            <td><code>journal_entries.type</code>, <code>accounts.balance_type</code>,
+              <code>eod_operations.status</code>
+            </td>
+            <td>Restricts a small set of enumerated values.</td>
+          </tr>
+          <tr>
+            <td>Soft-delete filters</td>
+            <td>Application queries on loans and customers</td>
+            <td>Hides deleted rows, but is not a database constraint.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The schema divides its rules between the database and the application. <code>journal_entries</code> has a check
+        on the entry type but no foreign keys to its transaction or account. <code>journal_transactions.ref</code> is
+        not unique, and <code>accounts.code</code> is not unique within a ledger. The service layer performs these
+        checks before writing, so the database constraints and the application rules are used together.</p>
 
-    <h2 id="two-six">2.6 Index design</h2>
-    <p>Indexes are concentrated in the loan tables. <code>loan_customers</code> has seven indexes, including company-scoped phone, BVN, NIN and status indexes. <code>loans</code> has six, including customer, product and company-status indexes. <code>loan_schedules</code> and <code>loan_accruals</code> have composite indexes that match their foreign-key and date filters. The ledger tables are much lighter: <code>accounts</code>, <code>journal_transactions</code> and <code>journal_entries</code> each have only their primary-key index.</p>
-    <table>
-      <caption><strong>Table 2.4:</strong> Index coverage of selected tables</caption>
-      <thead><tr><th style="width:26%">Table</th><th class="num">Indexes</th><th>Coverage</th></tr></thead>
-      <tbody>
-        <tr><td><code>loan_customers</code></td><td class="num">7</td><td>Strong: unique customer number plus company-scoped phone, BVN, NIN, KYC and status lookups.</td></tr>
-        <tr><td><code>loans</code></td><td class="num">6</td><td>Good for loan number, company-status, customer and product. Disbursement account and journal columns are unindexed.</td></tr>
-        <tr><td><code>loan_schedules</code></td><td class="num">3</td><td>Unique instalment per loan and due-date lookups.</td></tr>
-        <tr><td><code>loan_repayments</code></td><td class="num">2</td><td>Loan and payment-date lookups; journal and payment-account columns are unindexed.</td></tr>
-        <tr><td><code>loan_accruals</code></td><td class="num">3</td><td>Loan-date and schedule-date indexes; journal column is unindexed.</td></tr>
-        <tr><td><code>accounts</code></td><td class="num">1</td><td>Primary key only. No index on <code>ledger_id</code>, <code>parent_id</code>, <code>subledger_id</code> or <code>code</code>.</td></tr>
-        <tr><td><code>journal_transactions</code></td><td class="num">1</td><td>Primary key only. No index on <code>ref</code>, <code>status</code> or <code>effective_date</code>.</td></tr>
-        <tr><td><code>journal_entries</code></td><td class="num">1</td><td>Primary key only. No index on <code>journal_transaction_id</code> or <code>account_id</code>, and no foreign keys.</td></tr>
-        <tr><td><code>account_opening_balances</code></td><td class="num">1</td><td>Primary key only. No index on <code>account_id</code> or <code>date</code>.</td></tr>
-      </tbody>
-    </table>
-    <p>A catalog query found ten foreign-key columns without a leading index, including <code>accounts.ledger_id</code>, <code>loan_customers.account_id</code> and <code>loans.disbursement_journal_id</code>. The logical reference <code>journal_entries.account_id</code> also has no foreign key or index. PostgreSQL does not create an index automatically for a foreign key. At the current size, the planner often chooses a sequential scan because the tables fit in a few pages. Section 4.3 presents the plans for the main queries at this data size.</p>
-  </section>
+      <h2 id="two-six">2.6 Index design</h2>
+      <p>Indexes are concentrated in the loan tables. <code>loan_customers</code> has seven indexes, including
+        company-scoped phone, BVN, NIN and status indexes. <code>loans</code> has six, including customer, product and
+        company-status indexes. <code>loan_schedules</code> and <code>loan_accruals</code> have composite indexes that
+        match their foreign-key and date filters. The ledger tables are much lighter: <code>accounts</code>,
+        <code>journal_transactions</code> and <code>journal_entries</code> each have only their primary-key index.
+      </p>
+      <table>
+        <caption><strong>Table 2.4:</strong> Index coverage of selected tables</caption>
+        <thead>
+          <tr>
+            <th style="width:26%">Table</th>
+            <th class="num">Indexes</th>
+            <th>Coverage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>loan_customers</code></td>
+            <td class="num">7</td>
+            <td>Strong: unique customer number plus company-scoped phone, BVN, NIN, KYC and status lookups.</td>
+          </tr>
+          <tr>
+            <td><code>loans</code></td>
+            <td class="num">6</td>
+            <td>Good for loan number, company-status, customer and product. Disbursement account and journal columns are
+              unindexed.</td>
+          </tr>
+          <tr>
+            <td><code>loan_schedules</code></td>
+            <td class="num">3</td>
+            <td>Unique instalment per loan and due-date lookups.</td>
+          </tr>
+          <tr>
+            <td><code>loan_repayments</code></td>
+            <td class="num">2</td>
+            <td>Loan and payment-date lookups; journal and payment-account columns are unindexed.</td>
+          </tr>
+          <tr>
+            <td><code>loan_accruals</code></td>
+            <td class="num">3</td>
+            <td>Loan-date and schedule-date indexes; journal column is unindexed.</td>
+          </tr>
+          <tr>
+            <td><code>accounts</code></td>
+            <td class="num">1</td>
+            <td>Primary key only. No index on <code>ledger_id</code>, <code>parent_id</code>, <code>subledger_id</code>
+              or <code>code</code>.</td>
+          </tr>
+          <tr>
+            <td><code>journal_transactions</code></td>
+            <td class="num">1</td>
+            <td>Primary key only. No index on <code>ref</code>, <code>status</code> or <code>effective_date</code>.</td>
+          </tr>
+          <tr>
+            <td><code>journal_entries</code></td>
+            <td class="num">1</td>
+            <td>Primary key only. No index on <code>journal_transaction_id</code> or <code>account_id</code>, and no
+              foreign keys.</td>
+          </tr>
+          <tr>
+            <td><code>account_opening_balances</code></td>
+            <td class="num">1</td>
+            <td>Primary key only. No index on <code>account_id</code> or <code>date</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>A catalog query found ten foreign-key columns without a leading index, including
+        <code>accounts.ledger_id</code>, <code>loan_customers.account_id</code> and
+        <code>loans.disbursement_journal_id</code>. The logical reference <code>journal_entries.account_id</code> also
+        has no foreign key or index. PostgreSQL does not create an index automatically for a foreign key. At the current
+        size, the planner often chooses a sequential scan because the tables fit in a few pages. Section 4.3 presents
+        the plans for the main queries at this data size.
+      </p>
+    </section>
 
-  <!-- CHAPTER THREE -->
-  <section id="chapter-three" class="chapter page-break">
-    <h1>Chapter Three <span>Implementation</span></h1>
+    <!-- CHAPTER THREE -->
+    <section id="chapter-three" class="chapter page-break">
+      <h1>Chapter Three <span>Implementation</span></h1>
 
-    <h2 id="three-one">3.1 Laravel database layer</h2>
-    <p>Laravel connects to PostgreSQL through PDO. The connection is configured in <code>config/database.php</code> and the environment file, and the <code>pgsql</code> driver supplies the host, port, database name, username and password. The application uses three data-access styles. <strong>Eloquent models</strong> map tables to classes and define relationships, casts and soft deletes. The <strong>query builder</strong> provides a fluent interface for common SQL. The <strong>DB facade</strong> executes raw SQL through <code>DB::select</code>, <code>DB::insert</code>, <code>DB::update</code> and <code>DB::delete</code>.</p>
-    <p>The project contains twenty migration files, sixteen domain tables and the standard Laravel tables for users, sessions, cache and queues. The models mirror the domain: <code>Company</code>, <code>Ledger</code>, <code>Account</code>, <code>JournalTransaction</code>, <code>JournalEntry</code>, <code>LoanCustomer</code>, <code>LoanProduct</code>, <code>Loan</code>, <code>LoanSchedule</code>, <code>LoanRepayment</code> and <code>LoanAccrual</code>. The ledger and loan services use these models for relationship-rich work, while the converted CRUD paths use explicit SQL where the query shape matters.</p>
+      <h2 id="three-one">3.1 Laravel database layer</h2>
+      <p>Laravel connects to PostgreSQL through PDO. The connection is configured in <code>config/database.php</code>
+        and the environment file, and the <code>pgsql</code> driver supplies the host, port, database name, username and
+        password. The application uses three data-access styles. <strong>Eloquent models</strong> map tables to classes
+        and define relationships, casts and soft deletes. The <strong>query builder</strong> provides a fluent interface
+        for common SQL. The <strong>DB facade</strong> executes raw SQL through <code>DB::select</code>,
+        <code>DB::insert</code>, <code>DB::update</code> and <code>DB::delete</code>.
+      </p>
+      <p>The project contains twenty migration files, sixteen domain tables and the standard Laravel tables for users,
+        sessions, cache and queues. The models mirror the domain: <code>Company</code>, <code>Ledger</code>,
+        <code>Account</code>, <code>JournalTransaction</code>, <code>JournalEntry</code>, <code>LoanCustomer</code>,
+        <code>LoanProduct</code>, <code>Loan</code>, <code>LoanSchedule</code>, <code>LoanRepayment</code> and
+        <code>LoanAccrual</code>. The ledger and loan services use these models for relationship-rich work, while the
+        converted CRUD paths use explicit SQL where the query shape matters.
+      </p>
 
-    <h2 id="three-two">3.2 Migrations</h2>
-    <p>Migrations are versioned schema files. Each <code>up()</code> method creates or alters a table, and <code>down()</code> reverses it. Listing 3.1 is an abridged version of the <code>loan_customers</code> migration. It shows the pattern used across the schema: a UUID primary key, a unique business number, a company foreign key with cascade delete, a nullable account foreign key with null-on-delete, timestamps, soft deletes and composite unique indexes.</p>
+      <h2 id="three-two">3.2 Migrations</h2>
+      <p>Migrations are versioned schema files. Each <code>up()</code> method creates or alters a table, and
+        <code>down()</code> reverses it. Listing 3.1 is an abridged version of the <code>loan_customers</code>
+        migration. It shows the pattern used across the schema: a UUID primary key, a unique business number, a company
+        foreign key with cascade delete, a nullable account foreign key with null-on-delete, timestamps, soft deletes
+        and composite unique indexes.
+      </p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 3.1: Loan customer migration excerpt</strong><span>PHP</span></div>
-      <pre><code>Schema::create('loan_customers', function (Blueprint $table) {
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.1: Loan customer migration excerpt</strong><span>PHP</span></div>
+        <pre><code>Schema::create('loan_customers', function (Blueprint $table) {
     $table-&gt;uuid('id')-&gt;primary();
     $table-&gt;string('customer_no')-&gt;unique();
     $table-&gt;foreignIdFor(Company::class)-&gt;constrained()-&gt;onDelete('cascade');
@@ -645,61 +1461,179 @@
     $table-&gt;index(['company_id', 'kyc_status']);
     $table-&gt;index(['company_id', 'status']);
 });</code></pre>
-      <div class="listing-source">Source: <code>database/migrations/2026_10_24_000001_create_loan_customers_table.php</code>. Comment and some columns omitted for brevity.</div>
-    </div>
+        <div class="listing-source">Source:
+          <code>database/migrations/2026_10_24_000001_create_loan_customers_table.php</code>. Comment and some columns
+          omitted for brevity.
+        </div>
+      </div>
 
-    <p>The migration relies on Laravel's schema builder to choose PostgreSQL types. <code>$table-&gt;uuid()</code> creates a UUID column, <code>foreignIdFor(Company::class)-&gt;constrained()</code> creates a bigint company key and a foreign key, and <code>-&gt;nullOnDelete()</code> makes the account reference nullable when an account is removed. The composite unique indexes enforce business rules at the database level. The ledger tables use a lighter index pattern, which is described with the query plans in Chapter Four.</p>
+      <p>The migration relies on Laravel's schema builder to choose PostgreSQL types. <code>$table-&gt;uuid()</code>
+        creates a UUID column, <code>foreignIdFor(Company::class)-&gt;constrained()</code> creates a bigint company key
+        and a foreign key, and <code>-&gt;nullOnDelete()</code> makes the account reference nullable when an account is
+        removed. The composite unique indexes enforce business rules at the database level. The ledger tables use a
+        lighter index pattern, which is described with the query plans in Chapter Four.</p>
 
-    <h2 id="three-three">3.3 Seeding and demo data</h2>
-    <p>The seeders create a complete demonstration company. <code>DatabaseSeeder</code> calls the system settings, company, ledger, chart-of-accounts, loan operations, product, customer, balance-sheet layout, journal and loan seeders in order. The journal seeder posts balanced transactions through the ledger service, and the loan seeder books loans through the lifecycle so that customer balances come from real loan events rather than raw inserts.</p>
-    <p>The result is a database with 84 accounts, 21 journal transactions, 49 journal entries, 8 customers, 5 products, 24 product-account mappings, 9 loans, 61 schedules, 2 repayments, 5 accruals, 8 opening balances and 2 settings. The seeders guard against duplicate demonstration rows and rebuild ledger balances where necessary, so the same command can be run again without doubling the data.</p>
-    <figure class="diagram">
-      <img src="figures/migration-seeding-flow.svg" alt="Flow diagram from migration files to PostgreSQL schema, seeders and demo rows">
-      <figcaption><span class="fig-label">Figure 3.1</span> Migration and seeding flow. The schema must exist before the seeders run; the populated database is then used for queries, plans and the DBeaver figures.</figcaption>
-    </figure>
+      <h2 id="three-three">3.3 Seeding and demo data</h2>
+      <p>The seeders create a complete demonstration company. <code>DatabaseSeeder</code> calls the system settings,
+        company, ledger, chart-of-accounts, loan operations, product, customer, balance-sheet layout, journal and loan
+        seeders in order. The journal seeder posts balanced transactions through the ledger service, and the loan seeder
+        books loans through the lifecycle so that customer balances come from real loan events rather than raw inserts.
+      </p>
+      <p>The result is a database with 84 accounts, 21 journal transactions, 49 journal entries, 8 customers, 5
+        products, 24 product-account mappings, 9 loans, 61 schedules, 2 repayments, 5 accruals, 8 opening balances and 2
+        settings. The seeders guard against duplicate demonstration rows and rebuild ledger balances where necessary, so
+        the same command can be run again without doubling the data.</p>
+      <figure class="diagram">
+        <img src="figures/migration-seeding-flow.svg"
+          alt="Flow diagram from migration files to PostgreSQL schema, seeders and demo rows">
+        <figcaption><span class="fig-label">Figure 3.1</span> Migration and seeding flow. The schema must exist before
+          the seeders run; the populated database is then used for queries, plans and the DBeaver figures.</figcaption>
+      </figure>
 
-    <h2 id="three-four">3.4 Eloquent and raw SQL</h2>
-    <p>Eloquent is productive when a request needs relationships, casts, accessors, soft-delete filtering and model events. Raw SQL is preferable when the query shape is explicit, when a database feature is needed, or when the overhead of hydrating models is unnecessary. The two approaches can coexist. In this project, the customer, journal and loan paths that were converted are small enough to express directly in SQL, while booking, disbursement, repayment and reporting remain in the service and model layer.</p>
-    <table>
-      <caption><strong>Table 3.1:</strong> Eloquent compared with raw SQL</caption>
-      <thead><tr><th style="width:24%">Concern</th><th>Eloquent</th><th>Raw SQL through the DB facade</th></tr></thead>
-      <tbody>
-        <tr><td>Relationships</td><td>Loaded with <code>with()</code> and relationship methods.</td><td>Written as explicit joins and subqueries.</td></tr>
-        <tr><td>Casts and accessors</td><td>Applied automatically.</td><td>Must be reproduced in the mapping code.</td></tr>
-        <tr><td>Soft deletes</td><td>Global scope adds the filter.</td><td>The query must add <code>deleted_at is null</code>.</td></tr>
-        <tr><td>Model events</td><td>Fired on create, update and delete.</td><td>Bypassed completely.</td></tr>
-        <tr><td>Bulk work</td><td>Convenient but can be chatty.</td><td>One statement can touch many rows.</td></tr>
-        <tr><td>SQL control</td><td>Expressive but sometimes opaque.</td><td>Exact query text and plan.</td></tr>
-        <tr><td>Injection safety</td><td>Bindings handled by the builder.</td><td>Values must be passed as bindings, never concatenated.</td></tr>
-      </tbody>
-    </table>
-    <p>The converted code follows one rule: <strong>values are always bound</strong>. Column names cannot be bound, so the dynamic <code>SET</code> clauses are built from keys that come from Laravel's validated payload, not from raw request strings. The update examples in Sections 3.5 and 3.6 show the pattern. The customer update also appends <code>updated_at</code> and a <code>deleted_at is null</code> guard manually, because raw SQL does not inherit Eloquent's timestamps or soft-delete scope.</p>
-    <table>
-      <caption><strong>Table 3.2:</strong> Operations converted to raw SQL</caption>
-      <thead><tr><th style="width:18%">Module</th><th>Operation</th><th>File</th><th>SQL primitive</th></tr></thead>
-      <tbody>
-        <tr><td>Customers</td><td>List and search</td><td><code>LoanCustomerController</code></td><td><code>DB::select</code> with joins and a correlated subquery</td></tr>
-        <tr><td>Customers</td><td>Update and account-name sync</td><td><code>LoanCustomerController</code></td><td><code>DB::update</code> with bound values</td></tr>
-        <tr><td>Customers</td><td>Delete</td><td><code>LoanCustomerController</code></td><td>Soft-delete <code>update</code> plus account <code>delete</code></td></tr>
-        <tr><td>Journals</td><td>Create draft</td><td><code>TransactionController</code></td><td><code>DB::insert</code></td></tr>
-        <tr><td>Journals</td><td>Update draft or status</td><td><code>TransactionController</code></td><td><code>DB::update</code></td></tr>
-        <tr><td>Journals</td><td>Delete draft</td><td><code>TransactionController</code></td><td><code>DB::transaction</code> with two deletes</td></tr>
-        <tr><td>Journals</td><td>Status counts</td><td><code>TransactionController</code></td><td><code>DB::select</code> with <code>group by</code></td></tr>
-        <tr><td>Loans</td><td>List with filters</td><td><code>LoanController</code></td><td><code>DB::select</code> with joins</td></tr>
-        <tr><td>Loans</td><td>Approve or reject</td><td><code>LoanLifecycle</code></td><td><code>DB::update</code> with status guard</td></tr>
-      </tbody>
-    </table>
-    <figure class="diagram">
-      <img src="figures/crud-request-flow.svg" alt="Flowchart of a CRUD request through route, validation, DB facade and PostgreSQL">
-      <figcaption><span class="fig-label">Figure 3.2</span> CRUD request flow. Validation rejects bad input before the DB facade executes bound SQL against PostgreSQL; the response is a redirect or an Inertia page.</figcaption>
-    </figure>
+      <h2 id="three-four">3.4 Eloquent and raw SQL</h2>
+      <p>Eloquent is productive when a request needs relationships, casts, accessors, soft-delete filtering and model
+        events. Raw SQL is preferable when the query shape is explicit, when a database feature is needed, or when the
+        overhead of hydrating models is unnecessary. The two approaches can coexist. In this project, the customer,
+        journal and loan paths that were converted are small enough to express directly in SQL, while booking,
+        disbursement, repayment and reporting remain in the service and model layer.</p>
+      <table>
+        <caption><strong>Table 3.1:</strong> Eloquent compared with raw SQL</caption>
+        <thead>
+          <tr>
+            <th style="width:24%">Concern</th>
+            <th>Eloquent</th>
+            <th>Raw SQL through the DB facade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Relationships</td>
+            <td>Loaded with <code>with()</code> and relationship methods.</td>
+            <td>Written as explicit joins and subqueries.</td>
+          </tr>
+          <tr>
+            <td>Casts and accessors</td>
+            <td>Applied automatically.</td>
+            <td>Must be reproduced in the mapping code.</td>
+          </tr>
+          <tr>
+            <td>Soft deletes</td>
+            <td>Global scope adds the filter.</td>
+            <td>The query must add <code>deleted_at is null</code>.</td>
+          </tr>
+          <tr>
+            <td>Model events</td>
+            <td>Fired on create, update and delete.</td>
+            <td>Bypassed completely.</td>
+          </tr>
+          <tr>
+            <td>Bulk work</td>
+            <td>Convenient but can be chatty.</td>
+            <td>One statement can touch many rows.</td>
+          </tr>
+          <tr>
+            <td>SQL control</td>
+            <td>Expressive but sometimes opaque.</td>
+            <td>Exact query text and plan.</td>
+          </tr>
+          <tr>
+            <td>Injection safety</td>
+            <td>Bindings handled by the builder.</td>
+            <td>Values must be passed as bindings, never concatenated.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The converted code follows one rule: <strong>values are always bound</strong>. Column names cannot be bound, so
+        the dynamic <code>SET</code> clauses are built from keys that come from Laravel's validated payload, not from
+        raw request strings. The update examples in Sections 3.5 and 3.6 show the pattern. The customer update also
+        appends <code>updated_at</code> and a <code>deleted_at is null</code> guard manually, because raw SQL does not
+        inherit Eloquent's timestamps or soft-delete scope.</p>
+      <table>
+        <caption><strong>Table 3.2:</strong> Operations converted to raw SQL</caption>
+        <thead>
+          <tr>
+            <th style="width:18%">Module</th>
+            <th>Operation</th>
+            <th>File</th>
+            <th>SQL primitive</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Customers</td>
+            <td>List and search</td>
+            <td><code>LoanCustomerController</code></td>
+            <td><code>DB::select</code> with joins and a correlated subquery</td>
+          </tr>
+          <tr>
+            <td>Customers</td>
+            <td>Update and account-name sync</td>
+            <td><code>LoanCustomerController</code></td>
+            <td><code>DB::update</code> with bound values</td>
+          </tr>
+          <tr>
+            <td>Customers</td>
+            <td>Delete</td>
+            <td><code>LoanCustomerController</code></td>
+            <td>Soft-delete <code>update</code> plus account <code>delete</code></td>
+          </tr>
+          <tr>
+            <td>Journals</td>
+            <td>Create draft</td>
+            <td><code>TransactionController</code></td>
+            <td><code>DB::insert</code></td>
+          </tr>
+          <tr>
+            <td>Journals</td>
+            <td>Update draft or status</td>
+            <td><code>TransactionController</code></td>
+            <td><code>DB::update</code></td>
+          </tr>
+          <tr>
+            <td>Journals</td>
+            <td>Delete draft</td>
+            <td><code>TransactionController</code></td>
+            <td><code>DB::transaction</code> with two deletes</td>
+          </tr>
+          <tr>
+            <td>Journals</td>
+            <td>Status counts</td>
+            <td><code>TransactionController</code></td>
+            <td><code>DB::select</code> with <code>group by</code></td>
+          </tr>
+          <tr>
+            <td>Loans</td>
+            <td>List with filters</td>
+            <td><code>LoanController</code></td>
+            <td><code>DB::select</code> with joins</td>
+          </tr>
+          <tr>
+            <td>Loans</td>
+            <td>Approve or reject</td>
+            <td><code>LoanLifecycle</code></td>
+            <td><code>DB::update</code> with status guard</td>
+          </tr>
+        </tbody>
+      </table>
+      <figure class="diagram">
+        <img src="figures/crud-request-flow.svg"
+          alt="Flowchart of a CRUD request through route, validation, DB facade and PostgreSQL">
+        <figcaption><span class="fig-label">Figure 3.2</span> CRUD request flow. Validation rejects bad input before the
+          DB facade executes bound SQL against PostgreSQL; the response is a redirect or an Inertia page.</figcaption>
+      </figure>
 
-    <h2 id="three-five">3.5 Customer CRUD in raw SQL</h2>
-    <p>The customer index shows the read pattern. Listing 3.2 selects the customer row, the company name and the linked account, then uses a correlated subquery to fetch the latest posted balance for that account. The <code>POSTED</code> value is bound. The query adds <code>lc.deleted_at is null</code> because raw SQL does not apply Eloquent's soft-delete scope. The left joins preserve customers that have no company or account row, which makes the page tolerant of incomplete links.</p>
+      <h2 id="three-five">3.5 Customer CRUD in raw SQL</h2>
+      <p>The customer index shows the read pattern. Listing 3.2 selects the customer row, the company name and the
+        linked account, then uses a correlated subquery to fetch the latest posted balance for that account. The
+        <code>POSTED</code> value is bound. The query adds <code>lc.deleted_at is null</code> because raw SQL does not
+        apply Eloquent's soft-delete scope. The left joins preserve customers that have no company or account row, which
+        makes the page tolerant of incomplete links.
+      </p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 3.2: Customer listing with a correlated balance subquery</strong><span>PHP / SQL</span></div>
-      <pre><code>$rows = DB::select(
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.2: Customer listing with a correlated balance
+            subquery</strong><span>PHP / SQL</span></div>
+        <pre><code>$rows = DB::select(
     'select lc.*, c.name as company_name, a.code as account_code, a.status as account_status,
         (select je.balance_after from journal_entries je
             inner join journal_transactions jt on jt.id = je.journal_transaction_id
@@ -712,14 +1646,23 @@
     order by lc.customer_no asc',
     ['POSTED']
 );</code></pre>
-      <div class="listing-source">Source: <code>app/Http/Controllers/Loan/LoanCustomerController.php</code>, <code>index()</code>.</div>
-    </div>
+        <div class="listing-source">Source: <code>app/Http/Controllers/Loan/LoanCustomerController.php</code>,
+          <code>index()</code>.
+        </div>
+      </div>
 
-    <p>The update path in Listing 3.3 builds a <code>SET</code> list from the validated fields. The column names are identifiers, so they are interpolated; the values are bound. The <code>updated_at</code> timestamp and the <code>deleted_at is null</code> guard are added manually. After the update, the model is refreshed so the display-name accessor and the linked account name use the new values. The account name is updated only when the account code matches the customer number, which identifies an auto-created account rather than a manually linked one.</p>
+      <p>The update path in Listing 3.3 builds a <code>SET</code> list from the validated fields. The column names are
+        identifiers, so they are interpolated; the values are bound. The <code>updated_at</code> timestamp and the
+        <code>deleted_at is null</code> guard are added manually. After the update, the model is refreshed so the
+        display-name accessor and the linked account name use the new values. The account name is updated only when the
+        account code matches the customer number, which identifies an auto-created account rather than a manually linked
+        one.
+      </p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 3.3: Customer update with bound values</strong><span>PHP / SQL</span></div>
-      <pre><code>$updates = collect($data)-&gt;except(['gl_mode', 'link_account_id', 'company_id'])-&gt;all();
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.3: Customer update with bound values</strong><span>PHP / SQL</span>
+        </div>
+        <pre><code>$updates = collect($data)-&gt;except(['gl_mode', 'link_account_id', 'company_id'])-&gt;all();
 
 if ($updates !== []) {
     $assignments = implode(', ', array_map(fn (string $column) =&gt; "{$column} = ?", array_keys($updates)));
@@ -734,17 +1677,28 @@ if ($updates !== []) {
 
     $customer-&gt;refresh();
 }</code></pre>
-      <div class="listing-source">Source: <code>app/Http/Controllers/Loan/LoanCustomerController.php</code>, <code>update()</code>.</div>
-    </div>
+        <div class="listing-source">Source: <code>app/Http/Controllers/Loan/LoanCustomerController.php</code>,
+          <code>update()</code>.
+        </div>
+      </div>
 
-    <p>Deletion is a soft delete followed by cleanup of the auto-created account. The controller first refuses the operation if the account already has journal entries, because removing a posted account would break the ledger. It then runs two statements inside <code>DB::transaction</code>: an <code>update</code> that sets <code>deleted_at</code> and <code>updated_at</code>, and a <code>delete</code> that removes the account only when its code matches the customer number. The soft delete keeps the customer row available to <code>withTrashed()</code> for audit and reporting.</p>
+      <p>Deletion is a soft delete followed by cleanup of the auto-created account. The controller first refuses the
+        operation if the account already has journal entries, because removing a posted account would break the ledger.
+        It then runs two statements inside <code>DB::transaction</code>: an <code>update</code> that sets
+        <code>deleted_at</code> and <code>updated_at</code>, and a <code>delete</code> that removes the account only
+        when its code matches the customer number. The soft delete keeps the customer row available to
+        <code>withTrashed()</code> for audit and reporting.
+      </p>
 
-    <h2 id="three-six">3.6 Journal CRUD in raw SQL</h2>
-    <p>The journal create path in Listing 3.4 generates the UUID in PHP, asks <code>nextRef()</code> for the next transaction number, and inserts a draft header. The <code>effective_date</code> is the business date supplied by the user. The insert sets <code>created_at</code> and <code>updated_at</code> explicitly because raw SQL bypasses Eloquent's timestamp handling.</p>
+      <h2 id="three-six">3.6 Journal CRUD in raw SQL</h2>
+      <p>The journal create path in Listing 3.4 generates the UUID in PHP, asks <code>nextRef()</code> for the next
+        transaction number, and inserts a draft header. The <code>effective_date</code> is the business date supplied by
+        the user. The insert sets <code>created_at</code> and <code>updated_at</code> explicitly because raw SQL
+        bypasses Eloquent's timestamp handling.</p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 3.4: Journal transaction insert</strong><span>PHP / SQL</span></div>
-      <pre><code>$id = (string) Str::uuid();
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.4: Journal transaction insert</strong><span>PHP / SQL</span></div>
+        <pre><code>$id = (string) Str::uuid();
 $now = now();
 
 DB::insert(
@@ -762,14 +1716,22 @@ DB::insert(
 );
 
 return redirect()-&gt;route('general-ledger.transactions.show', ['transaction' =&gt; $id]);</code></pre>
-      <div class="listing-source">Source: <code>app/Http/Controllers/GeneralLedger/TransactionController.php</code>, <code>store()</code>.</div>
-    </div>
+        <div class="listing-source">Source: <code>app/Http/Controllers/GeneralLedger/TransactionController.php</code>,
+          <code>store()</code>.
+        </div>
+      </div>
 
-    <p>The reference generator uses the database to find the largest numeric suffix. The <code>substr(ref, 5)</code> call removes the <code>TXN-</code> prefix, the cast converts the remainder to an integer, and <code>coalesce</code> returns zero when the table is empty. This works on both SQLite and PostgreSQL. The generator performs a read before the insert, and the <code>ref</code> column is not unique in the current schema.</p>
+      <p>The reference generator uses the database to find the largest numeric suffix. The <code>substr(ref, 5)</code>
+        call removes the <code>TXN-</code> prefix, the cast converts the remainder to an integer, and
+        <code>coalesce</code> returns zero when the table is empty. This works on both SQLite and PostgreSQL. The
+        generator performs a read before the insert, and the <code>ref</code> column is not unique in the current
+        schema.
+      </p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 3.5: Journal update with a controlled column list</strong><span>PHP / SQL</span></div>
-      <pre><code>$assignments = implode(', ', array_map(fn (string $column) =&gt; "{$column} = ?", array_keys($updates)));
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.5: Journal update with a controlled column list</strong><span>PHP /
+            SQL</span></div>
+        <pre><code>$assignments = implode(', ', array_map(fn (string $column) =&gt; "{$column} = ?", array_keys($updates)));
 $bindings = array_values($updates);
 $bindings[] = now();
 $bindings[] = $transaction-&gt;id;
@@ -778,39 +1740,55 @@ DB::update(
     "update journal_transactions set {$assignments}, updated_at = ? where id = ?",
     $bindings
 );</code></pre>
-      <div class="listing-source">Source: <code>app/Http/Controllers/GeneralLedger/TransactionController.php</code>, <code>update()</code>.</div>
-    </div>
+        <div class="listing-source">Source: <code>app/Http/Controllers/GeneralLedger/TransactionController.php</code>,
+          <code>update()</code>.
+        </div>
+      </div>
 
-    <p>Before the update, the controller checks whether the transaction is still a draft when the description or date changes, verifies the status transition, and runs the balance check before a move to <em>submitted</em>. The raw SQL only writes after those rules pass. This is an important division: business rules stay in PHP where they can produce useful validation messages, while the database write itself is explicit and parameterised.</p>
+      <p>Before the update, the controller checks whether the transaction is still a draft when the description or date
+        changes, verifies the status transition, and runs the balance check before a move to <em>submitted</em>. The raw
+        SQL only writes after those rules pass. This is an important division: business rules stay in PHP where they can
+        produce useful validation messages, while the database write itself is explicit and parameterised.</p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 3.6: Journal delete for drafts</strong><span>PHP / SQL</span></div>
-      <pre><code>DB::transaction(function () use ($transaction) {
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.6: Journal delete for drafts</strong><span>PHP / SQL</span></div>
+        <pre><code>DB::transaction(function () use ($transaction) {
     DB::delete('delete from journal_entries where journal_transaction_id = ?', [$transaction-&gt;id]);
     DB::delete(
         'delete from journal_transactions where id = ? and status = ?',
         [$transaction-&gt;id, TransactionStatus::DRAFT-&gt;value]
     );
 });</code></pre>
-      <div class="listing-source">Source: <code>app/Http/Controllers/GeneralLedger/TransactionController.php</code>, <code>destroy()</code>.</div>
-    </div>
+        <div class="listing-source">Source: <code>app/Http/Controllers/GeneralLedger/TransactionController.php</code>,
+          <code>destroy()</code>.
+        </div>
+      </div>
 
-    <p>The delete removes the child entries before the header and runs both statements in a transaction. The status condition on the second delete is a second guard: even if the earlier status check were bypassed, a posted header would not be removed. This preserves the rule that posted journals are corrected by reversal, not deletion.</p>
-    <p>The status counts are produced with a single aggregate query:</p>
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 3.7: Journal status aggregate</strong><span>SQL</span></div>
-      <pre><code>select status, count(*) as aggregate
+      <p>The delete removes the child entries before the header and runs both statements in a transaction. The status
+        condition on the second delete is a second guard: even if the earlier status check were bypassed, a posted
+        header would not be removed. This preserves the rule that posted journals are corrected by reversal, not
+        deletion.</p>
+      <p>The status counts are produced with a single aggregate query:</p>
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.7: Journal status aggregate</strong><span>SQL</span></div>
+        <pre><code>select status, count(*) as aggregate
 from journal_transactions
 group by status;</code></pre>
-      <div class="listing-source">Source: <code>app/Http/Controllers/GeneralLedger/TransactionController.php</code>, <code>stats()</code>.</div>
-    </div>
+        <div class="listing-source">Source: <code>app/Http/Controllers/GeneralLedger/TransactionController.php</code>,
+          <code>stats()</code>.
+        </div>
+      </div>
 
-    <h2 id="three-seven">3.7 Loan read and status updates</h2>
-    <p>The loan listing is a read query with two optional filters. Listing 3.8 joins the product and customer tables, filters soft-deleted loans, applies the status and loan-number filters only when they are present, and limits the result to 100 rows. The bound values are appended to a separate array, so the query text does not contain user input.</p>
+      <h2 id="three-seven">3.7 Loan read and status updates</h2>
+      <p>The loan listing is a read query with two optional filters. Listing 3.8 joins the product and customer tables,
+        filters soft-deleted loans, applies the status and loan-number filters only when they are present, and limits
+        the result to 100 rows. The bound values are appended to a separate array, so the query text does not contain
+        user input.</p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 3.8: Loan listing with joins and optional filters</strong><span>PHP / SQL</span></div>
-      <pre><code>$sql = 'select l.id, l.loan_no, l.status, l.principal, l.total_repayable, l.maturity_date,
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.8: Loan listing with joins and optional filters</strong><span>PHP /
+            SQL</span></div>
+        <pre><code>$sql = 'select l.id, l.loan_no, l.status, l.principal, l.total_repayable, l.maturity_date,
         p.code as product_code, p.name as product_name,
         c.customer_no, c.customer_type, c.first_name, c.middle_name, c.last_name, c.business_name
     from loans l
@@ -835,60 +1813,121 @@ $loans = array_map(
     fn (object $row) =&gt; self::presentBriefRow((array) $row),
     DB::select($sql, $bindings)
 );</code></pre>
-      <div class="listing-source">Source: <code>app/Http/Controllers/Loan/LoanController.php</code>, <code>index()</code>.</div>
-    </div>
+        <div class="listing-source">Source: <code>app/Http/Controllers/Loan/LoanController.php</code>,
+          <code>index()</code>.
+        </div>
+      </div>
 
-    <p>Loan approval and rejection are simple status changes, so they were converted to raw updates in the lifecycle service. Listing 3.9 shows approval. The status guard remains in PHP, and the update also sets <code>approved_at</code> and <code>updated_at</code>. Rejection follows the same pattern without <code>approved_at</code>. Booking, disbursement, repayment and accrual remain in <code>LoanLifecycle</code> because each one creates or updates several rows and posts a journal; replacing that orchestration with controller SQL would duplicate business rules and weaken the transaction boundary.</p>
+      <p>Loan approval and rejection are simple status changes, so they were converted to raw updates in the lifecycle
+        service. Listing 3.9 shows approval. The status guard remains in PHP, and the update also sets
+        <code>approved_at</code> and <code>updated_at</code>. Rejection follows the same pattern without
+        <code>approved_at</code>. Booking, disbursement, repayment and accrual remain in <code>LoanLifecycle</code>
+        because each one creates or updates several rows and posts a journal; replacing that orchestration with
+        controller SQL would duplicate business rules and weaken the transaction boundary.
+      </p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 3.9: Loan status update</strong><span>PHP / SQL</span></div>
-      <pre><code>DB::update(
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 3.9: Loan status update</strong><span>PHP / SQL</span></div>
+        <pre><code>DB::update(
     'update loans set status = ?, approved_at = ?, updated_at = ? where id = ?',
     [LoanStatus::Approved-&gt;value, now(), now(), $loan-&gt;id]
 );
 
 return $loan-&gt;refresh();</code></pre>
-      <div class="listing-source">Source: <code>app/Services/Loan/LoanLifecycle.php</code>, <code>approve()</code>. <code>reject()</code> follows the same pattern without <code>approved_at</code>.</div>
-    </div>
+        <div class="listing-source">Source: <code>app/Services/Loan/LoanLifecycle.php</code>, <code>approve()</code>.
+          <code>reject()</code> follows the same pattern without <code>approved_at</code>.
+        </div>
+      </div>
 
-    <h2 id="three-eight">3.8 Transactions and concurrency</h2>
-    <p>The converted paths use <code>DB::transaction</code> where more than one statement must succeed together. Customer deletion wraps the soft delete and the account cleanup. Journal deletion wraps the entry delete and the header delete. Posting and reversal in the journal model lock the transaction row and the affected account rows with <code>lockForUpdate</code> before changing balances. The business-date advance locks the settings row and re-checks the unposted queue before it writes snapshots and moves the date.</p>
-    <p>These choices map onto the ACID properties. <strong>Atomicity</strong> is provided by the transaction boundary: a failure rolls the whole operation back. <strong>Consistency</strong> is supported by validation, foreign keys and the balance check. <strong>Isolation</strong> is provided by row locks where two users could otherwise act on stale data. <strong>Durability</strong> is provided by PostgreSQL's write-ahead log. The reference generator performs a read and a later insert without a lock, and <code>ref</code> has no unique constraint; this is the concurrency behaviour of the current prototype.</p>
-    <div class="callout">
-      <p><strong>Raw SQL does not remove the need for application rules.</strong> The converted statements are shorter than their Eloquent equivalents, but they still depend on validation, status checks and transactions. Chapter Four describes the constraints and query plans that support these rules.</p>
-    </div>
-  </section>
+      <h2 id="three-eight">3.8 Transactions and concurrency</h2>
+      <p>The converted paths use <code>DB::transaction</code> where more than one statement must succeed together.
+        Customer deletion wraps the soft delete and the account cleanup. Journal deletion wraps the entry delete and the
+        header delete. Posting and reversal in the journal model lock the transaction row and the affected account rows
+        with <code>lockForUpdate</code> before changing balances. The business-date advance locks the settings row and
+        re-checks the unposted queue before it writes snapshots and moves the date.</p>
+      <p>These choices map onto the ACID properties. <strong>Atomicity</strong> is provided by the transaction boundary:
+        a failure rolls the whole operation back. <strong>Consistency</strong> is supported by validation, foreign keys
+        and the balance check. <strong>Isolation</strong> is provided by row locks where two users could otherwise act
+        on stale data. <strong>Durability</strong> is provided by PostgreSQL's write-ahead log. The reference generator
+        performs a read and a later insert without a lock, and <code>ref</code> has no unique constraint; this is the
+        concurrency behaviour of the current prototype.</p>
+      <div class="callout">
+        <p><strong>Raw SQL does not remove the need for application rules.</strong> The converted statements are shorter
+          than their Eloquent equivalents, but they still depend on validation, status checks and transactions. Chapter
+          Four describes the constraints and query plans that support these rules.</p>
+      </div>
+    </section>
 
-  <!-- CHAPTER FOUR -->
-  <section id="chapter-four" class="chapter page-break">
-    <h1>Chapter Four <span>SQL, Performance and Tools</span></h1>
+    <!-- CHAPTER FOUR -->
+    <section id="chapter-four" class="chapter page-break">
+      <h1>Chapter Four <span>SQL, Performance and Tools</span></h1>
 
-    <h2 id="four-one">4.1 SQL query catalogue</h2>
-    <p>The report uses a small set of queries that cover the main database tasks: listing related records, aggregating balances, summarising statuses, inspecting the catalog and reading a query plan. Table 4.1 maps each query to its purpose and the SQL features it demonstrates.</p>
-    <table>
-      <caption><strong>Table 4.1:</strong> SQL query catalogue</caption>
-      <thead><tr><th style="width:29%">Query</th><th>Purpose</th><th>SQL features</th></tr></thead>
-      <tbody>
-        <tr><td>Customer ledger</td><td>List customers with company, account and latest posted balance.</td><td><code>left join</code>, correlated subquery, <code>order by</code>, bound filter</td></tr>
-        <tr><td>Loan portfolio</td><td>Show loan terms, customer, product and outstanding amount.</td><td><code>join</code>, <code>left join</code>, <code>sum</code>, <code>group by</code></td></tr>
-        <tr><td>Journal summary</td><td>Count transactions by status.</td><td><code>group by</code>, <code>count</code></td></tr>
-        <tr><td>Account categories</td><td>Count accounts and total display balance by category.</td><td><code>group by</code>, <code>sum</code></td></tr>
-        <tr><td>Foreign-key inventory</td><td>List enforced relationships from the catalog.</td><td><code>information_schema</code>, joins</td></tr>
-        <tr><td>Foreign-key index check</td><td>Find foreign-key columns without a leading index.</td><td><code>not exists</code>, <code>pg_index</code></td></tr>
-        <tr><td>Query plan</td><td>Measure planning and execution behaviour.</td><td><code>EXPLAIN (ANALYZE, BUFFERS)</code></td></tr>
-      </tbody>
-    </table>
-    <figure class="chart">
-      <img src="figures/chart-table-rows.svg" alt="Bar chart of row counts for the main database tables">
-      <figcaption><span class="fig-label">Figure 4.1</span> Row counts in the seeded database. The ledger child tables and loan schedules hold most of the rows, while the customer and product tables remain small.</figcaption>
-    </figure>
+      <h2 id="four-one">4.1 SQL query catalogue</h2>
+      <p>The report uses a small set of queries that cover the main database tasks: listing related records, aggregating
+        balances, summarising statuses, inspecting the catalog and reading a query plan. Table 4.1 maps each query to
+        its purpose and the SQL features it demonstrates.</p>
+      <table>
+        <caption><strong>Table 4.1:</strong> SQL query catalogue</caption>
+        <thead>
+          <tr>
+            <th style="width:29%">Query</th>
+            <th>Purpose</th>
+            <th>SQL features</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Customer ledger</td>
+            <td>List customers with company, account and latest posted balance.</td>
+            <td><code>left join</code>, correlated subquery, <code>order by</code>, bound filter</td>
+          </tr>
+          <tr>
+            <td>Loan portfolio</td>
+            <td>Show loan terms, customer, product and outstanding amount.</td>
+            <td><code>join</code>, <code>left join</code>, <code>sum</code>, <code>group by</code></td>
+          </tr>
+          <tr>
+            <td>Journal summary</td>
+            <td>Count transactions by status.</td>
+            <td><code>group by</code>, <code>count</code></td>
+          </tr>
+          <tr>
+            <td>Account categories</td>
+            <td>Count accounts and total display balance by category.</td>
+            <td><code>group by</code>, <code>sum</code></td>
+          </tr>
+          <tr>
+            <td>Foreign-key inventory</td>
+            <td>List enforced relationships from the catalog.</td>
+            <td><code>information_schema</code>, joins</td>
+          </tr>
+          <tr>
+            <td>Foreign-key index check</td>
+            <td>Find foreign-key columns without a leading index.</td>
+            <td><code>not exists</code>, <code>pg_index</code></td>
+          </tr>
+          <tr>
+            <td>Query plan</td>
+            <td>Measure planning and execution behaviour.</td>
+            <td><code>EXPLAIN (ANALYZE, BUFFERS)</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <figure class="chart">
+        <img src="figures/chart-table-rows.svg" alt="Bar chart of row counts for the main database tables">
+        <figcaption><span class="fig-label">Figure 4.1</span> Row counts in the seeded database. The ledger child tables
+          and loan schedules hold most of the rows, while the customer and product tables remain small.</figcaption>
+      </figure>
 
-    <h2 id="four-two">4.2 Join and aggregate queries</h2>
-    <p>Listing 4.1 is the reporting form of the customer query. It uses <code>concat_ws</code> to build the display name and a correlated subquery to fetch the latest posted balance. The result in Table 4.2 shows the eight seeded customers, including five whose accounts have a posted balance and three whose accounts do not yet have a posted entry.</p>
+      <h2 id="four-two">4.2 Join and aggregate queries</h2>
+      <p>Listing 4.1 is the reporting form of the customer query. It uses <code>concat_ws</code> to build the display
+        name and a correlated subquery to fetch the latest posted balance. The result in Table 4.2 shows the eight
+        seeded customers, including five whose accounts have a posted balance and three whose accounts do not yet have a
+        posted entry.</p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 4.1: Customer ledger query</strong><span>SQL</span></div>
-      <pre><code>select lc.customer_no,
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 4.1: Customer ledger query</strong><span>SQL</span></div>
+        <pre><code>select lc.customer_no,
        trim(concat_ws(' ', lc.first_name, lc.middle_name, lc.last_name)) as customer_name,
        lc.kyc_tier,
        lc.kyc_status,
@@ -903,29 +1942,98 @@ return $loan-&gt;refresh();</code></pre>
   left join accounts a on a.id = lc.account_id
  where lc.deleted_at is null
  order by lc.customer_no;</code></pre>
-      <div class="listing-source">Adapted from the controller query in Listing 3.2. The company join is omitted because all seeded customers belong to the same company.</div>
-    </div>
+        <div class="listing-source">Adapted from the controller query in Listing 3.2. The company join is omitted
+          because all seeded customers belong to the same company.</div>
+      </div>
 
-    <table class="compact">
-      <caption><strong>Table 4.2:</strong> Customer ledger results</caption>
-      <thead><tr><th>Customer no.</th><th>Name</th><th>Tier</th><th>KYC</th><th>Account</th><th class="num">Balance</th></tr></thead>
-      <tbody>
-        <tr><td>LC-2026-00001</td><td>Adaeze Ngozi Okafor</td><td>tier3</td><td>verified</td><td>LC-2026-00001</td><td class="num">196,000.00</td></tr>
-        <tr><td>LC-2026-00002</td><td>Tunde Ayodele Bakare</td><td>tier3</td><td>verified</td><td>LC-2026-00002</td><td class="num">—</td></tr>
-        <tr><td>LC-2026-00003</td><td>Fatima Aisha Bello</td><td>tier3</td><td>in review</td><td>LC-2026-00003</td><td class="num">—</td></tr>
-        <tr><td>LC-2026-00004</td><td>Emeka Nwosu</td><td>tier3</td><td>verified</td><td>LC-2026-00004</td><td class="num">—</td></tr>
-        <tr><td>LC-2026-00005</td><td>Amina Yusuf Abdullahi</td><td>tier2</td><td>pending</td><td>LC-2026-00005</td><td class="num">325,000.00</td></tr>
-        <tr><td>LC-2026-00006</td><td>Chiamaka Eze</td><td>tier3</td><td>verified</td><td>LC-2026-00006</td><td class="num">59,400.00</td></tr>
-        <tr><td>LC-2026-00007</td><td>Ibrahim Musa Danladi</td><td>tier3</td><td>verified</td><td>LC-2026-00007</td><td class="num">200,000.00</td></tr>
-        <tr><td>LC-2026-00008</td><td>Blessing Adeyemi</td><td>tier3</td><td>pending</td><td>LC-2026-00008</td><td class="num">38,800.00</td></tr>
-      </tbody>
-    </table>
+      <table class="compact">
+        <caption><strong>Table 4.2:</strong> Customer ledger results</caption>
+        <thead>
+          <tr>
+            <th>Customer no.</th>
+            <th>Name</th>
+            <th>Tier</th>
+            <th>KYC</th>
+            <th>Account</th>
+            <th class="num">Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>LC-2026-00001</td>
+            <td>Adaeze Ngozi Okafor</td>
+            <td>tier3</td>
+            <td>verified</td>
+            <td>LC-2026-00001</td>
+            <td class="num">196,000.00</td>
+          </tr>
+          <tr>
+            <td>LC-2026-00002</td>
+            <td>Tunde Ayodele Bakare</td>
+            <td>tier3</td>
+            <td>verified</td>
+            <td>LC-2026-00002</td>
+            <td class="num">—</td>
+          </tr>
+          <tr>
+            <td>LC-2026-00003</td>
+            <td>Fatima Aisha Bello</td>
+            <td>tier3</td>
+            <td>in review</td>
+            <td>LC-2026-00003</td>
+            <td class="num">—</td>
+          </tr>
+          <tr>
+            <td>LC-2026-00004</td>
+            <td>Emeka Nwosu</td>
+            <td>tier3</td>
+            <td>verified</td>
+            <td>LC-2026-00004</td>
+            <td class="num">—</td>
+          </tr>
+          <tr>
+            <td>LC-2026-00005</td>
+            <td>Amina Yusuf Abdullahi</td>
+            <td>tier2</td>
+            <td>pending</td>
+            <td>LC-2026-00005</td>
+            <td class="num">325,000.00</td>
+          </tr>
+          <tr>
+            <td>LC-2026-00006</td>
+            <td>Chiamaka Eze</td>
+            <td>tier3</td>
+            <td>verified</td>
+            <td>LC-2026-00006</td>
+            <td class="num">59,400.00</td>
+          </tr>
+          <tr>
+            <td>LC-2026-00007</td>
+            <td>Ibrahim Musa Danladi</td>
+            <td>tier3</td>
+            <td>verified</td>
+            <td>LC-2026-00007</td>
+            <td class="num">200,000.00</td>
+          </tr>
+          <tr>
+            <td>LC-2026-00008</td>
+            <td>Blessing Adeyemi</td>
+            <td>tier3</td>
+            <td>pending</td>
+            <td>LC-2026-00008</td>
+            <td class="num">38,800.00</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <p>Listing 4.2 aggregates the loan portfolio. It joins each loan to its customer and product, left-joins the schedule rows, and subtracts the paid components from the scheduled total to estimate the outstanding amount. The <code>coalesce</code> returns zero for loans without schedules. The result in Table 4.3 shows nine loans across the full lifecycle, including one active loan with a penalty above its original repayable total.</p>
+      <p>Listing 4.2 aggregates the loan portfolio. It joins each loan to its customer and product, left-joins the
+        schedule rows, and subtracts the paid components from the scheduled total to estimate the outstanding amount.
+        The <code>coalesce</code> returns zero for loans without schedules. The result in Table 4.3 shows nine loans
+        across the full lifecycle, including one active loan with a penalty above its original repayable total.</p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 4.2: Loan portfolio aggregate query</strong><span>SQL</span></div>
-      <pre><code>select l.loan_no,
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 4.2: Loan portfolio aggregate query</strong><span>SQL</span></div>
+        <pre><code>select l.loan_no,
        c.customer_no,
        p.code as product_code,
        l.principal,
@@ -945,210 +2053,585 @@ return $loan-&gt;refresh();</code></pre>
  group by l.id, l.loan_no, c.customer_no, p.code,
           l.principal, l.total_repayable, l.status, l.maturity_date
  order by l.created_at desc;</code></pre>
-      <div class="listing-source">Reporting query used for Table 4.3. Amounts are naira values stored as <code>numeric(20,2)</code>.</div>
-    </div>
+        <div class="listing-source">Reporting query used for Table 4.3. Amounts are naira values stored as
+          <code>numeric(20,2)</code>.
+        </div>
+      </div>
 
-    <table class="compact">
-      <caption><strong>Table 4.3:</strong> Loan portfolio results</caption>
-      <thead><tr><th>Loan</th><th>Customer</th><th>Product</th><th class="num">Principal</th><th class="num">Repayable</th><th>Status</th><th class="num">Outstanding</th></tr></thead>
-      <tbody>
-        <tr><td>LN-2026-00009</td><td>LC-2026-00001</td><td>SAL</td><td class="num">200,000.00</td><td class="num">240,000.00</td><td>active</td><td class="num">240,000.00</td></tr>
-        <tr><td>LN-2026-00002</td><td>LC-2026-00002</td><td>SAL</td><td class="num">120,000.00</td><td class="num">144,000.00</td><td>pending approval</td><td class="num">144,000.00</td></tr>
-        <tr><td>LN-2026-00003</td><td>LC-2026-00003</td><td>SME</td><td class="num">200,000.00</td><td class="num">238,969.10</td><td>approved</td><td class="num">238,969.10</td></tr>
-        <tr><td>LN-2026-00004</td><td>LC-2026-00004</td><td>EMG</td><td class="num">50,000.00</td><td class="num">56,115.38</td><td>rejected</td><td class="num">56,115.38</td></tr>
-        <tr><td>LN-2026-00001</td><td>LC-2026-00001</td><td>SAL</td><td class="num">80,000.00</td><td class="num">88,800.00</td><td>draft</td><td class="num">88,800.00</td></tr>
-        <tr><td>LN-2026-00006</td><td>LC-2026-00006</td><td>GRP</td><td class="num">60,000.00</td><td class="num">65,030.77</td><td>active</td><td class="num">65,191.59</td></tr>
-        <tr><td>LN-2026-00007</td><td>LC-2026-00007</td><td>SAL</td><td class="num">100,000.00</td><td class="num">120,000.00</td><td>closed</td><td class="num">0.00</td></tr>
-        <tr><td>LN-2026-00008</td><td>LC-2026-00008</td><td>EMG</td><td class="num">40,000.00</td><td class="num">44,892.31</td><td>written off</td><td class="num">44,892.31</td></tr>
-        <tr><td>LN-2026-00005</td><td>LC-2026-00005</td><td>SME</td><td class="num">300,000.00</td><td class="num">358,453.65</td><td>active</td><td class="num">318,453.65</td></tr>
-      </tbody>
-    </table>
+      <table class="compact">
+        <caption><strong>Table 4.3:</strong> Loan portfolio results</caption>
+        <thead>
+          <tr>
+            <th>Loan</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th class="num">Principal</th>
+            <th class="num">Repayable</th>
+            <th>Status</th>
+            <th class="num">Outstanding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>LN-2026-00009</td>
+            <td>LC-2026-00001</td>
+            <td>SAL</td>
+            <td class="num">200,000.00</td>
+            <td class="num">240,000.00</td>
+            <td>active</td>
+            <td class="num">240,000.00</td>
+          </tr>
+          <tr>
+            <td>LN-2026-00002</td>
+            <td>LC-2026-00002</td>
+            <td>SAL</td>
+            <td class="num">120,000.00</td>
+            <td class="num">144,000.00</td>
+            <td>pending approval</td>
+            <td class="num">144,000.00</td>
+          </tr>
+          <tr>
+            <td>LN-2026-00003</td>
+            <td>LC-2026-00003</td>
+            <td>SME</td>
+            <td class="num">200,000.00</td>
+            <td class="num">238,969.10</td>
+            <td>approved</td>
+            <td class="num">238,969.10</td>
+          </tr>
+          <tr>
+            <td>LN-2026-00004</td>
+            <td>LC-2026-00004</td>
+            <td>EMG</td>
+            <td class="num">50,000.00</td>
+            <td class="num">56,115.38</td>
+            <td>rejected</td>
+            <td class="num">56,115.38</td>
+          </tr>
+          <tr>
+            <td>LN-2026-00001</td>
+            <td>LC-2026-00001</td>
+            <td>SAL</td>
+            <td class="num">80,000.00</td>
+            <td class="num">88,800.00</td>
+            <td>draft</td>
+            <td class="num">88,800.00</td>
+          </tr>
+          <tr>
+            <td>LN-2026-00006</td>
+            <td>LC-2026-00006</td>
+            <td>GRP</td>
+            <td class="num">60,000.00</td>
+            <td class="num">65,030.77</td>
+            <td>active</td>
+            <td class="num">65,191.59</td>
+          </tr>
+          <tr>
+            <td>LN-2026-00007</td>
+            <td>LC-2026-00007</td>
+            <td>SAL</td>
+            <td class="num">100,000.00</td>
+            <td class="num">120,000.00</td>
+            <td>closed</td>
+            <td class="num">0.00</td>
+          </tr>
+          <tr>
+            <td>LN-2026-00008</td>
+            <td>LC-2026-00008</td>
+            <td>EMG</td>
+            <td class="num">40,000.00</td>
+            <td class="num">44,892.31</td>
+            <td>written off</td>
+            <td class="num">44,892.31</td>
+          </tr>
+          <tr>
+            <td>LN-2026-00005</td>
+            <td>LC-2026-00005</td>
+            <td>SME</td>
+            <td class="num">300,000.00</td>
+            <td class="num">358,453.65</td>
+            <td>active</td>
+            <td class="num">318,453.65</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <figure class="chart">
-      <img src="figures/chart-loan-status.svg" alt="Bar chart of loan counts by status">
-      <figcaption><span class="fig-label">Figure 4.2</span> Loan status distribution in the seeded portfolio. The data exercises every lifecycle state, not only the successful path.</figcaption>
-    </figure>
+      <figure class="chart">
+        <img src="figures/chart-loan-status.svg" alt="Bar chart of loan counts by status">
+        <figcaption><span class="fig-label">Figure 4.2</span> Loan status distribution in the seeded portfolio. The data
+          exercises every lifecycle state, not only the successful path.</figcaption>
+      </figure>
 
-    <p>Listing 4.3 is a compact status summary. It returns one row because every seeded journal is posted, but the query is the same one the application uses for its header cards. Listing 4.4 groups accounts by category and sums the cached display balance; Figure 4.3 shows the top ten categories by account count.</p>
+      <p>Listing 4.3 is a compact status summary. It returns one row because every seeded journal is posted, but the
+        query is the same one the application uses for its header cards. Listing 4.4 groups accounts by category and
+        sums the cached display balance; Figure 4.3 shows the top ten categories by account count.</p>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 4.3: Journal status summary</strong><span>SQL</span></div>
-      <pre><code>select status, count(*) as aggregate
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 4.3: Journal status summary</strong><span>SQL</span></div>
+        <pre><code>select status, count(*) as aggregate
 from journal_transactions
 group by status
 order by status;</code></pre>
-      <div class="listing-source">Result: <code>POSTED | 21</code>.</div>
-    </div>
+        <div class="listing-source">Result: <code>POSTED | 21</code>.</div>
+      </div>
 
-    <div class="listing">
-      <div class="listing-head"><strong>Listing 4.4: Account category totals</strong><span>SQL</span></div>
-      <pre><code>select category,
+      <div class="listing">
+        <div class="listing-head"><strong>Listing 4.4: Account category totals</strong><span>SQL</span></div>
+        <pre><code>select category,
        count(*) as accounts,
        sum(display_balance) as total_balance
   from accounts
  group by category
  order by accounts desc, category;</code></pre>
-      <div class="listing-source">The cached display balance is used here; the computed balance accessor is deliberately not called for every row.</div>
-    </div>
+        <div class="listing-source">The cached display balance is used here; the computed balance accessor is
+          deliberately not called for every row.</div>
+      </div>
 
-    <figure class="chart">
-      <img src="figures/chart-account-categories.svg" alt="Bar chart of the ten largest account categories">
-      <figcaption><span class="fig-label">Figure 4.3</span> Top ten account categories by count. Accounts receivable and operating expenses account for the largest groups in the seeded chart.</figcaption>
-    </figure>
+      <figure class="chart">
+        <img src="figures/chart-account-categories.svg" alt="Bar chart of the ten largest account categories">
+        <figcaption><span class="fig-label">Figure 4.3</span> Top ten account categories by count. Accounts receivable
+          and operating expenses account for the largest groups in the seeded chart.</figcaption>
+      </figure>
 
-    <h2 id="four-three">4.3 Query plans and performance</h2>
-    <p>Each query was run with <code>EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)</code> against the seeded PostgreSQL database. Table 4.4 summarises the main plan nodes and timings. The numbers are small because the database is small: 84 accounts, 49 journal entries and 61 schedules fit in a few pages. The purpose is to read the plan shape at this data size.</p>
-    <table class="plan-summary">
-      <caption><strong>Table 4.4:</strong> Query plan summary (milliseconds)</caption>
-      <thead><tr><th style="width:17%">Query</th><th style="width:37%">Main plan nodes</th><th class="num" style="width:10%">Plan</th><th class="num" style="width:10%">Exec</th><th style="width:26%">Observation</th></tr></thead>
-      <tbody>
-        <tr><td>Customer listing</td><td>Index scan on <code>loan_customers_customer_no_unique</code>, nested loop left joins, subplan sequential scan on <code>journal_entries</code></td><td class="num">1.240</td><td class="num">0.255</td><td>The customer lookup uses an index, but the balance subquery scans the entry table for each customer.</td></tr>
-        <tr><td>Loan portfolio</td><td>Sequential scan on <code>loans</code>, hash right join on <code>loan_schedules</code>, group aggregate</td><td class="num">1.888</td><td class="num">0.573</td><td>Sequential scans are rational at nine loans and sixty-one schedules.</td></tr>
-        <tr><td>Journal summary</td><td>Sequential scan on <code>journal_transactions</code>, group aggregate</td><td class="num">0.350</td><td class="num">0.138</td><td>Status is unindexed, but the table is only twenty-one rows.</td></tr>
-      </tbody>
-    </table>
-    <p>The customer plan shows the access path clearly. Its outer loop uses the unique customer-number index, while the correlated balance subquery performs a sequential scan on <code>journal_entries</code> and removes forty-eight of forty-nine rows for each customer. At this size the scan is cheap. The loan plan shows a different choice: PostgreSQL reads <code>loans</code> and <code>loan_schedules</code> sequentially and uses a hash join. A sequential scan is a valid choice when a table is smaller than a few pages, because reading it sequentially is cheaper than following an index.</p>
-    <figure class="chart">
-      <img src="figures/chart-query-timings.svg" alt="Grouped bar chart of planning and execution times for three queries">
-      <figcaption><span class="fig-label">Figure 4.4</span> Planning and execution times measured with <code>EXPLAIN ANALYZE</code>. Planning dominates because the data is small and the queries are short.</figcaption>
-    </figure>
-    <div class="note">
-      <p>These timings are a snapshot from one development machine, not a benchmark. They show the access paths the planner chooses for the current tables and how the existing indexes are used.</p>
-    </div>
+      <h2 id="four-three">4.3 Query plans and performance</h2>
+      <p>Each query was run with <code>EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)</code> against the seeded PostgreSQL
+        database. Table 4.4 summarises the main plan nodes and timings. The numbers are small because the database is
+        small: 84 accounts, 49 journal entries and 61 schedules fit in a few pages. The purpose is to read the plan
+        shape at this data size.</p>
+      <table class="plan-summary">
+        <caption><strong>Table 4.4:</strong> Query plan summary (milliseconds)</caption>
+        <thead>
+          <tr>
+            <th style="width:17%">Query</th>
+            <th style="width:37%">Main plan nodes</th>
+            <th class="num" style="width:10%">Plan</th>
+            <th class="num" style="width:10%">Exec</th>
+            <th style="width:26%">Observation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Customer listing</td>
+            <td>Index scan on <code>loan_customers_customer_no_unique</code>, nested loop left joins, subplan sequential
+              scan on <code>journal_entries</code></td>
+            <td class="num">1.240</td>
+            <td class="num">0.255</td>
+            <td>The customer lookup uses an index, but the balance subquery scans the entry table for each customer.
+            </td>
+          </tr>
+          <tr>
+            <td>Loan portfolio</td>
+            <td>Sequential scan on <code>loans</code>, hash right join on <code>loan_schedules</code>, group aggregate
+            </td>
+            <td class="num">1.888</td>
+            <td class="num">0.573</td>
+            <td>Sequential scans are rational at nine loans and sixty-one schedules.</td>
+          </tr>
+          <tr>
+            <td>Journal summary</td>
+            <td>Sequential scan on <code>journal_transactions</code>, group aggregate</td>
+            <td class="num">0.350</td>
+            <td class="num">0.138</td>
+            <td>Status is unindexed, but the table is only twenty-one rows.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The customer plan shows the access path clearly. Its outer loop uses the unique customer-number index, while
+        the correlated balance subquery performs a sequential scan on <code>journal_entries</code> and removes
+        forty-eight of forty-nine rows for each customer. At this size the scan is cheap. The loan plan shows a
+        different choice: PostgreSQL reads <code>loans</code> and <code>loan_schedules</code> sequentially and uses a
+        hash join. A sequential scan is a valid choice when a table is smaller than a few pages, because reading it
+        sequentially is cheaper than following an index.</p>
+      <figure class="chart">
+        <img src="figures/chart-query-timings.svg"
+          alt="Grouped bar chart of planning and execution times for three queries">
+        <figcaption><span class="fig-label">Figure 4.4</span> Planning and execution times measured with
+          <code>EXPLAIN ANALYZE</code>. Planning dominates because the data is small and the queries are short.
+        </figcaption>
+      </figure>
+      <div class="note">
+        <p>These timings are a snapshot from one development machine, not a benchmark. They show the access paths the
+          planner chooses for the current tables and how the existing indexes are used.</p>
+      </div>
 
-    <h2 id="four-four">4.4 Laravel database tools</h2>
-    <p>Laravel provides a complete toolchain around the database. The project uses the schema builder for migrations, seeders for demonstration data, Eloquent for relationship-rich work, the query builder for fluent filters and the DB facade for the converted raw SQL. Artisan exposes the same tools from the command line, and Laravel Boost provides schema and query introspection for development.</p>
-    <table>
-      <caption><strong>Table 4.5:</strong> Laravel database tools used in the project</caption>
-      <thead><tr><th style="width:23%">Tool</th><th>Role in the project</th><th>Example</th></tr></thead>
-      <tbody>
-        <tr><td>Migrations</td><td>Versioned schema creation and change.</td><td><code>php artisan migrate</code></td></tr>
-        <tr><td>Seeders</td><td>Repeatable demonstration data.</td><td><code>php artisan db:seed</code></td></tr>
-        <tr><td>Factories</td><td>Test data for feature tests.</td><td><code>User::factory()-&gt;create()</code></td></tr>
-        <tr><td>Eloquent</td><td>Models, relationships, casts and soft deletes.</td><td><code>Loan::with('schedules')-&gt;find($id)</code></td></tr>
-        <tr><td>Query builder</td><td>Fluent SQL for common filters.</td><td><code>DB::table('loans')-&gt;where(...)</code></td></tr>
-        <tr><td>DB facade</td><td>Raw SQL with bound parameters.</td><td><code>DB::select($sql, $bindings)</code></td></tr>
-        <tr><td>Transactions</td><td>Atomic multi-statement work and row locks.</td><td><code>DB::transaction(...)</code>, <code>lockForUpdate()</code></td></tr>
-        <tr><td>Artisan inspection</td><td>Show database, table and model metadata.</td><td><code>db:show</code>, <code>db:table</code>, <code>model:show</code></td></tr>
-        <tr><td>Schema dump</td><td>Compact schema file for faster test setup.</td><td><code>php artisan schema:dump</code></td></tr>
-        <tr><td>Laravel Boost</td><td>Read schema, run read-only queries and search docs.</td><td><code>database-schema</code>, <code>database-query</code></td></tr>
-      </tbody>
-    </table>
-    <p>The commands used in the project were:</p>
-    <div class="listing">
-      <div class="listing-head"><strong>Database commands used in the project</strong><span>Shell</span></div>
-      <pre><code>php artisan migrate:status
+      <h2 id="four-four">4.4 Laravel database tools</h2>
+      <p>Laravel provides a complete toolchain around the database. The project uses the schema builder for migrations,
+        seeders for demonstration data, Eloquent for relationship-rich work, the query builder for fluent filters and
+        the DB facade for the converted raw SQL. Artisan exposes the same tools from the command line, and Laravel Boost
+        provides schema and query introspection for development.</p>
+      <table>
+        <caption><strong>Table 4.5:</strong> Laravel database tools used in the project</caption>
+        <thead>
+          <tr>
+            <th style="width:23%">Tool</th>
+            <th>Role in the project</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Migrations</td>
+            <td>Versioned schema creation and change.</td>
+            <td><code>php artisan migrate</code></td>
+          </tr>
+          <tr>
+            <td>Seeders</td>
+            <td>Repeatable demonstration data.</td>
+            <td><code>php artisan db:seed</code></td>
+          </tr>
+          <tr>
+            <td>Factories</td>
+            <td>Test data for feature tests.</td>
+            <td><code>User::factory()-&gt;create()</code></td>
+          </tr>
+          <tr>
+            <td>Eloquent</td>
+            <td>Models, relationships, casts and soft deletes.</td>
+            <td><code>Loan::with('schedules')-&gt;find($id)</code></td>
+          </tr>
+          <tr>
+            <td>Query builder</td>
+            <td>Fluent SQL for common filters.</td>
+            <td><code>DB::table('loans')-&gt;where(...)</code></td>
+          </tr>
+          <tr>
+            <td>DB facade</td>
+            <td>Raw SQL with bound parameters.</td>
+            <td><code>DB::select($sql, $bindings)</code></td>
+          </tr>
+          <tr>
+            <td>Transactions</td>
+            <td>Atomic multi-statement work and row locks.</td>
+            <td><code>DB::transaction(...)</code>, <code>lockForUpdate()</code></td>
+          </tr>
+          <tr>
+            <td>Artisan inspection</td>
+            <td>Show database, table and model metadata.</td>
+            <td><code>db:show</code>, <code>db:table</code>, <code>model:show</code></td>
+          </tr>
+          <tr>
+            <td>Schema dump</td>
+            <td>Compact schema file for faster test setup.</td>
+            <td><code>php artisan schema:dump</code></td>
+          </tr>
+          <tr>
+            <td>Laravel Boost</td>
+            <td>Read schema, run read-only queries and search docs.</td>
+            <td><code>database-schema</code>, <code>database-query</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The commands used in the project were:</p>
+      <div class="listing">
+        <div class="listing-head"><strong>Database commands used in the project</strong><span>Shell</span></div>
+        <pre><code>php artisan migrate:status
 php artisan db:seed --no-interaction
 php artisan db:show
 php artisan db:table loans
 php artisan model:show "App\Models\Loan\Loan"
 php artisan test --compact</code></pre>
-      <div class="listing-source">The seeder was run on an empty development database; the test suite uses an in-memory SQLite connection.</div>
-    </div>
+        <div class="listing-source">The seeder was run on an empty development database; the test suite uses an
+          in-memory SQLite connection.</div>
+      </div>
 
-    <h2 id="four-five">4.5 DBeaver</h2>
-    <p>DBeaver is an open-source universal database client. It connects to PostgreSQL through JDBC and provides a Database Navigator for schemas, tables, columns, indexes and constraints; a SQL editor with autocomplete and a result grid; visual execution plans; ER diagrams; data export and import; and query history. In this project it was connected to the local <code>dammy_micro</code> database on PostgreSQL 18.1.</p>
-    <p>DBeaver was used to inspect the live schema after the migrations, to confirm the row counts and column definitions used in this chapter, to run the loan portfolio query, and to view its execution plan. Figures 4.5 to 4.9 show the Database Navigator and table views, the query editor and result grid, and the plan for the loan portfolio query.</p>
+      <h2 id="four-five">4.5 DBeaver</h2>
+      <p>DBeaver is an open-source universal database client. It connects to PostgreSQL through JDBC and provides a
+        Database Navigator for schemas, tables, columns, indexes and constraints; a SQL editor with autocomplete and a
+        result grid; visual execution plans; ER diagrams; data export and import; and query history. In this project it
+        was connected to the local <code>dammy_micro</code> database on PostgreSQL 18.1.</p>
+      <p>DBeaver was used to inspect the live schema after the migrations, to confirm the row counts and column
+        definitions used in this chapter, to run the loan portfolio query, and to view its execution plan. Figures 4.5
+        to 4.9 show the Database Navigator and table views, the query editor and result grid, and the plan for the loan
+        portfolio query.</p>
 
-    <figure class="dbeaver">
-      <img src="screenshots/loan_customers_crop.png" alt="DBeaver Database Navigator and loan_customers table data">
-      <figcaption><span class="fig-label">Figure 4.5</span> DBeaver Database Navigator and the <code>loan_customers</code> table. The left panel lists the schema tables and columns; the grid shows the eight seeded customers.</figcaption>
-    </figure>
+      <figure class="dbeaver">
+        <img src="screenshots/loan_customers_crop.png" alt="DBeaver Database Navigator and loan_customers table data">
+        <figcaption><span class="fig-label">Figure 4.5</span> DBeaver Database Navigator and the
+          <code>loan_customers</code> table. The left panel lists the schema tables and columns; the grid shows the
+          eight seeded customers.
+        </figcaption>
+      </figure>
 
-    <figure class="dbeaver">
-      <img src="screenshots/loans_crop.png" alt="DBeaver loans table showing nine loan rows and loan columns">
-      <figcaption><span class="fig-label">Figure 4.6</span> DBeaver data grid for the <code>loans</code> table. The nine loans cover the draft, pending, approved, active, rejected, closed and written-off states.</figcaption>
-    </figure>
+      <figure class="dbeaver">
+        <img src="screenshots/loans_crop.png" alt="DBeaver loans table showing nine loan rows and loan columns">
+        <figcaption><span class="fig-label">Figure 4.6</span> DBeaver data grid for the <code>loans</code> table. The
+          nine loans cover the draft, pending, approved, active, rejected, closed and written-off states.</figcaption>
+      </figure>
 
-    <figure class="dbeaver">
-      <img src="screenshots/journal_entries_crop.png" alt="DBeaver journal_entries table showing debit and credit lines">
-      <figcaption><span class="fig-label">Figure 4.7</span> DBeaver data grid for <code>journal_entries</code>, showing the debit and credit lines, values and running balances used by the ledger.</figcaption>
-    </figure>
+      <figure class="dbeaver">
+        <img src="screenshots/journal_entries_crop.png"
+          alt="DBeaver journal_entries table showing debit and credit lines">
+        <figcaption><span class="fig-label">Figure 4.7</span> DBeaver data grid for <code>journal_entries</code>,
+          showing the debit and credit lines, values and running balances used by the ledger.</figcaption>
+      </figure>
 
-    <figure class="dbeaver">
-      <img src="screenshots/loan_portfolio_query_crop.png" alt="DBeaver SQL editor and result grid for the loan portfolio query">
-      <figcaption><span class="fig-label">Figure 4.8</span> DBeaver SQL editor and result grid for the loan portfolio query. The result set contains the nine loans reported in Table 4.3.</figcaption>
-    </figure>
+      <figure class="dbeaver">
+        <img src="screenshots/loan_portfolio_query_crop.png"
+          alt="DBeaver SQL editor and result grid for the loan portfolio query">
+        <figcaption><span class="fig-label">Figure 4.8</span> DBeaver SQL editor and result grid for the loan portfolio
+          query. The result set contains the nine loans reported in Table 4.3.</figcaption>
+      </figure>
 
-    <figure class="dbeaver">
-      <img src="screenshots/execution_plan_crop.png" alt="DBeaver execution plan for the loan portfolio query">
-      <figcaption><span class="fig-label">Figure 4.9</span> DBeaver execution plan for the loan portfolio query. The plan shows sequential scans on <code>loans</code> and <code>loan_schedules</code>, a hash join, and index scans on the customer and product tables.</figcaption>
-    </figure>
+      <figure class="dbeaver">
+        <img src="screenshots/execution_plan_crop.png" alt="DBeaver execution plan for the loan portfolio query">
+        <figcaption><span class="fig-label">Figure 4.9</span> DBeaver execution plan for the loan portfolio query. The
+          plan shows sequential scans on <code>loans</code> and <code>loan_schedules</code>, a hash join, and index
+          scans on the customer and product tables.</figcaption>
+      </figure>
 
-    <p>DBeaver complements the command-line tools. Artisan and the test suite verify the application behaviour; DBeaver makes the live catalog and query plans visible, which is useful when a migration and the database disagree. The execution-plan view is particularly helpful for spotting a sequential scan on a table that is expected to use an index.</p>
+      <p>DBeaver complements the command-line tools. Artisan and the test suite verify the application behaviour;
+        DBeaver makes the live catalog and query plans visible, which is useful when a migration and the database
+        disagree. The execution-plan view is particularly helpful for spotting a sequential scan on a table that is
+        expected to use an index.</p>
 
-    <h2 id="four-six">4.6 Testing and results</h2>
-    <p>The project uses Pest. The full suite passed before the conversion (80 tests) and after it (81 tests and 582 assertions). The extra test covers the joined loan listing introduced by the raw SQL read. The customer, journal and loan suites exercise the converted paths, including validation failures, status transitions, soft deletes and the joined listing.</p>
-    <table>
-      <caption><strong>Table 4.6:</strong> Test summary</caption>
-      <thead><tr><th>Test area</th><th class="num">Tests</th><th>What is covered</th><th>Result</th></tr></thead>
-      <tbody>
-        <tr><td>Customers</td><td class="num">11</td><td>Create, index, show, update, delete, KYC rules and search.</td><td>Pass</td></tr>
-        <tr><td>Journals</td><td class="num">24</td><td>Create, edit, submit, post, reverse, delete, entries and paging.</td><td>Pass</td></tr>
-        <tr><td>Loans</td><td class="num">4</td><td>Schedule math, full lifecycle, penalties and the joined listing.</td><td>Pass</td></tr>
-        <tr><td>Full suite</td><td class="num">81</td><td>All feature and unit tests.</td><td>Pass, 582 assertions</td></tr>
-      </tbody>
-    </table>
-    <p>The test suite uses in-memory SQLite, so a passing test does not by itself prove that the SQL works on PostgreSQL. I therefore ran the journal insert, update and delete statements against PostgreSQL inside a transaction and rolled the transaction back. The check returned <code>verified=1</code> and left no row behind. The customer, loan and aggregate queries were executed directly against the seeded PostgreSQL database. The reference query was also run in PostgreSQL to confirm that <code>cast(substr(ref, 5) as integer)</code> returns the expected maximum.</p>
-    <div class="callout">
-      <p><strong>The tests and the catalog queries answer different questions.</strong> The tests show that the application paths behave correctly, while the catalog queries show which constraints and indexes exist in the live database. Both were used in this project.</p>
-    </div>
+      <h2 id="four-six">4.6 Testing and results</h2>
+      <p>The project uses Pest. The full suite passed before the conversion (80 tests) and after it (81 tests and 582
+        assertions). The extra test covers the joined loan listing introduced by the raw SQL read. The customer, journal
+        and loan suites exercise the converted paths, including validation failures, status transitions, soft deletes
+        and the joined listing.</p>
+      <table>
+        <caption><strong>Table 4.6:</strong> Test summary</caption>
+        <thead>
+          <tr>
+            <th>Test area</th>
+            <th class="num">Tests</th>
+            <th>What is covered</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Customers</td>
+            <td class="num">11</td>
+            <td>Create, index, show, update, delete, KYC rules and search.</td>
+            <td>Pass</td>
+          </tr>
+          <tr>
+            <td>Journals</td>
+            <td class="num">24</td>
+            <td>Create, edit, submit, post, reverse, delete, entries and paging.</td>
+            <td>Pass</td>
+          </tr>
+          <tr>
+            <td>Loans</td>
+            <td class="num">4</td>
+            <td>Schedule math, full lifecycle, penalties and the joined listing.</td>
+            <td>Pass</td>
+          </tr>
+          <tr>
+            <td>Full suite</td>
+            <td class="num">81</td>
+            <td>All feature and unit tests.</td>
+            <td>Pass, 582 assertions</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The test suite uses in-memory SQLite, so a passing test does not by itself prove that the SQL works on
+        PostgreSQL. I therefore ran the journal insert, update and delete statements against PostgreSQL inside a
+        transaction and rolled the transaction back. The check returned <code>verified=1</code> and left no row behind.
+        The customer, loan and aggregate queries were executed directly against the seeded PostgreSQL database. The
+        reference query was also run in PostgreSQL to confirm that <code>cast(substr(ref, 5) as integer)</code> returns
+        the expected maximum.</p>
+      <div class="callout">
+        <p><strong>The tests and the catalog queries answer different questions.</strong> The tests show that the
+          application paths behave correctly, while the catalog queries show which constraints and indexes exist in the
+          live database. Both were used in this project.</p>
+      </div>
 
-    <h2 id="four-seven">4.7 Conclusion</h2>
-    <p>This report has documented the database work completed for DAMS Micro. The PostgreSQL schema contains sixteen domain tables, two hundred and one columns, twenty-one foreign keys and thirty-seven indexes. The schema supports the general ledger, customer records, loan products, schedules, repayments, accruals and operational settings. The entity-relationship diagrams and schema tables show how those records connect.</p>
-    <p>The implementation uses Laravel migrations and seeders to create and populate the database, Eloquent for relationship-rich work, and bound raw SQL for the selected customer, journal and loan operations. The converted paths retain their validation and status rules, and the full Pest suite passes after the conversion. The reporting queries, their result sets and the query plans show how the database answers the questions the application asks.</p>
-    <p>The project met its aim: it produced a working database-backed application, a documented schema, a set of raw SQL data-access paths and a repeatable way to build and test the database. The DBeaver figures and the schema catalog queries make the live database inspectable, and the report records the design and implementation decisions that produced it.</p>
-  </section>
+      <h2 id="four-seven">4.7 Conclusion</h2>
+      <p>This report has documented the database work completed for DAMS Micro. The PostgreSQL schema contains sixteen
+        domain tables, two hundred and one columns, twenty-one foreign keys and thirty-seven indexes. The schema
+        supports the general ledger, customer records, loan products, schedules, repayments, accruals and operational
+        settings. The entity-relationship diagrams and schema tables show how those records connect.</p>
+      <p>The implementation uses Laravel migrations and seeders to create and populate the database, Eloquent for
+        relationship-rich work, and bound raw SQL for the selected customer, journal and loan operations. The converted
+        paths retain their validation and status rules, and the full Pest suite passes after the conversion. The
+        reporting queries, their result sets and the query plans show how the database answers the questions the
+        application asks.</p>
+      <p>The project met its aim: it produced a working database-backed application, a documented schema, a set of raw
+        SQL data-access paths and a repeatable way to build and test the database. The DBeaver figures and the schema
+        catalog queries make the live database inspectable, and the report records the design and implementation
+        decisions that produced it.</p>
+    </section>
 
-  <!-- References -->
-  <section id="references" class="chapter page-break">
-    <h1>References</h1>
-    <ol class="references">
-      <li>PostgreSQL Global Development Group. <em>PostgreSQL 18 Documentation.</em> Available at: <a href="https://www.postgresql.org/docs/18/">https://www.postgresql.org/docs/18/</a> (accessed November 2026).</li>
-      <li>Laravel. <em>Laravel 13 Documentation: Database, Queries, Migrations, Eloquent and Transactions.</em> Available at: <a href="https://laravel.com/docs">https://laravel.com/docs</a> (accessed November 2026).</li>
-      <li>DBeaver. <em>DBeaver Documentation.</em> Available at: <a href="https://dbeaver.io/docs/">https://dbeaver.io/docs/</a> (accessed November 2026).</li>
-      <li>Elmasri, R. and Navathe, S. B. <em>Fundamentals of Database Systems.</em> Pearson.</li>
-      <li>Silberschatz, A., Korth, H. F. and Sudarshan, S. <em>Database System Concepts.</em> McGraw-Hill.</li>
-      <li>Lagos State University. <em>Revised Curriculum for the BSc Computer Science Programme.</em> Department of Computer Science, Faculty of Computing.</li>
-      <li>Aje, D. <em>DAMS Micro Source Code, Migrations and Seeders.</em> Unpublished project materials, 2026.</li>
-    </ol>
-  </section>
+    <!-- References -->
+    <section id="references" class="chapter page-break">
+      <h1>References</h1>
+      <ol class="references">
+        <li>PostgreSQL Global Development Group. <em>PostgreSQL 18 Documentation.</em> Available at: <a
+            href="https://www.postgresql.org/docs/18/">https://www.postgresql.org/docs/18/</a> (accessed November 2026).
+        </li>
+        <li>Laravel. <em>Laravel 13 Documentation: Database, Queries, Migrations, Eloquent and Transactions.</em>
+          Available at: <a href="https://laravel.com/docs">https://laravel.com/docs</a> (accessed November 2026).</li>
+        <li>DBeaver. <em>DBeaver Documentation.</em> Available at: <a
+            href="https://dbeaver.io/docs/">https://dbeaver.io/docs/</a> (accessed November 2026).</li>
+        <li>Elmasri, R. and Navathe, S. B. <em>Fundamentals of Database Systems.</em> Pearson.</li>
+        <li>Silberschatz, A., Korth, H. F. and Sudarshan, S. <em>Database System Concepts.</em> McGraw-Hill.</li>
+        <li>Lagos State University. <em>Revised Curriculum for the BSc Computer Science Programme.</em> Department of
+          Computer Science, Faculty of Computing.</li>
+        <li>Aje, D. <em>DAMS Micro Source Code, Migrations and Seeders.</em> Unpublished project materials, 2026.</li>
+      </ol>
+    </section>
 
-  <!-- Appendix A -->
-  <section id="appendix-a" class="chapter page-break">
-    <h1>Appendix A <span>Schema summary</span></h1>
-    <p>The table summarises the sixteen domain tables in the live PostgreSQL database. Row counts are from the seeded development database on 11 November 2026.</p>
-    <table class="compact">
-      <thead><tr><th style="width:25%">Table</th><th>Primary key</th><th class="num">Rows</th><th class="num">Cols</th><th class="num">FKs</th><th class="num">Idx</th></tr></thead>
-      <tbody>
-        <tr><td><code>companies</code></td><td><code>id</code> (uuid)</td><td class="num">1</td><td class="num">5</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>ledgers</code></td><td><code>id</code> (uuid)</td><td class="num">2</td><td class="num">6</td><td class="num">1</td><td class="num">1</td></tr>
-        <tr><td><code>accounts</code></td><td><code>id</code> (uuid)</td><td class="num">84</td><td class="num">13</td><td class="num">1</td><td class="num">1</td></tr>
-        <tr><td><code>journal_transactions</code></td><td><code>id</code> (uuid)</td><td class="num">21</td><td class="num">9</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>journal_entries</code></td><td><code>id</code> (bigint)</td><td class="num">49</td><td class="num">8</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>account_opening_balances</code></td><td><code>id</code> (bigint)</td><td class="num">8</td><td class="num">6</td><td class="num">1</td><td class="num">1</td></tr>
-        <tr><td><code>eod_operations</code></td><td><code>id</code> (bigint)</td><td class="num">0</td><td class="num">7</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>system_settings</code></td><td><code>id</code> (bigint)</td><td class="num">2</td><td class="num">5</td><td class="num">0</td><td class="num">1</td></tr>
-        <tr><td><code>loan_customers</code></td><td><code>id</code> (uuid)</td><td class="num">8</td><td class="num">44</td><td class="num">2</td><td class="num">7</td></tr>
-        <tr><td><code>loan_customer_documents</code></td><td><code>id</code> (uuid)</td><td class="num">0</td><td class="num">9</td><td class="num">1</td><td class="num">2</td></tr>
-        <tr><td><code>loan_products</code></td><td><code>id</code> (uuid)</td><td class="num">5</td><td class="num">19</td><td class="num">1</td><td class="num">3</td></tr>
-        <tr><td><code>loan_product_accounts</code></td><td><code>id</code> (uuid)</td><td class="num">24</td><td class="num">6</td><td class="num">2</td><td class="num">3</td></tr>
-        <tr><td><code>loans</code></td><td><code>id</code> (uuid)</td><td class="num">9</td><td class="num">26</td><td class="num">5</td><td class="num">6</td></tr>
-        <tr><td><code>loan_schedules</code></td><td><code>id</code> (uuid)</td><td class="num">61</td><td class="num">17</td><td class="num">1</td><td class="num">3</td></tr>
-        <tr><td><code>loan_repayments</code></td><td><code>id</code> (uuid)</td><td class="num">2</td><td class="num">13</td><td class="num">3</td><td class="num">2</td></tr>
-        <tr><td><code>loan_accruals</code></td><td><code>id</code> (uuid)</td><td class="num">5</td><td class="num">8</td><td class="num">3</td><td class="num">3</td></tr>
-      </tbody>
-    </table>
-    <p>The totals are 16 tables, 201 columns, 21 foreign keys and 37 indexes across the domain tables. The exact count of indexes can change when Laravel adds an implicit index for a unique constraint.</p>
-  </section>
+    <!-- Appendix A -->
+    <section id="appendix-a" class="chapter page-break">
+      <h1>Appendix A <span>Schema summary</span></h1>
+      <p>The table summarises the sixteen domain tables in the live PostgreSQL database. Row counts are from the seeded
+        development database on 11 November 2026.</p>
+      <table class="compact">
+        <thead>
+          <tr>
+            <th style="width:25%">Table</th>
+            <th>Primary key</th>
+            <th class="num">Rows</th>
+            <th class="num">Cols</th>
+            <th class="num">FKs</th>
+            <th class="num">Idx</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>companies</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">1</td>
+            <td class="num">5</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>ledgers</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">2</td>
+            <td class="num">6</td>
+            <td class="num">1</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>accounts</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">84</td>
+            <td class="num">13</td>
+            <td class="num">1</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>journal_transactions</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">21</td>
+            <td class="num">9</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>journal_entries</code></td>
+            <td><code>id</code> (bigint)</td>
+            <td class="num">49</td>
+            <td class="num">8</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>account_opening_balances</code></td>
+            <td><code>id</code> (bigint)</td>
+            <td class="num">8</td>
+            <td class="num">6</td>
+            <td class="num">1</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>eod_operations</code></td>
+            <td><code>id</code> (bigint)</td>
+            <td class="num">0</td>
+            <td class="num">7</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>system_settings</code></td>
+            <td><code>id</code> (bigint)</td>
+            <td class="num">2</td>
+            <td class="num">5</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td><code>loan_customers</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">8</td>
+            <td class="num">44</td>
+            <td class="num">2</td>
+            <td class="num">7</td>
+          </tr>
+          <tr>
+            <td><code>loan_customer_documents</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">0</td>
+            <td class="num">9</td>
+            <td class="num">1</td>
+            <td class="num">2</td>
+          </tr>
+          <tr>
+            <td><code>loan_products</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">5</td>
+            <td class="num">19</td>
+            <td class="num">1</td>
+            <td class="num">3</td>
+          </tr>
+          <tr>
+            <td><code>loan_product_accounts</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">24</td>
+            <td class="num">6</td>
+            <td class="num">2</td>
+            <td class="num">3</td>
+          </tr>
+          <tr>
+            <td><code>loans</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">9</td>
+            <td class="num">26</td>
+            <td class="num">5</td>
+            <td class="num">6</td>
+          </tr>
+          <tr>
+            <td><code>loan_schedules</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">61</td>
+            <td class="num">17</td>
+            <td class="num">1</td>
+            <td class="num">3</td>
+          </tr>
+          <tr>
+            <td><code>loan_repayments</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">2</td>
+            <td class="num">13</td>
+            <td class="num">3</td>
+            <td class="num">2</td>
+          </tr>
+          <tr>
+            <td><code>loan_accruals</code></td>
+            <td><code>id</code> (uuid)</td>
+            <td class="num">5</td>
+            <td class="num">8</td>
+            <td class="num">3</td>
+            <td class="num">3</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The totals are 16 tables, 201 columns, 21 foreign keys and 37 indexes across the domain tables. The exact count
+        of indexes can change when Laravel adds an implicit index for a unique constraint.</p>
+    </section>
 
-  <!-- Appendix B -->
-  <section id="appendix-b" class="chapter page-break">
-    <h1>Appendix B <span>Inspection and verification queries</span></h1>
-    <p>The following queries were used to inspect the live catalog. They are read-only and can be run in DBeaver or with the Laravel Boost query tool.</p>
+    <!-- Appendix B -->
+    <section id="appendix-b" class="chapter page-break">
+      <h1>Appendix B <span>Inspection and verification queries</span></h1>
+      <p>The following queries were used to inspect the live catalog. They are read-only and can be run in DBeaver or
+        with the Laravel Boost query tool.</p>
 
-    <h2>B.1 Foreign-key inventory</h2>
-    <pre class="standalone-sql">select tc.table_name,
+      <h2>B.1 Foreign-key inventory</h2>
+      <pre class="standalone-sql">select tc.table_name,
        kcu.column_name,
        ccu.table_name as foreign_table,
        ccu.column_name as foreign_column
@@ -1163,8 +2646,8 @@ php artisan test --compact</code></pre>
    and tc.table_schema = 'public'
  order by tc.table_name, kcu.column_name;</pre>
 
-    <h2>B.2 Foreign-key columns without a leading index</h2>
-    <pre class="standalone-sql">select tc.table_name, kcu.column_name
+      <h2>B.2 Foreign-key columns without a leading index</h2>
+      <pre class="standalone-sql">select tc.table_name, kcu.column_name
   from information_schema.table_constraints tc
   join information_schema.key_column_usage kcu
     on tc.constraint_name = kcu.constraint_name
@@ -1183,8 +2666,8 @@ php artisan test --compact</code></pre>
    )
  order by tc.table_name, kcu.column_name;</pre>
 
-    <h2>B.3 Table and index statistics</h2>
-    <pre class="standalone-sql">select relname as table_name,
+      <h2>B.3 Table and index statistics</h2>
+      <pre class="standalone-sql">select relname as table_name,
        n_live_tup as estimated_rows,
        pg_size_pretty(pg_total_relation_size(relid)) as total_size,
        seq_scan,
@@ -1193,9 +2676,10 @@ php artisan test --compact</code></pre>
  where schemaname = 'public'
  order by pg_total_relation_size(relid) desc;</pre>
 
-    <h2>B.4 Raw SQL verification on PostgreSQL</h2>
-    <p>The write check opened a transaction, inserted a temporary journal, updated it, read it back, deleted it and rolled the transaction back. The output was <code>verified=1</code>. A report-ready version of the check is:</p>
-    <pre class="standalone-sql">begin;
+      <h2>B.4 Raw SQL verification on PostgreSQL</h2>
+      <p>The write check opened a transaction, inserted a temporary journal, updated it, read it back, deleted it and
+        rolled the transaction back. The output was <code>verified=1</code>. A report-ready version of the check is:</p>
+      <pre class="standalone-sql">begin;
 
 insert into journal_transactions
     (id, description, ref, status, effective_date, created_at, updated_at)
@@ -1217,9 +2701,11 @@ delete from journal_transactions
 
 rollback;</pre>
 
-    <p>The verification row was never committed. The application uses generated UUIDs; the all-zero value is illustrative.</p>
-  </section>
+      <p>The verification row was never committed. The application uses generated UUIDs; the all-zero value is
+        illustrative.</p>
+    </section>
 
-</main>
+  </main>
 </body>
+
 </html>

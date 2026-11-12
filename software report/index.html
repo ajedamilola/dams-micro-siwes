@@ -502,7 +502,7 @@
         <p class="eyebrow">Faculty of Computing</p>
       </div>
       <div>
-        <p class="title">A report on the Students' Industrial Work Experience Scheme (SIWES)</p>
+        <p class="title">A report on the PRACTICAL APPLICATION OF SOFTWARE DEVELOPMENT IN INDUSTRIES</p>
         <p style="margin-top:5mm">Undertaken at</p>
         <p class="organisation">Golden Edge Softech</p>
         <p class="address">C01 Tomsuite Plaza, 155 Igando Road<br>Bakare B/Stop, Ikotun, Lagos</p>
@@ -519,9 +519,8 @@
         <p>Lagos State University</p>
       </div>
       <div>
-        <p class="course">CSC 392: Software Development</p>
+        <p class="course">CSC 392: Practical Applications Of Software Development</p>
         <p class="session">March to September 2026</p>
-        <p class="submission">Academic session and submission month: to be completed</p>
       </div>
     </section>
 
@@ -541,7 +540,7 @@
     </section>
 
     <!-- Acknowledgement (no dedication, as requested) -->
-    <section id="acknowledgement" class="preliminary page-break">
+    <!-- <section id="acknowledgement" class="preliminary page-break">
       <h1>Acknowledgement</h1>
       <p>I thank <strong>Mr Macdonald Nnaodi</strong>, Chief Executive Officer and Founder of Golden Edge Softech and my
         industrial
@@ -551,7 +550,7 @@
         report. I appreciate the Department of Computer Science, Faculty of Computing, Lagos State University, for the
         academic foundation that made the training useful, and I thank my family and colleagues for their support during
         the placement.</p> -->
-    </section>
+    </section> -->
 
     <!-- Abstract -->
     <section id="abstract" class="preliminary page-break">
@@ -923,7 +922,8 @@ private static function assertSubmittable(JournalTransaction $transaction): void
         software, so it is slower than native arithmetic. For ledger values, correctness is worth that cost, and the
         slower path is limited to the places where money is actually calculated. The account statement service uses the
         same pair to carry a running balance from one entry to the next, and repayment allocation uses them to split a
-        payment across penalty, fee, interest and principal without losing precision.</p>
+        payment across penalty, fee, interest and principal without losing precision.
+      </p>
       <p>The check belongs to the manual submission path. Journals created by the loan posting service are generated on
         the server and posted immediately, so they do not pass through this controller. Their balance is instead
         guaranteed by the arithmetic used to construct them, as Section 3.6 explains. Recognising where a rule applies,
